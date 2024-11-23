@@ -1,4 +1,5 @@
 node_modules
+seeders
 migrations
 config/config.json
 .env
