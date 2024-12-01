@@ -8,9 +8,6 @@ module.exports = (sequelize, DataTypes) => {
 
         }
 
-        isValidPassword(password) {
-            return bcrypt.compare(password, this.password)
-        }
     }
 
     User.init(
