@@ -1,0 +1,110 @@
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #fcfcfc;
+}
+.container {
+    display: flex;
+    width: 80%;
+    max-width: 900px;
+    border-radius: 10px;
+    box-shadow: 0 4px 40px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    padding: 0%;
+}
+.left-panel, .right-panel {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.left-panel {
+    background-color: #003366;
+    color: #fff;
+    flex: 1;
+    text-align: center;
+}
+.left-panel h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+.left-panel p {
+    margin-bottom: 20px;
+}
+.left-panel .btn {
+    background-color: #fff;
+    color: #003366;
+    border: 2px solid #fff;
+    border-radius: 25px;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.left-panel .btn:hover {
+    background-color: #003366;
+    color: #fff;
+}
+.right-panel {
+    flex: 1.5;
+    background-color: #ffffff;
+
+}
+.right-panel h2 {
+    color: #003366;
+    margin-bottom: 15px;
+}
+.right-panel p {
+    color: #b0b0b0;
+    margin-bottom: 20px;
+}
+.right-panel .inputs {
+    position: relative;
+}
+.right-panel .inputs input {
+    width: 100%;
+    padding-right: 40px;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    font-size: 16px;
+}
+.right-panel .inputs span{
+    color: #ccc;
+    font-size: 13pt;
+} 
+.right-panel  label{
+    cursor: pointer;
+    user-select: none;
+} 
+.right-panel .btn {
+    background-color: #003366;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-weight: bold;
+    text-align: center;
+}
+.right-panel .btn:hover {
+    background-color: #002244;
+}
+.forgot-password {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+}
+.forgot-password:hover {
+    text-decoration: underline;
+}
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+    .left-panel, .right-panel {
+        padding: 20px;
+    }
+}
