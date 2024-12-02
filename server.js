@@ -16,5 +16,5 @@ app.use('/auth', authRoutes)
 
 port = process.env.PORT
 app.listen(port, () => {
-    console.log(`Servidor rodando em localhost:${port}`)
+    console.log(`Servidor rodando em http://localhost:${port}`)
 })
