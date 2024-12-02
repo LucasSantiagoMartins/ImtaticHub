@@ -1,6 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const authRoutes = require('./routes/authRoutes')
+const path = require('path')
 require('dotenv').config()
 
 
@@ -8,6 +9,8 @@ require('dotenv').config()
 const app = express()
 app.use(bodyParser.json())
 app.set('view engine', 'ejs')
+app.use(express.static(path.join(__dirname, 'public')))
+
 // routes
 app.use('/auth', authRoutes)
 
