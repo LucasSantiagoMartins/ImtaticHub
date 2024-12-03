@@ -39,10 +39,20 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             type: DataTypes.STRING
         },
+        created_at: {
+            type: DataTypes.DATE,
+            allowNull: false,
+        },
+        updated_at: {
+            type: DataTypes.DATE,
+            allowNull: false
+        }
     },
     {
         sequelize, 
-        modelName: 'Students'
+        modelName: 'Student',
+        tableName: 'students',
+        underscored: true
     })
 
     return Student
