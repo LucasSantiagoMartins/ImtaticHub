@@ -9,7 +9,8 @@ module.exports = (sequelize, DataTypes) => {
         }
     }
 
-    User.init({
+    User.init(
+    {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -39,7 +40,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
         sequelize, 
-        modelName: 'Users'
+        modelName: 'User',
+        tableName: 'users',
+        underscored: true
     })
     
     return User
