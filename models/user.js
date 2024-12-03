@@ -1,41 +1,47 @@
 'use strict'
 const { Model } = require('sequelize')
-const bcrypt = require('bcrypt')
+
 
 module.exports = (sequelize, DataTypes) => {
-    class User extends Model {
-        static associate(models) {
+    class User extends Model{
+        static associate(models){
 
         }
-
     }
 
-    User.init(
-    {
-        username: {
-            type: DataTypes.STRING,
-            allowNull: false,
+    User.init({
+        id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true,
         },
         email: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            unique: true
+            allowNull: true,
+            type: DataTypes.STRING
         },
-        password: DataTypes.STRING,
+        phone_number: {
+            allowNull: false,
+            type: DataTypes.STRING
+        },
+        password: {
+            allowNull: false,
+            type: DataTypes.STRING
+        },
         createdAt: {
-            type: DataTypes.DATE,
-            allowNull: false
+           type: Sequelize.DATE,
+           allowNull: false,
         },
         updatedAt: {
-            type: DataTypes.DATE,
-            allowNull: false
-        }
-        
+           type: Sequelize.DATE,
+           allowNull: false,
+        },
+    
     },
     {
-      sequelize,
-      modelName: 'User'  
-    });
+        sequelize, 
+        modelName: 'Users'
+    })
+    
+    return User
 
-    return User;
 }
