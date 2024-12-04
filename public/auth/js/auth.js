@@ -15,7 +15,10 @@ function throwMessage(message, status) {
     $('#message-div').fadeIn(2000)
     setTimeout(() => {
         $('#message-div').fadeOut(1000)
+        messageDiv.classList.remove('success')
+        messageDiv.classList.remove('error')
     }, 5000);
+
 }
 
 form.addEventListener('submit', async (event) => {
