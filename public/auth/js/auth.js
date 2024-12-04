@@ -23,14 +23,16 @@ form.addEventListener('submit', async (event) => {
 
     const formData = new FormData(form)
     const data = Object.fromEntries(formData.entries())
+    const dataJson = JSON.stringify(data)
+    console.log(dataJson)
     
     try {
-        const response = await fetch('/auth/register', {
+        const response = await fetch('http://localhost:8080/auth/register', {
             method: 'POST',
             headers: {
-                'Content-Type': 'aplication/json'
+                'Content-Type': 'application/json', 
             },
-            body: JSON.stringify(data)
+            body: dataJson
         })
 
         const result = await response.json()
