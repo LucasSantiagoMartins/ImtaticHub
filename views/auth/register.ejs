@@ -20,12 +20,13 @@
    </div>
    <div class="right-panel">
     <h2>Crie sua conta</h2>
+    <div id="message-div"></div>
     <form>
         <div class="inputs">
             <input type="text" name="phone_number" placeholder="Número de telefone..." class="form-control mb-2" />
             <input type="password" name="password" placeholder="Senha..." class="form-control"/>
     </div>
-    <label class="mb-3 mt-1"><input type="checkbox"> Mostrar senha</label>
+    <label class="mb-3 mt-1"><input type="checkbox" onchange="showPassowrd()"> Mostrar senha</label>
     <div class="row">
         <button type="submit" class="btn">CADASTRAR</button>
     </div>
