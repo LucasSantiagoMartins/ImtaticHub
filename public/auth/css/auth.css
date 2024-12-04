@@ -100,6 +100,25 @@ body {
 .forgot-password:hover {
     text-decoration: underline;
 }
+
+#message-div {
+    color: white;
+    padding: 1%;
+    height: 36px;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 2%;
+    border-radius: 8px;
+    display: none;
+}
+
+#message-div.error{
+    background-color: rgb(204, 113, 113);
+}
+#message-div.success{
+    background-color: rgb(61, 140, 96);
+}
+
 @media (max-width: 768px) {
     .container {
         flex-direction: column;
