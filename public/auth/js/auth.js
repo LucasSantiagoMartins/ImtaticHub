@@ -68,3 +68,12 @@ function showPassowrd(){
         passwordInput.type = 'password'
     }
 }
+
+
+
+function redirect(url) {
+    throwMessage('Redirecionando...', {ok: true})
+    setTimeout(() => {
+        window.location.href = url
+    }, 500);
+}
