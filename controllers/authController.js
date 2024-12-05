@@ -40,27 +40,36 @@ exports.register = async (req, res) => {
 }
 
 exports.login = async (req, res) => {
-    const { email, password } = req.body
+    if (req.method == 'POST') {
+        const { phone_number, password } = req.body
 
-    const user = await db.User.findOne( { where: { email } })
+        if (!phone_number || !password) {
+            return res.status(400).json({
+                'message': 'Informações inválidas'
+            })
+        }
+        const user = await db.User.findOne( { where: { phone_number } })
 
-    if (!user) {
-        res.status(400).json({
-            'error': 'Usuário não encontrado!'
+        if (!user) {
+            return res.status(400).json({
+                'message': 'Usuário não encontrado'
+            })
+        }
+        
+        isValidPassword = await bcrypt.compare(password, user.password)
+        if (!isValidPassword){
+            return res.status(400).json({
+                'message': 'Senha incorrecta'
+            })
+        }
+
+        token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' })
+        res.status(200).json({
+            'message': 'Login realizado com sucesso.',
+            'token': token
         })
-    }
-    
-    isValidPassword = await bcrypt.compare(password, user.password)
-    if (!isValidPassword){
-        res.status(400).json({
-            'error': 'Senha incorrecta!'
-        })
+    } else {
+        res.render('auth/login')
     }
 
-
-    token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' })
-    res.status(200).json({
-        'message': 'Login realizado com sucesso.',
-        'token': tokencv 
-    })
 }
