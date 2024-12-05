@@ -5,7 +5,7 @@ const { Model } = require('sequelize')
 module.exports = (sequelize, DataTypes) => {
     class Student extends Model{
         static associate(models){
-
+            Student.belongsTo(models.User, { foreignKey: 'userId', as: 'user'})
         }
     }
     Student.init(
