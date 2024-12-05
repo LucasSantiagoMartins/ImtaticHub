@@ -24,28 +24,35 @@ function throwMessage(message, status) {
 form.addEventListener('submit', async (event) => {
     event.preventDefault()
 
+    const overlaySpinloaderDiv = document.querySelector('.overlay')
+    overlaySpinloaderDiv.style = 'display: flex;'
+
     const formData = new FormData(form)
     const data = Object.fromEntries(formData.entries())
     const dataJson = JSON.stringify(data)
-    console.log(dataJson)
     
     try {
-        const response = await fetch('http://localhost:8080/auth/register', {
+        await fetch('http://localhost:8080/auth/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json', 
             },
             body: dataJson
-        })
-
-        const result = await response.json()
+        }).then(async (response) => {
+            const result = await response.json()
         
-        if ( response.ok ) {
-            throwMessage( result.message, { ok: true } )
-        } else {
-            throwMessage( result.message, { ok: false } )
-        }
-
+            if ( response.ok ) {
+                throwMessage( result.message, { ok: true } )
+            } else {
+                throwMessage( result.message, { ok: false } )
+            }
+        }).catch((err) => {
+            console.log(err)
+        }).finally(() => {
+            setTimeout(() => {
+                $('.overlay').fadeOut(500)
+            }, 500)
+        })
     } catch(err) {
         console.log(err)
     }
