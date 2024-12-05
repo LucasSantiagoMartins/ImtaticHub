@@ -3,44 +3,42 @@ const validator = require('validator')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 
-exports.registerForm = (req, res) => {
-    res.render('auth/register')
-}
+
 exports.register = async (req, res) => {
-    const { username, email, password } = req.body
+    if ( req.method == 'POST') {
+        const { phone_number, password } = req.body
 
-    if (!username || !email || !password) {
-        res.status(400).json({
-            'error': 'Informações inválidas.'
-        })
+        if (!phone_number || !password) {
+            return res.status(400).json({
+                'message': 'Informações inválidas'
+            })
+        }        
+
+        const existingUser = await db.User.findOne( { where: { phone_number } } )
+        if (existingUser) {
+            return res.status(400).json({
+                'message': 'Este número já foi usado'
+            })
+        }
+    
+        try {
+            const hashedPassword = await bcrypt.hash(password, 10)
+            await db.User.create({ phone_number, "password": hashedPassword })
+            return res.status(201).json({
+                'message': 'Usuário criado com sucesso'
+            })
+        } catch (err) {
+            console.log(err)
+            return res.status(500).json({
+                'message': 'Erro interno do servidor!'
+            })
+        }
+    
+    }else{
+        return res.render('auth/register')
     }
-
-    if (!validator.isEmail(email)) {
-        res.status(400).json({
-            'error': 'E-mail inválido.'
-        })
-    }
-
-    const existingUser = await db.User.findOne( { where: { email } })
-
-    if (existingUser) {
-        res.status(400).json({
-            'message': 'Este E-mail já foi usado'
-        })
-    }
-
-    const hashedPassword = await bcrypt.hash(password, 10)
-    const user = await db.User.create({ username, email, "password": hashedPassword })
-
-    res.status(201).json({
-        'message': 'Usuário criado com sucesso',
-        'user': user
-    })
 }
 
-exports.loginForm = (req, res) => {
-    res.render('auth/login')
-}
 exports.login = async (req, res) => {
     const { email, password } = req.body
 
