@@ -7,13 +7,15 @@ const bcrypt = require('bcrypt')
 exports.register = async (req, res) => {
     if ( req.method == 'POST') {
         const { phone_number, password } = req.body
+        const isValidPhoneNumber = validator.isInt(phone_number)
+        const isValidPassword = validator.isAlphanumeric(password)
 
-        if (!phone_number || !password) {
+        if (!phone_number || !password || !isValidPhoneNumber || !isValidPassword) {
             return res.status(400).json({
                 'message': 'Informações inválidas'
             })
-        }        
-
+        }
+        
         const existingUser = await db.User.findOne( { where: { phone_number } } )
         if (existingUser) {
             return res.status(400).json({
