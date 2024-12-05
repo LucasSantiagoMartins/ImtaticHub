@@ -19,12 +19,28 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: true,
             type: DataTypes.STRING,
         },
+        birth_date: {
+            type: DataTypes.DATE,
+            allowNull: false
+        },
+        gender: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        address: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        nationality: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
         course: {
             allowNull: false,
             type: DataTypes.STRING
         },
         class: {
-            allowNull: true,
+            allowNull: false,
             type: DataTypes.STRING
         },
         grade: {
