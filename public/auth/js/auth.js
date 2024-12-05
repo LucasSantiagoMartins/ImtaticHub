@@ -76,7 +76,6 @@ function showPassowrd(){
 }
 
 
-
 function authRedirect(form) {
     throwMessage('Redirecionando...', {ok: true})
     
@@ -90,4 +89,11 @@ function authRedirect(form) {
     setTimeout(() => {
         window.location.href = successUrl
     }, 500);
+}
+
+function redirect(url) {
+    throwMessage('Redirecionando...', {ok: true})
+    setTimeout(() => {
+        window.location.href = url
+    }, 500)
 }
