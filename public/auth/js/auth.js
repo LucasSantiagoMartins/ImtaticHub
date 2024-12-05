@@ -42,9 +42,16 @@ form.addEventListener('submit', async (event) => {
         
             if ( response.ok ) {
                 throwMessage( result.message, { ok: true } )
+
+                setTimeout(() => {
+                    authRedirect(form)
+                }, 2000);
+
             } else {
                 throwMessage( result.message, { ok: false } )
             }
+
+
         }).catch((err) => {
             console.log(err)
         }).finally(() => {
@@ -70,9 +77,17 @@ function showPassowrd(){
 
 
 
-function redirect(url) {
+function authRedirect(form) {
     throwMessage('Redirecionando...', {ok: true})
+    
+    if ( form.action == 'http://localhost:8080/auth/login' ) {
+        successUrl = 'http://localhost:8080/auth/register'
+    }
+    if ( form.action == 'http://localhost:8080/auth/register'){
+        successUrl = 'http://localhost:8080/auth/login'
+    }
+
     setTimeout(() => {
-        window.location.href = url
+        window.location.href = successUrl
     }, 500);
 }
