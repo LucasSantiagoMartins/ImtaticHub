@@ -12,9 +12,9 @@ function throwMessage(message, status) {
     
     }
     messageDiv.innerHTML += message
-    $('#message-div').fadeIn(2000)
+    $('#message-div').fadeIn(4000)
     setTimeout(() => {
-        $('#message-div').fadeOut(1000)
+        $('#message-div').fadeOut(500)
         messageDiv.classList.remove('success')
         messageDiv.classList.remove('error')
     }, 5000);
