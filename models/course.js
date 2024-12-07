@@ -17,12 +17,12 @@ module.exports = (sequelize, DataTypes) => {
             autoIncrement: true 
         },
         name: {
-            allowNull: true,
+            allowNull: false,
             type: DataTypes.STRING,
         },
         description: {
-            type: DataTypes.DATE,
-            allowNull: false
+            type: DataTypes.STRING,
+            allowNull: true
         },
         created_at: {
             type: DataTypes.DATE,
