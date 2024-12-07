@@ -1,6 +1,5 @@
 'use strict'
 const { Model } = require('sequelize')
-const { sequelize } = require('.')
 
 
 module.exports = (sequelize, DataTypes) => {
@@ -41,11 +40,11 @@ module.exports = (sequelize, DataTypes) => {
         created_at: {
             type: DataTypes.DATE,
             allowNull: false,
-         },
+        },
          updated_at: {
             type: DataTypes.DATE,
             allowNull: false,
-         },
+        }
     },
     {
         sequelize,
