@@ -1,7 +1,7 @@
-studentCardBtn = document.querySelector('#student-card-btn')
-teacherCardBtn = document.querySelector('#teacher-card-btn')
-studentForm = document.querySelector('#student-form')
-teacherForm = document.querySelector('#teacherForm')
+const studentCardBtn = document.querySelector('#student-card-btn')
+const teacherCardBtn = document.querySelector('#teacher-card-btn')
+const studentForm = document.querySelector('#student-form')
+const teacherForm = document.querySelector('#teacher-form')
 
 
 studentCardBtn.addEventListener('click', () => {
