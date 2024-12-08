@@ -1,4 +1,4 @@
-function showPassowrd(){
+function showPassword(){
     const passwordInput = document.querySelector('input[name=password]')
 
     if ( passwordInput.type == 'password' ) {
