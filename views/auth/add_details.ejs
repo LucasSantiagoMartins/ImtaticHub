@@ -26,7 +26,7 @@
             <form action="" id="student-form" class="mt-4">
                 <div class="row">
                     <div class="col-md-6">
-                        <input type="text" placeholder="Nome completo..." name="full_name" id="" class="form-control mb-1">
+                        <input type="text" placeholder="Nome completo..." name="full_name" id="" class="form-control">
                     </div>
                     <div class="col-md-6">
                         <input type="text" placeholder="Nacionalidade..." name="nationality" class="form-control">
@@ -59,7 +59,7 @@
                     <div class="col-md-6">
                         <select name="course" class="form-control">
                             <% courses.forEach(course => { %>
-                                <option>Curso</option>
+                                <option value="">Curso</option>
                                 <option value="<%= course.id %>"><%= course.name %> %></option>
                             <% }); %>
                         </select>
@@ -84,7 +84,7 @@
             <form action="" id="teacher-form" class="mt-4">
                 <div class="row">
                     <div class="col-md-6">
-                        <input type="text" placeholder="Nome completo..." name="full_name" id="" class="form-control mb-1">
+                        <input type="text" placeholder="Nome completo..." name="full_name" id="" class="form-control">
                     </div>
                     <div class="col-md-6">
                         <input type="text" placeholder="Nacionalidade..." name="nationality" class="form-control">
