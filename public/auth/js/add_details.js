@@ -8,7 +8,7 @@ studentCardBtn.addEventListener('click', () => {
     hide('.cards')
     setTimeout(() => {
         show('#add-details-forms')
-        show('#student-form')
+        show('#student-form-div')
     }, 200)
 })
 
@@ -16,6 +16,6 @@ teacherCardBtn.addEventListener('click', () => {
     hide('.cards')
     setTimeout(() => {
         show('#add-details-forms')
-        show('#teacher-form')
+        show('#teacher-form-div')
     }, 200)
 })
