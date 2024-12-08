@@ -75,3 +75,8 @@ exports.login = async (req, res) => {
     }
 
 }
+
+exports.addDetails = async (req, res) => {
+    courses = await db.Course.findAll()
+    res.render('auth/add_details', { courses })
+}
