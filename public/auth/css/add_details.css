@@ -103,4 +103,8 @@ body {
         height: 40vh;
         width: 80%;
     }
+
+    button[type="submit"]{
+        margin-bottom: 10%;
+    }
 }
