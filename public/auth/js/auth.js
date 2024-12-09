@@ -8,22 +8,6 @@ function showPassword(){
     }
 }
 
-
-function authRedirect(form) {
-    throwMessage('Redirecionando...', {ok: true})
-    
-    if ( form.action == 'http://localhost:8080/auth/login' ) {
-        successUrl = 'http://localhost:8080/auth/register'
-    }
-    if ( form.action == 'http://localhost:8080/auth/register'){
-        successUrl = 'http://localhost:8080/auth/login'
-    }
-
-    setTimeout(() => {
-        window.location.href = successUrl
-    }, 500);
-}
-
 function redirect(url) {
     throwMessage('Redirecionando...', {ok: true})
     setTimeout(() => {
