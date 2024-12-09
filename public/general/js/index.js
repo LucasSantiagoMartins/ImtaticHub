@@ -2,9 +2,11 @@ function throwMessage(message, status) {
     let messageDiv = document.querySelector('#message-div')
     
     if ( status.ok ) {
+        messageDiv.classList.remove('error')
         messageDiv.classList.add('success')
         messageDiv.innerHTML = `<i class="fas fa-check-circle"></i> `
     } else {
+        messageDiv.classList.remove('success')
         messageDiv.classList.add('error')
         messageDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i> `
     
