@@ -21,6 +21,13 @@ function throwMessage(message, status) {
 
 }
 
+function redirect(url) {
+    throwMessage('Redirecionando...', {ok: true})
+    setTimeout(() => {
+        window.location.href = url
+    }, 500)
+}
+
 function hide(element) {
     $(element).fadeOut(200)
 }

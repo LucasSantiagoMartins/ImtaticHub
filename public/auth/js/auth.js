@@ -8,14 +8,6 @@ function showPassword(){
     }
 }
 
-function redirect(url) {
-    throwMessage('Redirecionando...', {ok: true})
-    setTimeout(() => {
-        window.location.href = url
-    }, 500)
-}
-
-
 form = document.querySelector('form')
 
 form.addEventListener('submit', (event) => {
