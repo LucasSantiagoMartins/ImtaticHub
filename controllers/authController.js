@@ -25,9 +25,10 @@ exports.register = async (req, res) => {
     
         try {
             const hashedPassword = await bcrypt.hash(password, 10)
-            await db.User.create({ phone_number, "password": hashedPassword })
+            const user = await db.User.create({ phone_number, "password": hashedPassword })
             return res.status(201).json({
-                'message': 'Usuário criado com sucesso'
+                'message': 'Usuário criado com sucesso',
+                'args': {'user_id': user.id}
             })
         } catch (err) {
             console.log(err)
@@ -79,4 +80,31 @@ exports.login = async (req, res) => {
 exports.addDetails = async (req, res) => {
     courses = await db.Course.findAll()
     res.render('auth/add_details', { courses })
+}
+
+exports.registerStudent = async (req, res) => {
+    
+    const fields = Object.entries(req.body)
+    
+    for (const [key, value] of fields) {
+        console.log(value)
+        if (!value) {
+            return res.status(400).json({
+                'message': 'Informaçõdes inválidas'
+            })
+        }
+    }
+
+    try {
+        await db.Student.create( {...req.body } )
+        return res.status(200).json({
+            'message': 'Informações salvas'
+        })
+    } catch(err) {
+        console.log(err)
+        return res.status(500).json({
+            'message': 'Erro interno do sistema'
+        })
+    }
+    
 }

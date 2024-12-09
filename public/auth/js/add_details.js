@@ -20,6 +20,14 @@ teacherCardBtn.addEventListener('click', () => {
     }, 200)
 })
 
+studentForm.addEventListener('submit', (event) => {
+    event.preventDefault()
+    requestHandler(studentForm, redirectUrl = '/')
+})
+teacherForm.addEventListener('submit', (event) => {
+    event.preventDefault()
+    requestHandler(teacherForm, redirectUrl = '/')
+})
 
 // form data validations
 const studentFormInputs = studentForm.querySelectorAll('input')
@@ -53,3 +61,9 @@ formSelects.forEach(select => {
         }
     })
 })
+
+const path = window.location.pathname
+const segments = path.split('/')
+const userId = segments[segments.length - 1]
+const userIdHiddenInput = document.querySelector('input[type="hidden"]')
+userIdHiddenInput.value = userId

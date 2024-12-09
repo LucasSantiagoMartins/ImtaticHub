@@ -5,7 +5,7 @@ const { Model } = require('sequelize')
 module.exports = (sequelize, DataTypes) => {
     class Student extends Model{
         static associate(models){
-            Student.belongsTo(models.User, { foreignKey: 'userId', as: 'user'})
+            Student.belongsTo(models.User, { foreignKey: 'user_id', as: 'user'})
         }
     }
     Student.init(
@@ -55,6 +55,16 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             type: DataTypes.STRING
         },
+        user_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            references: {
+                model: 'users',
+                key: 'id'
+            },
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE'
+        },
         created_at: {
             type: DataTypes.DATE,
             allowNull: false,
@@ -68,7 +78,9 @@ module.exports = (sequelize, DataTypes) => {
         sequelize, 
         modelName: 'Student',
         tableName: 'students',
-        underscored: true
+        underscored: true,
+        createdAt: 'created_at',
+        updatedAt: 'updated_at'
     })
 
     return Student

@@ -20,7 +20,11 @@ async function requestHandler(form, redirectUrl) {
             throwMessage( result.message, { ok: true } )
 
             setTimeout(() => {
-                redirect(redirectUrl)
+                if (result.args) {
+                    redirect(redirectUrl, result.args)
+                }else{
+                    redirect(redirectUrl)
+                }
             }, 2000);
 
         } else {

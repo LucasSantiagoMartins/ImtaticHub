@@ -21,8 +21,15 @@ function throwMessage(message, status) {
 
 }
 
-function redirect(url) {
+function redirect(url, args) {
     throwMessage('Redirecionando...', {ok: true})
+    
+    if (args) {
+        Object.entries(args).forEach(([key, value]) => {
+        url += '/' + key + '/' + value
+    })
+    }
+    
     setTimeout(() => {
         window.location.href = url
     }, 500)
