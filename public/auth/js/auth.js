@@ -14,3 +14,19 @@ function redirect(url) {
         window.location.href = url
     }, 500)
 }
+
+
+form = document.querySelector('form')
+
+form.addEventListener('submit', (event) => {
+    event.preventDefault()
+
+    if (form.action == 'http://localhost:8080/auth/login'){
+        var redirectUrl = 'http://localhost:8080/'
+    }
+    if (form.action == 'http://localhost:8080/auth/register') {
+        var redirectUrl = 'http://localhost:8080/auth/add-details'
+    }
+
+    requestHandler(form, redirectUrl)
+})
