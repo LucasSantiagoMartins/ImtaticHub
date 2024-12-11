@@ -31,53 +31,81 @@
                 <input type="hidden" name="user_id" value="">
                 <div class="row">
                     <div class="col-md-6">
-                        <input type="text" placeholder="Nome completo..." name="full_name" id="" class="form-control">
+                        <div class="form-group">
+                            <input type="text" id="full_name_input" name="full_name" required>
+                            <label for="full_name_input">Nome completo</label>
+                        </div>
                     </div>
                     <div class="col-md-6">
-                        <input type="text" placeholder="Nacionalidade..." name="nationality" class="form-control">
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-md-6">
-                        <select name="gender" class="form-control">
-                            <option value="">Gênero</option>
-                            <option value="male">Masculino</option>
-                            <option value="female">Feminino</option>
-                        </select>
-                    </div>
-                    <div class="col-md-6">
-                        <input type="text" placeholder="Endereço..." name="address" class="form-control">
+                        <div class="form-group">
+                            <input type="text" id="nationality_input" name="nationality" required>
+                            <label for="nationality_input">Nacionalidade</label>
+                        </div>
                     </div>
                 </div>
                 <div class="row mt-2">
                     <div class="col-md-6">
-                        <input type="text" placeholder="Turma..." name="class" class="form-control">
+                        <div class="form-group">
+                            <select id="gender_input" name="gender" required>
+                                <option value=""></option>
+                                <option value="male">Masculino</option>
+                                <option value="female">Feminino</option>
+                            </select>
+                            <label for="gender_input">Gênero</label>
+                        </div>
                     </div>
                     <div class="col-md-6">
-                        <input type="text" placeholder="Classe..." name="grade" class="form-control">
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-md-6">
-                        <input type="number" placeholder="Número de matrícula..." name="registration_number" class="form-control">
-                    </div>
-                    <div class="col-md-6">
-                        <select name="course" class="form-control">
-                            <% courses.forEach(course => { %>
-                                <option value="">Curso</option>
-                                <option value="<%= course.id %>"><%= course.name %> %></option>
-                            <% }); %>
-                        </select>
+                        <div class="form-group">
+                            <input type="text" id="address_input" name="address" required>
+                            <label for="address_input">Endereço</label>
+                        </div>
                     </div>
                 </div>
                 <div class="row mt-2">
                     <div class="col-md-6">
-                        <label class="m-1">Data de nascimento</label>
-                        <input type="date" name="birth_date" class="form-control">
+                        <div class="form-group">
+                            <input type="text" id="class_input" name="class" required>
+                            <label for="class_input">Turma</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" id="grade_input" name="grade" required>
+                            <label for="grade_input">Classe</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" id="registration_number_input" name="registration_number" required>
+                            <label for="registration_number_input">Número de matrícula</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <select id="course_input" name="course" required>
+                                <% courses.forEach(course => { %>
+                                    <option value=""></option>
+                                    <option value="<%= course.id %>"><%= course.name %> %></option>
+                                <% }); %>
+                            </select>
+                            <label for="course_input">Course</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="date" id="birth_date_input" name="birth_date">
+                            <label >Data de nascimento</label>
+                        </div>
                     </div>    
                     <div class="col-md-6">
-                        <label class="m-1">Ano académico</label>
-                        <input type="date" name="academic_year" class="form-control">
+                        <div class="form-group">
+                            <input type="date" id="academic_year_input" name="academic_year">
+                            <label for="academic_year_input">Ano académico</label>
+                        </div>
                     </div>
                 </div>
                 
@@ -92,28 +120,43 @@
             <form action="/auth/register-teacher" method="POST" id="teacher-form" class="mt-4">
                 <div class="row">
                     <div class="col-md-6">
-                        <input type="text" placeholder="Nome completo..." name="full_name" id="" class="form-control">
+                        <div class="form-group">
+                            <input type="text" id="full_name_input" name="full_name" required>
+                            <label for="full_name_input">Nome completo</label>
+                        </div>
                     </div>
                     <div class="col-md-6">
-                        <input type="text" placeholder="Nacionalidade..." name="nationality" class="form-control">
+                        <div class="form-group">
+                            <input type="text" id="nationality_input" name="nationality" required>
+                            <label for="nationality_input">Nacionalidade</label>
+                        </div>
                     </div>
                 </div>
                 <div class="row mt-2">
                     <div class="col-md-6">
-                        <select name="gender" class="form-control">
-                            <option value="">Gênero</option>
-                            <option value="male">Masculino</option>
-                            <option value="female">Feminino</option>
-                        </select>
+                        <div class="form-group">
+                            <select id="gender_input" name="gender" required>
+                                <option value=""></option>
+                                <option value="male">Masculino</option>
+                                <option value="female">Feminino</option>
+                            </select>
+                            <label for="gender_input">Gênero</label>
+                        </div>
+                        
                     </div>
                     <div class="col-md-6">
-                        <input type="text" placeholder="Endereço..." name="address" class="form-control">
+                        <div class="form-group">
+                            <input type="text" id="address_input" name="address" required>
+                            <label for="address_input">Endereço</label>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <label class="m-2">Data de nascimento</label>
-                        <input type="date" name="birth_date" class="p-2 form-control">
+                        <div class="form-group">
+                            <input type="date" id="birth_date_input" name="birth_date">
+                            <label for="birth_date_input">Data de nascimento</label>
+                        </div>
                     </div>
                 </div>
                 <button type="submit" class="btn button">Concluir</button>
