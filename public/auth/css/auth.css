@@ -64,40 +64,6 @@ body, html {
     color: #b0b0b0;
     margin-bottom: 20px;
 }
-
-.right-panel .form-group {
-    position: relative;
-    margin-bottom: 20px;
-}
-.right-panel .form-group input {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1.5px solid #002244;
-    padding-left: 1.3em;
-    color: #002244;
-    border-radius: 5px;
-    outline: none;
-    background: none;
-}
-.form-group label {
-    position: absolute;
-    top: 8;
-    left: 1.5em;
-    font-size: 16px;
-    color: #002244;
-    pointer-events: none;
-    transition: 0.2s ease all;
-    padding: 0.2em;
-  }
-
-.form-group input:focus ~ label,
-.form-group input:valid ~ label {
-    top: -15px;
-    background: white;
-    font-size: 14px;
-    color: #003366; 
-}
   
 .right-panel .form-group span{
     color: #ccc;

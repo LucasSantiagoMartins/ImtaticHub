@@ -17,6 +17,53 @@
 }
 
 
+
+.form-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+.form-group input, .form-group select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1.5px solid #002244;
+    padding-left: 1.3em;
+    color: #002244;
+    border-radius: 5px;
+    outline: none;
+    background: none;
+}
+.form-group input.is-valid, .form-group select.is-valid {
+    border: 1.5px solid rgb(61, 140, 96);    
+}
+.form-group input.is-invalid, .form-group select.is-invalid {
+    border: 1.5px solid rgb(204, 113, 113);    
+}
+.form-group input.is-valid ~ label, .form-group select.is-valid ~ label {
+    color:rgb(61, 140, 96)!important;    
+}
+.form-group input.is-invalid ~ label, .form-group select.is-invalid ~ label {
+    color:rgb(204, 113, 113)!important;    
+}
+.form-group label {
+    position: absolute;
+    top: 8;
+    left: 1.5em;
+    font-size: 16px;
+    color: #002244;
+    pointer-events: none;
+    transition: 0.2s ease all;
+    padding: 0.2em;
+  }
+
+.form-group input:focus ~ label, .form-group select:focus ~ label,
+.form-group input:valid ~ label, .form-group select:valid ~ label{
+    top: -15px;
+    background: white;
+    font-size: 14px;
+    color: #003366; 
+}
+
 .overlay {
     position: fixed;
     top: 0;
