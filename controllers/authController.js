@@ -87,7 +87,6 @@ exports.registerStudent = async (req, res) => {
     const fields = Object.entries(req.body)
     
     for (const [key, value] of fields) {
-        console.log(value)
         if (!value) {
             return res.status(400).json({
                 'message': 'Informaçõdes inválidas'
@@ -97,6 +96,32 @@ exports.registerStudent = async (req, res) => {
 
     try {
         await db.Student.create( {...req.body } )
+        return res.status(200).json({
+            'message': 'Informações salvas'
+        })
+    } catch(err) {
+        console.log(err)
+        return res.status(500).json({
+            'message': 'Erro interno do sistema'
+        })
+    }
+    
+}
+
+exports.registerTeacher = async (req, res) => {
+
+    const fields = Object.entries(req.body)
+    
+    for (const [key, value] of fields) {
+        if (!value) {
+            return res.status(400).json({
+                'message': 'Informaçõdes inválidas'
+            })
+        }
+    }
+    
+    try {
+        await db.Teacher.create( {...req.body } )
         return res.status(200).json({
             'message': 'Informações salvas'
         })
