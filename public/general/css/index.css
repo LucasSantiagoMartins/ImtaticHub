@@ -1,5 +1,5 @@
 
-#message-div {
+.message-div {
     color: white;
     padding: 1%;
     height: 100%;
@@ -9,10 +9,10 @@
     display: none;
 }
 
-#message-div.error{
+.message-div.error{
     background-color: rgb(204, 113, 113);
 }
-#message-div.success{
+.message-div.success{
     background-color: rgb(61, 140, 96);
 }
 
