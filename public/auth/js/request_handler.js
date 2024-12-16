@@ -10,7 +10,7 @@ async function requestHandler(form, redirectUrl) {
         await fetch(form.action, {
             method: form.method,
             headers: {
-                'Content-Type': 'application/json', 
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify(data)
         }).then(async (response) => {

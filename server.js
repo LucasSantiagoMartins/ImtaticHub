@@ -1,3 +1,4 @@
+const socialRoutes = require('./routes/socialRoutes')
 const authRoutes = require('./routes/authRoutes')
 const session = require('express-session')
 const bodyParser = require('body-parser')
@@ -24,6 +25,7 @@ app.set('view engine', 'ejs')
 
 // routes
 app.use('/auth', authRoutes)
+app.use('/', socialRoutes)
 
 port = process.env.PORT
 app.listen(port, () => {

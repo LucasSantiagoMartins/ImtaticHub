@@ -1,4 +1,21 @@
+::-webkit-scrollbar {
+    width: 10px; 
+    height: 12px; 
+    padding: 1%;
+}
 
+
+::-webkit-scrollbar-track {
+    background: transparent;
+    padding: 1%;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #002244; 
+    border-radius: 6px; 
+}
+  
+  
 .message-div {
     color: white;
     padding: 1%;
