@@ -27,8 +27,8 @@ exports.register = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10)
     await db.query(
-      'INSERT INTO users (phone_number, password, created_at) VALUES (?, ?, ?)',
-      [phone_number, hashedPassword, new Date()]
+      'INSERT INTO users (phone_number, password) VALUES (?, ?)',
+      [phone_number, hashedPassword]
     );
 
     return res.status(201).json({ message: "Conta criada com sucesso." });
