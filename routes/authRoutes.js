@@ -1,15 +1,14 @@
 const express = require('express')
-const authControllers = require('../controllers/authController')
+const authControllers = require('../controllers/authControllers')
 
 
 const router = express.Router()
 
-router.get('/register', authControllers.register)
-router.post('/register', authControllers.register)
-router.get('/login', authControllers.login)
-router.post('/login', authControllers.login)
-router.get('/add-details/user_id/:id', authControllers.addDetails)
-router.post('/register-student', authControllers.registerStudent)
-router.post('/register-teacher', authControllers.registerTeacher)
+router.get('/usuarios/criar-conta', authControllers.registerPage)
+router.post('/usuarios/criar-conta', authControllers.register)
+router.get('/usuarios/iniciar-sessao', authControllers.loginPage)
+router.post('/usuarios/iniciar-sessao', authControllers.login)
+router.get('/usuarios/adicionar-informacoes', authControllers.addDetails)
+
 
 module.exports = router

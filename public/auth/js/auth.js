@@ -13,11 +13,11 @@ form = document.querySelector('form')
 form.addEventListener('submit', (event) => {
     event.preventDefault()
 
-    if (form.action == 'http://localhost:8080/auth/login'){
+    if (form.action == 'http://localhost:8080/usuarios/iniciar-sessao'){
         var redirectUrl = 'http://localhost:8080/'
     }
-    if (form.action == 'http://localhost:8080/auth/register') {
-        var redirectUrl = 'http://localhost:8080/auth/add-details'
+    if (form.action == 'http://localhost:8080/usuarios/criar-conta') {
+        var redirectUrl = 'http://localhost:8080/usuarios/adicionar-informacoes'
     }
 
     requestHandler(form, redirectUrl)

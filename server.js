@@ -1,16 +1,14 @@
-const socialRoutes = require('./routes/socialRoutes')
-const authRoutes = require('./routes/authRoutes')
-const session = require('express-session')
-const bodyParser = require('body-parser')
+const express = require("express")
+const bodyParser = require("body-parser")
+const path = require("path")
+const session = require("express-session")
 const flash = require('connect-flash')
-const express = require('express')
-const path = require('path')
+const socialRoutes = require("./routes/socialRoutes")
+const authRoutes = require("./routes/authRoutes")
 
+const app = express()
 require('dotenv').config()
 
-
-// settings
-const app = express()
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(session({
@@ -22,10 +20,8 @@ app.use(session({
 app.use(bodyParser.json())
 app.use(flash())
 app.set('view engine', 'ejs')
-
-// routes
-app.use('/auth', authRoutes)
 app.use('/', socialRoutes)
+app.use('/', authRoutes)
 
 port = process.env.PORT
 app.listen(port, () => {

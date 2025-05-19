@@ -66,7 +66,7 @@ body {
 
 #content {
     flex-grow: 1;
-    background: rgb(255, 255, 255);
+    background: white;
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
     margin-top: 2.5em;
@@ -76,8 +76,14 @@ body {
     height: 100%;
     width: 90%;
     display: block;
-}
+    color: white;
+    padding: 0.5em;
+    border-radius: 8px;
 
+}
+input::placeholder{
+    
+}
 #menu {
     display: none;
     flex-direction: row;
@@ -91,7 +97,7 @@ body {
     padding-top: 2.7em;
 }
 
-#menu #main-items {
+#main-items {
     width: 70%;
     height: 86%;
     border-radius: 8px;
@@ -100,8 +106,7 @@ body {
     padding: 3em;
 }
 
-
-#menu #main-items .search-card  form{
+#main-items .search-card  form{
     display: flex;
     align-items: center;
     background-color: #062544;
@@ -111,10 +116,10 @@ body {
     height: 45px;
     margin-top: 3%;
 }
-#menu #main-items .search-card form i {
+#main-items .search-card form i {
     color: #ffffff;
 }
-#menu #main-items .search-card form input[type="text"] {
+#main-items .search-card form input[type="text"] {
     border: none;
     background: none;
     color: #ffffff;
@@ -123,10 +128,10 @@ body {
     width: 100%;
     padding-left: 2%;
 }
-#menu #main-items .search-card form input[type="text"]::placeholder{
+#main-items .search-card form input[type="text"]::placeholder{
     color: white;
 }
-#menu #main-items .search-card form button {
+#main-items .search-card form button {
     background: transparent;
     border: none;
     font-size: 14pt;
@@ -154,7 +159,7 @@ body {
     font-weight: bold;
 }
 
-#menu #create-items {
+#create-items {
     width: 25%;
     height: 86%;
     padding: 2em;
@@ -163,12 +168,12 @@ body {
     box-shadow: 0 0 10px #3d86cf;
 }
 
-#menu #create-items .item {
+#create-items .item {
     text-align: center;
     align-items: center;
     padding: 0.5em;
 }
-#menu #create-items .item i{
+#create-items .item i{
     font-size: 14pt;
     background: #1a5a9a;
     border-radius: 100px;
@@ -176,12 +181,115 @@ body {
     height: 40px;
     padding-top: 0.6em;
 }
-#menu #create-items .item span{
+#create-items .item span{
     margin-top: 2%;
 }
 
+#story{
+    background: #06315c;
+    color: white;
+    padding: 1em;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
 
+#add-story{
+    width: 150px;
+    background: #1a5a9a;
+    border-radius: 8px;
+    cursor: pointer;
+}
+#add-story img{
+    width: 100%;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+#add-story button{
+    border: none;
+    width: 130px;
+    height: 65px;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    border-radius: 8px;
+    background:#062544;
+    color: white;
+    font-weight: bold;
+    transition: .3s;
+}
+#add-story button:hover{
+    transform: translateY(-5%);
+}
+#add-story button i{
+    margin-top: 2%;
+    margin-bottom: 2%;
+    font-size: 20pt;
+}
 
+#add-post{
+    background-color: #06315c;
+    margin-top: 2%;
+    padding: 1em;
+    border-radius: 8px;
+}
+#add-post form .input-group{
+    display: flex;
+    justify-content: center;
+    margin-top: 1%;
+}
+#add-post form input{
+    height: 45px;
+    width: 60%;
+    border: none;
+    outline: none;
+    border-top-left-radius: 100px;
+    border-bottom-left-radius: 100px;
+    padding-left: 2em;
+}
+#add-post form button{
+    border: none;
+    background:#1a5a9a;
+    color: white;
+    border-top-right-radius: 100px;
+    border-bottom-right-radius: 100px;
+    width: 20%;
+    transition: .3s;
+}
+#add-post form button:hover{
+    background: #0d4a86;
+}
+#customize-post{
+    border: 2px solid #5c8ab8;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 80%;
+    padding: 1em;
+    border-radius: 8px;
+    justify-content: center;
+}
+#customize-post h6{
+    margin-top: 1%;
+}
+#customize-post-icons {
+    /* width: 30%; */
+    justify-content: center;
+    display: flex;
+    gap: 30px;
+    margin-left: 4%;
+}
+#customize-post-icons img{
+    cursor: pointer;
+    margin: 1%;
+    transition: .3s;
+    padding: 10px;
+    border-radius: 4px;
+}
+#customize-post-icons img:hover{
+    background: #07396a;
+    transform: scale(1.2);
+}
 @media (max-width: 800px){
 
     #menu {

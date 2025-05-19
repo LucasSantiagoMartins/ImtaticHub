@@ -1,3 +1,9 @@
+## 🎯 Foco, Visão e Objetivo da Plataforma
+
+A plataforma tem como foco central modernizar e facilitar a comunicação e o gerenciamento escolar, promovendo a interação entre alunos, professores e administradores em um ambiente digital seguro, prático e intuitivo.
+
+Ser a principal solução educacional digital para o imtatic com o desejo de centralizar tarefas pedagógicas, melhorar o engajamento dos alunos e otimizar os processos administrativos, tornando o ambiente escolar mais colaborativo e inovador.
+
 ## Funcionalidades Principais
 
 
@@ -5,7 +11,6 @@ Tipos de usuários:
 + Alunos
 + Professores
 + Administradores
-+ Pais (opcional)
 
 Cadastro e Login:
 + Registro com e-mail, matrícula ou credenciais escolares.
@@ -31,7 +36,7 @@ Feed personalizado:
 
 Comunicação dentro dos grupos:
 + Chat privado (mensagens em tempo real).
-+ Anúncios dos professores ou moderadores.
++ Anúncios dos professores.
 
 + Calendário e Eventos
 + Eventos escolares (provas, datas + comemorativas, reuniões).
@@ -56,7 +61,25 @@ Alunos podem:
 + Pontuações para participação em atividades.
 + Rankings de alunos ou turmas.
 
+Administradores podem:
+
+Gestão de Tarefas e Provas
+
++ Acompanhar o andamento das tarefas postadas pelos professores.
++ Visualizar estatísticas de entrega de trabalhos e participação dos alunos.
 Tecnologias
++ Criar, editar e excluir eventos escolares (reuniões, provas, feriados, etc.).
+
++ Publicar o calendário oficial da escola para todos os usuários.
+
+Gestão de Conteúdo
++ Moderar posts públicos e comentários (remover conteúdo inadequado).
+
++ Postar comunicados institucionais no feed geral ou nas turmas.
+
+Gestão de Usuários
++ Editar e excluir contas de alunos, professores.
++ Atribuir turmas, disciplinas a professores.
 
 Frontend
 
