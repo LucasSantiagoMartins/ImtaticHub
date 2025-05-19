@@ -3,7 +3,7 @@ const validator = require('validator')
 const bcrypt = require('bcrypt')
 
 exports.registerPage = (req, res) => {
-    res.render('auth/register')
+    res.render('user/register')
 }
 
 
@@ -41,7 +41,7 @@ exports.register = async (req, res) => {
 
 
 exports.loginPage = (req, res) => {
-    res.render('auth/login')
+    res.render('user/login')
 }
 
 exports.login = async (req, res) => {
@@ -56,7 +56,7 @@ exports.login = async (req, res) => {
     try {
         const [rows] = await db.query('SELECT * FROM users WHERE phone_number = ?', [phone_number]);
 
-        if (rows.length === 0) return res.status(400).json({ message: "Não existe nenhuma conta associada a este número de telefone." });
+        if (rows.length === 0) return res.status(400).json({ message: "Conta não encontrada verifique as informações enviadas ou Registre-se." });
 
         const user = rows[0]
         
@@ -65,7 +65,7 @@ exports.login = async (req, res) => {
             return res.status(400).json({ message: "Palavra passe está incorreta." });
         
         req.session.user = {id: user.id, phone_number: user.phone_number}
-        return res.status(200).json({ message: "Sesão iniciada com sucesso." });
+        return res.status(200).json({ message: "Sessão iniciada com sucesso." });
 
     } catch (error) {
         console.error(error);
@@ -75,5 +75,5 @@ exports.login = async (req, res) => {
 }
 
 exports.addDetails = (req, res) => {
-    res.render('auth/add_details')
+    res.render('user/add-details')
 }
