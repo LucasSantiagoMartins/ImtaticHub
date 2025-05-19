@@ -81,9 +81,7 @@ body {
     border-radius: 8px;
 
 }
-input::placeholder{
-    
-}
+
 #menu {
     display: none;
     flex-direction: row;
