@@ -74,6 +74,19 @@ exports.login = async (req, res) => {
 
 }
 
-exports.addDetails = (req, res) => {
-    res.render('user/add-details')
+exports.addDetailsPage = async (req, res) => {
+  const [rows] = await db.query('SELECT * FROM courses')
+  const courses = rows.map(course => ({
+    id:course.id,
+    name: course.name
+  }) )
+  res.render('user/add-details', {courses: courses})
+}
+
+exports.addStudentDetails = async (req, res) => {
+
+}
+
+exports.addProfessorDetails = async (req, res) => {
+
 }
