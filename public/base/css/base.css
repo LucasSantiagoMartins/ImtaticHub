@@ -103,7 +103,6 @@
     justify-content: center;
 }
 
-
 .toast-message {
   position: fixed;
   top: 40px;
@@ -119,12 +118,18 @@
   font-size: 16px;
   gap: 10px;
   z-index: 1000;
-  transition: right 0.5s ease-in-out;
-  opacity: 1;
+  transition: right 0.5s ease-in-out, opacity 0.5s ease-in-out;
+  opacity: 0;
 }
 
 .toast-message.show {
   right: 20px;
+  opacity: 1;
+}
+
+.toast-message.hide {
+  right: -400px;
+  opacity: 0;
 }
 
 .toast-message.success {
@@ -138,3 +143,4 @@
 .toast-message .icon {
   font-size: 20px;
 }
+

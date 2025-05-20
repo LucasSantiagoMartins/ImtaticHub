@@ -1,25 +1,35 @@
 function showToast(type, message) {
-    const toast = document.createElement("div");
-    toast.className = `toast-message ${type}`;
+  document.querySelectorAll('.toast-message').forEach(t => t.remove());
 
-    const icon = document.createElement("i");
-    icon.className = `fas icon ${type === "success" ? "fa-check-circle" : "fa-exclamation-circle"}`;
+  const toast = document.createElement("div");
+  toast.className = `toast-message ${type}`;
 
-    const text = document.createElement("span");
-    text.className = "message-text";
-    text.textContent = message;
+  const icon = document.createElement("i");
+  icon.className = `fas icon ${type === "success" ? "fa-check-circle" : "fa-exclamation-circle"}`;
 
-    toast.appendChild(icon);
-    toast.appendChild(text);
-    document.body.appendChild(toast);
+  const text = document.createElement("span");
+  text.className = "message-text";
+  text.textContent = message;
 
-    setTimeout(() => toast.classList.add("show"), 10);
+  toast.appendChild(icon);
+  toast.appendChild(text);
+  document.body.appendChild(toast);
+
+  setTimeout(() => {
+  toast.offsetWidth; 
+  toast.classList.add("show");
+}, 10);
+
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+    toast.classList.add("hide");
 
     setTimeout(() => {
-      toast.classList.remove("show");
-    }, 5000);
-  }
-
+      toast.remove();
+    }, 500);
+  }, 5000);
+}
 
 
 function redirect(url, args) {
