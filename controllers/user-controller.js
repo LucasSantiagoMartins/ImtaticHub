@@ -84,9 +84,10 @@ exports.addDetailsPage = async (req, res) => {
 }
 
 exports.addStudentDetails = async (req, res) => {
-
+  res.status(200).json({message : 'ok'})
 }
 
 exports.addProfessorDetails = async (req, res) => {
+  res.status(200).json({message : 'ok'})
 
 }

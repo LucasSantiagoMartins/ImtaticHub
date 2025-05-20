@@ -10,25 +10,25 @@
     <link rel="stylesheet" href="/general/css/colors.css">
 </head>
 <body>
-    <div class="cards">
-        <div class="card student-card">
-            <h2>Estudante</h2>
-            <p class="text-center">Acesso exclusivo para estudantes do <strong>IMTATIC</strong> em fase de formação.</p>
-            <button id="student-card-btn" class="button">Selecionar</button>
+        <div class="cards">
+            <div class="card student-card">
+                <h2>Estudante</h2>
+                <p class="text-center student-card-desc">Acesso exclusivo para estudantes do <strong>IMTATIC</strong> em fase de formação.</p>
+                <!-- <button id="student-card-btn" class="button" disabled>clique neste quadro</button> -->
+            </div>
+            <div class="card teacher-card">
+                <h2>Professor</h2>
+                <p class="text-center teacher-card-desc">Somente para professores credenciados do <strong>IMTATIC</strong> .</p>
+                <!-- <button id="teacher-card-btn" class="mt-2 button" disabled>Clique neste quadro</button> -->
+            </div>
         </div>
-        <div class="card teacher-card">
-            <h2>Professor</h2>
-            <p class="text-center">Somente para professores credenciados do <strong>IMTATIC</strong> .</p>
-            <button id="teacher-card-btn" class="mt-2 button">Selecionar</button>
-        </div>
-    </div>
     <div class="container" id="add-details-forms" >
         <div id="student-form-div">
             <h1>Suas informações como estudante</h1>
             <div class="justify-content-center">
                 <div class="message-div"></div>
             </div>
-            <form action="/auth/register-student" method="POST" id="student-form" class="mt-4">
+            <form action="/usuarios/adicionar-informacoes-estudante" method="POST" id="student-form" class="mt-4">
                 <input type="hidden" name="user_id" value="">
                 <div class="row">
                     <div class="col-md-6">
@@ -57,7 +57,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <input type="text" id="address_input" name="address" required>
+                            <input type="text" id="address_input" name="address">
                             <label for="address_input">Endereço</label>
                         </div>
                     </div>
@@ -103,7 +103,7 @@
                     </div>    
                     <div class="col-md-6">
                         <div class="form-group">
-                            <input type="date" id="academic_year_input" name="academic_year">
+                            <input type="text" id="academic_year_input" name="academic_year" placeholder="Exemplo: 2024/2025">
                             <label for="academic_year_input">Ano académico</label>
                         </div>
                     </div>
@@ -117,7 +117,7 @@
             <div class="justify-content-center">
                 <div class="message-div"></div>
             </div>
-            <form action="/auth/register-teacher" method="POST" id="teacher-form" class="mt-4">
+            <form action="/usuarios/adicionar-informacoes-professor" method="POST" id="teacher-form" class="mt-4">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">

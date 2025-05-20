@@ -1,10 +1,10 @@
-const studentCardBtn = document.querySelector('#student-card-btn')
-const teacherCardBtn = document.querySelector('#teacher-card-btn')
+const studentCard = document.querySelector('.student-card')
+const teacherCard = document.querySelector('.teacher-card')
 const studentForm = document.querySelector('#student-form')
 const teacherForm = document.querySelector('#teacher-form')
 
 
-studentCardBtn.addEventListener('click', () => {
+studentCard.addEventListener('click', () => {
     hide('.cards')
     setTimeout(() => {
         show('#add-details-forms')
@@ -12,7 +12,7 @@ studentCardBtn.addEventListener('click', () => {
     }, 200)
 })
 
-teacherCardBtn.addEventListener('click', () => {
+teacherCard.addEventListener('click', () => {
     hide('.cards')
     setTimeout(() => {
         show('#add-details-forms')
