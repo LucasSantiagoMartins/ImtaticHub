@@ -8,17 +8,17 @@ exports.registerPage = (req, res) => {
 
 
 exports.register = async (req, res) => {
-  const { phone_number, password } = req.body;
+  const { phoneNumber, password } = req.body;
 
-  const isValidPhoneNumber = validator.isMobilePhone(phone_number + '', 'any');
+  const isValidPhoneNumber = validator.isMobilePhone(phoneNumber + '', 'any');
   const isValidPassword = validator.isAlphanumeric(password + '');
 
-  if (!phone_number || !password || !isValidPhoneNumber || !isValidPassword) {
+  if (!phoneNumber || !password || !isValidPhoneNumber || !isValidPassword) {
     return res.status(400).json({ message: "Informações inválidas." });
   }
 
   try {
-    const [results] = await db.query('SELECT * FROM users WHERE phone_number = ?', [phone_number]);
+    const [results] = await db.query('SELECT * FROM users WHERE phone_number = ?', [phoneNumber]);
 
     if (results.length > 0)
     {
@@ -28,7 +28,7 @@ exports.register = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10)
     await db.query(
       'INSERT INTO users (phone_number, password) VALUES (?, ?)',
-      [phone_number, hashedPassword]
+      [phoneNumber, hashedPassword]
     );
 
     return res.status(201).json({ message: "Conta criada com sucesso." });
@@ -45,16 +45,16 @@ exports.loginPage = (req, res) => {
 }
 
 exports.login = async (req, res) => {
-    const {phone_number, password} = req.body;
-    const isValidPhoneNumber = validator.isMobilePhone(phone_number + '', 'any');
+    const {phoneNumber, password} = req.body;
+    const isValidPhoneNumber = validator.isMobilePhone(phoneNumber + '', 'any');
     const isValidPassword = validator.isAlphanumeric(password + '');
 
-    if (!phone_number || !password || !isValidPhoneNumber || !isValidPassword) {
+    if (!phoneNumber || !password || !isValidPhoneNumber || !isValidPassword) {
         return res.status(400).json({ message: "Informações inválidas." });
     }
 
     try {
-        const [rows] = await db.query('SELECT * FROM users WHERE phone_number = ?', [phone_number]);
+        const [rows] = await db.query('SELECT * FROM users WHERE phone_number = ?', [phoneNumber]);
 
         if (rows.length === 0) return res.status(400).json({ message: "Conta não encontrada verifique as informações enviadas ou Registre-se." });
 
@@ -64,7 +64,7 @@ exports.login = async (req, res) => {
         if (!isMatch)
             return res.status(400).json({ message: "Palavra passe está incorreta." });
         
-        req.session.user = {id: user.id, phone_number: user.phone_number}
+        req.session.user = {id: user.id, phoneNumber: user.phoneNumber}
         return res.status(200).json({ message: "Sessão iniciada com sucesso." });
 
     } catch (error) {
