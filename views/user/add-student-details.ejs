@@ -10,30 +10,18 @@
     <link rel="stylesheet" href="/general/css/colors.css">
 </head>
 <body>
-        <div class="cards">
-            <div class="card student-card">
-                <h2>Estudante</h2>
-                <p class="text-center student-card-desc">Acesso exclusivo para estudantes do <strong>IMTATIC</strong> em fase de formação.</p>
-                <!-- <button id="student-card-btn" class="button" disabled>clique neste quadro</button> -->
-            </div>
-            <div class="card teacher-card">
-                <h2>Professor</h2>
-                <p class="text-center teacher-card-desc">Somente para professores credenciados do <strong>IMTATIC</strong> .</p>
-                <!-- <button id="teacher-card-btn" class="mt-2 button" disabled>Clique neste quadro</button> -->
-            </div>
-        </div>
     <div class="container" id="add-details-forms" >
-        <div id="student-form-div">
+        <div class="form-div">
             <h1>Suas informações como estudante</h1>
             <div class="justify-content-center">
                 <div class="message-div"></div>
             </div>
-            <form action="/usuarios/adicionar-informacoes-estudante" method="POST" id="student-form" class="mt-4">
+            <form action="/usuarios/adicionar-informacoes-estudante" method="POST"  class="mt-4">
                 <input type="hidden" name="user_id" value="">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <input type="text" id="full_name_input" name="full_name" required>
+                            <input type="text" id="full_name_input" name="fullName" required>
                             <label for="full_name_input">Nome completo</label>
                         </div>
                     </div>
@@ -57,7 +45,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <input type="text" id="address_input" name="address">
+                            <input type="text" id="address_input" name="address" required>
                             <label for="address_input">Endereço</label>
                         </div>
                     </div>
@@ -79,13 +67,13 @@
                 <div class="row mt-2">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <input type="text" id="registration_number_input" name="registration_number" required>
+                            <input type="text" id="registration_number_input" name="registrationNumber" required>
                             <label for="registration_number_input">Número de matrícula</label>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <select id="course_input" name="course_id" required>
+                            <select id="course_input" name="courseId" required>
                                     <% courses.forEach(course => { %>
                                         <option value="<%= course.id %>"><%= course.name %> %></option>
                                     <% }); %>
@@ -97,13 +85,13 @@
                 <div class="row mt-2">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <input type="date" id="birth_date_input" name="birth_date">
+                            <input type="date" id="birth_date_input" name="birthDate">
                             <label >Data de nascimento</label>
                         </div>
                     </div>    
                     <div class="col-md-6">
                         <div class="form-group">
-                            <input type="text" id="academic_year_input" name="academic_year" placeholder="Exemplo: 2024/2025">
+                            <input type="text" id="academic_year_input" name="academicYear" placeholder="Exemplo: 2024/2025">
                             <label for="academic_year_input">Ano académico</label>
                         </div>
                     </div>
@@ -112,57 +100,6 @@
                 <button type="submit" class="btn button">Concluir</button>
             </form>
         </div>
-        <div id="teacher-form-div">
-            <h1>Suas informações como professor</h1>
-            <div class="justify-content-center">
-                <div class="message-div"></div>
-            </div>
-            <form action="/usuarios/adicionar-informacoes-professor" method="POST" id="teacher-form" class="mt-4">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <input type="text" id="full_name_input" name="full_name" required>
-                            <label for="full_name_input">Nome completo</label>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <input type="text" id="nationality_input" name="nationality" required>
-                            <label for="nationality_input">Nacionalidade</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <select id="gender_input" name="gender" required>
-                                <option value=""></option>
-                                <option value="male">Masculino</option>
-                                <option value="female">Feminino</option>
-                            </select>
-                            <label for="gender_input">Gênero</label>
-                        </div>
-                        
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <input type="text" id="address_input" name="address" required>
-                            <label for="address_input">Endereço</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <input type="date" id="birth_date_input" name="birth_date">
-                            <label for="birth_date_input">Data de nascimento</label>
-                        </div>
-                    </div>
-                </div>
-                <button type="submit" class="btn button">Concluir</button>
-            </form>
-        </div>
-    </div>
     <div class="overlay">
         <div class="loader"></div>
     </div>

@@ -74,20 +74,25 @@ exports.login = async (req, res) => {
 
 }
 
-exports.addDetailsPage = async (req, res) => {
+exports.chooseProfile = (req, res) => {
+  res.render('user/choose-profile')
+}
+
+exports.addStudentDetailsPage = async (req, res) => {
   const [rows] = await db.query('SELECT * FROM courses')
   const courses = rows.map(course => ({
     id:course.id,
     name: course.name
   }) )
-  res.render('user/add-details', {courses: courses})
+  res.render("user/add-student-details", {courses: courses})
 }
 
+exports.addTeacherDetailsPage = (req, res) => {
+  res.render("user/add-teacher-details")
+
+}
+
+exports.addTeacherDetails = async (req, res) => {
+}
 exports.addStudentDetails = async (req, res) => {
-  res.status(200).json({message : 'ok'})
-}
-
-exports.addProfessorDetails = async (req, res) => {
-  res.status(200).json({message : 'ok'})
-
 }

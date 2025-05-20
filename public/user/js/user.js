@@ -17,7 +17,7 @@ form.addEventListener('submit', (event) => {
         var redirectUrl = 'http://localhost:8080/'
     }
     if (form.action == 'http://localhost:8080/usuarios/criar-conta') {
-        var redirectUrl = 'http://localhost:8080/usuarios/adicionar-informacoes'
+        var redirectUrl = 'http://localhost:8080/usuarios/selecionar-perfil'
     }
 
     requestHandler(form, redirectUrl)
