@@ -17,7 +17,7 @@ async function requestHandler(form, redirectUrl) {
         const result = await response.json()
     
         if ( response.ok ) {
-            throwMessage( result.message, { ok: true } )
+            showToast('success', result.message )
 
             setTimeout(() => {
                 if (result.args) {
@@ -28,7 +28,7 @@ async function requestHandler(form, redirectUrl) {
             }, 2000);
 
         } else {
-            throwMessage( result.message, { ok: false } )
+            showToast('error', result.message)
         }
 
         }).catch((err) => {

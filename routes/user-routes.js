@@ -14,6 +14,7 @@ router.get('/usuarios/selecionar-perfil', userController.chooseProfile)
 
 
 router.get('/usuarios/adicionar-informacoes-estudante', userController.addStudentDetailsPage)
+router.post('/usuarios/adicionar-informacoes-estudante', userController.addStudentDetails)
 
 router.get('/usuarios/adicionar-informacoes-professor', userController.addTeacherDetailsPage)
 router.post('/usuarios/adicionar-informacoes-professor', userController.addTeacherDetails)

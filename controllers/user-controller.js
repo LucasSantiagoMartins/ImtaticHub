@@ -89,10 +89,18 @@ exports.addStudentDetailsPage = async (req, res) => {
 
 exports.addTeacherDetailsPage = (req, res) => {
   res.render("user/add-teacher-details")
-
 }
 
 exports.addTeacherDetails = async (req, res) => {
 }
 exports.addStudentDetails = async (req, res) => {
+  const {fullName, nationality, gender,  address, studentClass, grade, registrationNumber,
+    courseId, birthDate, academicYear
+  } = req.body
+
+  if(!fullName || nationality || !gender || !studentClass || !grade ||!registrationNumber || typeof(courseId) != int || !birthDate || !academicYear){
+    return res.status(400).json({message: "Informações inválidas, verifique os dados enviados."})
+  }
+
+
 }
