@@ -1,7 +1,7 @@
 const db = require("../config/db")
 const validator = require('validator')
 const bcrypt = require('bcrypt')
-
+const {isAddStudentDetailsValidRequest} = require('../utils/user/validators/add-student-details-validator')
 exports.registerPage = (req, res) => {
     res.render('user/register')
 }
@@ -30,6 +30,10 @@ exports.register = async (req, res) => {
       'INSERT INTO users (phone_number, password) VALUES (?, ?)',
       [phoneNumber, hashedPassword]
     );
+
+    const [rows] = await db.query('SELECT * FROM users WHERE phone_number = ?', [phoneNumber])
+    const user = rows[0]
+    req.session.user = {id: user.id, phoneNumber: phoneNumber}
 
     return res.status(201).json({ message: "Conta criada com sucesso." });
 
@@ -64,7 +68,7 @@ exports.login = async (req, res) => {
         if (!isMatch)
             return res.status(400).json({ message: "Palavra passe está incorreta." });
         
-        req.session.user = {id: user.id, phoneNumber: user.phoneNumber}
+        req.session.user = {id: user.id, phoneNumber: user.phone_number}
         return res.status(200).json({ message: "Sessão iniciada com sucesso." });
 
     } catch (error) {
@@ -94,13 +98,31 @@ exports.addTeacherDetailsPage = (req, res) => {
 exports.addTeacherDetails = async (req, res) => {
 }
 exports.addStudentDetails = async (req, res) => {
+  if (!req.session.user){
+    return res.status(401).json({message: "Você precisa iniciar sessão. Por favor, faça login para continuar."})
+  }
   const {fullName, nationality, gender,  address, studentClass, grade, registrationNumber,
     courseId, birthDate, academicYear
   } = req.body
 
-  if(!fullName || nationality || !gender || !studentClass || !grade ||!registrationNumber || typeof(courseId) != int || !birthDate || !academicYear){
-    return res.status(400).json({message: "Informações inválidas, verifique os dados enviados."})
-  }
+   isAddStudentDetailsValidRequest(req.body, async (err) =>{
+    if (err){
+      return res.status(400).json({message: err})
+    }
+    try{
+      const userId = req.session.user.id
+      const [rows] = await db.query('SELECT * FROM students where user_id = ?', [userId])
 
+      if(rows.length !== 0){
+        return res.status(400).json({message: "As suas informações já foram adicionadas."})
+      }
+      await db.query('INSERT INTO students (full_name,nationality,gender,address,class,grade,birth_date,academic_year, student_registration_number, course_id, user_id) VALUES (?,?,?,?,?,?,?,?,?,?,?)', [fullName, nationality, gender, address,studentClass, grade,birthDate, academicYear, registrationNumber,  courseId, userId])
 
+      return res.status(200).json({message: "Informações adicionadas com sucesso."})
+
+    }catch(err){
+      console.error(err)
+      return res.status(500).json({ message: "Erro interno do servidor." });
+    }
+  }) 
 }
