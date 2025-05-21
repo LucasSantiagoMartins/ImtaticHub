@@ -35,9 +35,8 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <select id="gender_input" name="gender" required>
-                                <option value=""></option>
-                                <option value="male">Masculino</option>
-                                <option value="female">Feminino</option>
+                                <option value="Masculino">Masculino</option>
+                                <option value="Feminino">Feminino</option>
                             </select>
                             <label for="gender_input">Gênero</label>
                         </div>
@@ -45,8 +44,8 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <input type="text" id="address_input" name="address" required>
-                            <label for="address_input">Endereço</label>
+                            <input type="text" id="address_input" name="address">
+                            <label for="address_input">Endereço (Opcional)</label>
                         </div>
                     </div>
                 </div>
@@ -54,7 +53,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <input type="date" id="birth_date_input" name="birthDate">
-                            <label for="birth_date_input">Data de nascimento</label>
+                            <label for="birth_date_input">Data de nascimento (Opcional)</label>
                         </div>
                     </div>
                 </div>
@@ -67,6 +66,7 @@
     </div>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="/base/js/base.js" type="text/javascript"></script>
+    <script src="/user/js/add-details.js" type="text/javascript"></script>
     <script src="/general/js/form-validation.js" type="text/javascript"></script>
     <script src="/general/js/request-handler.js" type="text/javascript"></script>
 </body>

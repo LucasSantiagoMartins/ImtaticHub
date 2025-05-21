@@ -1,4 +1,4 @@
-const {isValidAcademicYear} = require('../academic-year-validator')
+const {isValidAcademicYear} = require('./academic-year-validator')
 
 function isAddStudentDetailsValidRequest(payload, callback){
     const {

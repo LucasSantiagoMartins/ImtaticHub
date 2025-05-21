@@ -2,6 +2,8 @@ const db = require("../config/db")
 const validator = require('validator')
 const bcrypt = require('bcrypt')
 const {isAddStudentDetailsValidRequest} = require('../utils/user/validators/add-student-details-validator')
+const {isAddTeacherDetailsValidRequest} = require('../utils/user/validators/add-teacher-details-validator')
+const { isValidStudentBirthDate, isValidTeacherBirthDate } = require("../utils/user/validators/birth-date-validator")
 exports.registerPage = (req, res) => {
     res.render('user/register')
 }
@@ -96,27 +98,62 @@ exports.addTeacherDetailsPage = (req, res) => {
 }
 
 exports.addTeacherDetails = async (req, res) => {
+  if (!req.session.user){
+    return res.status(401).json({message: "Você precisa iniciar sessão. Por favor, faça login para continuar."})
+  }
+
+  isAddTeacherDetailsValidRequest(req.body, async (err) =>{
+    if (err){
+      return res.status(400).json({message: err})
+    }
+
+    try{
+      const userId = req.session.user.id
+      const [rows] = await db.query('SELECT * FROM teachers where user_id = ?', [userId])
+      
+      if(rows.length !== 0){
+        return res.status(400).json({message: "As suas informações já foram adicionadas."})
+      }
+      
+      const {fullName, nationality, gender, address, birthDate} = req.body
+      if(!isValidTeacherBirthDate(birthDate)){
+          return res.status(400).json({message: "Professores devem ter no mínimo 18 anos de idade. Verifique se a data inserida está correta."})
+      }
+      await db.query('INSERT INTO teachers (full_name,nationality,gender,address,birth_date,user_id) VALUES (?,?,?,?,?,?)', [fullName.toLowerCase(), nationality.toLowerCase(), gender, address.toLowerCase(), birthDate, userId])
+
+      return res.status(200).json({message: "Informações adicionadas com sucesso."})
+
+    }catch(err){
+      console.error(err)
+      return res.status(500).json({ message: "Erro interno do servidor." });
+    }
+  })
+  
 }
 exports.addStudentDetails = async (req, res) => {
   if (!req.session.user){
     return res.status(401).json({message: "Você precisa iniciar sessão. Por favor, faça login para continuar."})
   }
-  const {fullName, nationality, gender,  address, studentClass, grade, registrationNumber,
-    courseId, birthDate, academicYear
-  } = req.body
-
-   isAddStudentDetailsValidRequest(req.body, async (err) =>{
+  
+  isAddStudentDetailsValidRequest(req.body, async (err) =>{
     if (err){
       return res.status(400).json({message: err})
     }
     try{
       const userId = req.session.user.id
       const [rows] = await db.query('SELECT * FROM students where user_id = ?', [userId])
-
+      
       if(rows.length !== 0){
         return res.status(400).json({message: "As suas informações já foram adicionadas."})
       }
-      await db.query('INSERT INTO students (full_name,nationality,gender,address,class,grade,birth_date,academic_year, student_registration_number, course_id, user_id) VALUES (?,?,?,?,?,?,?,?,?,?,?)', [fullName, nationality, gender, address,studentClass, grade,birthDate, academicYear, registrationNumber,  courseId, userId])
+      
+      const {fullName, nationality, gender,  address, studentClass, grade, registrationNumber,
+        courseId, birthDate, academicYear
+      } = req.body
+      if(!isValidStudentBirthDate(birthDate)){
+        return res.status(400).json({message: "Alunos devem ter pelo menos 12 anos de idade para serem matriculados. Por favor, verifique a data informada."})
+      }
+      await db.query('INSERT INTO students (full_name,nationality,gender,address,class,grade,birth_date,academic_year, student_registration_number, course_id, user_id) VALUES (?,?,?,?,?,?,?,?,?,?,?)', [fullName.toLowerCase(), nationality.toLowerCase(), gender, address.toLowerCase(),studentClass.toLowerCase(), grade,birthDate, academicYear, registrationNumber,  courseId, userId])
 
       return res.status(200).json({message: "Informações adicionadas com sucesso."})
 
