@@ -1,5 +1,8 @@
 
 
 exports.index = (req, res) => {
-    res.render('social/index')
+    if (!req.session.user){
+        return res.redirect('/usuarios/iniciar-sessao')
+    }
+    res.render('social/index', {user: req.session.user})
 }
