@@ -8,7 +8,7 @@ function showToast(type, message) {
   icon.className = `fas icon ${type === "success" ? "fa-check-circle" : "fa-exclamation-circle"}`;
 
   const text = document.createElement("span");
-  text.className = "message-text";
+  text.className = "message-text m-2";
   text.textContent = message;
 
   toast.appendChild(icon);

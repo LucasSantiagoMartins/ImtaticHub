@@ -37,7 +37,7 @@ exports.register = async (req, res) => {
     const user = rows[0]
     req.session.user = {id: user.id, phoneNumber: phoneNumber}
 
-    return res.status(201).json({ message: "Conta criada com sucesso." });
+    return res.status(201).json({ message: "Conta criada com sucesso.", redirectTo: "/login"});
 
   } catch (error) {
     console.error(error);
@@ -68,10 +68,10 @@ exports.login = async (req, res) => {
         
         const isMatch = await bcrypt.compare(password, user.password)
         if (!isMatch)
-            return res.status(400).json({ message: "Palavra passe está incorreta." });
+            return res.status(400).json({ message: "Palavra passe incorreta." });
         
         req.session.user = {id: user.id, phoneNumber: user.phone_number}
-        return res.status(200).json({ message: "Sessão iniciada com sucesso." });
+        return res.status(200).json({ message: "Sessão iniciada com sucesso.", redirectTo: "/" });
 
     } catch (error) {
         console.error(error);
@@ -121,7 +121,7 @@ exports.addTeacherDetails = async (req, res) => {
       }
       await db.query('INSERT INTO teachers (full_name,nationality,gender,address,birth_date,user_id) VALUES (?,?,?,?,?,?)', [fullName.toLowerCase(), nationality.toLowerCase(), gender, address.toLowerCase(), birthDate, userId])
 
-      return res.status(200).json({message: "Informações adicionadas com sucesso."})
+      return res.status(200).json({message: "Informações adicionadas com sucesso.", redirectTo: "/"})
 
     }catch(err){
       console.error(err)
@@ -155,7 +155,7 @@ exports.addStudentDetails = async (req, res) => {
       }
       await db.query('INSERT INTO students (full_name,nationality,gender,address,class,grade,birth_date,academic_year, student_registration_number, course_id, user_id) VALUES (?,?,?,?,?,?,?,?,?,?,?)', [fullName.toLowerCase(), nationality.toLowerCase(), gender, address.toLowerCase(),studentClass.toLowerCase(), grade,birthDate, academicYear, registrationNumber,  courseId, userId])
 
-      return res.status(200).json({message: "Informações adicionadas com sucesso."})
+      return res.status(200).json({message: "Informações adicionadas com sucesso.", redirectTo: "/"})
 
     }catch(err){
       console.error(err)
@@ -163,3 +163,26 @@ exports.addStudentDetails = async (req, res) => {
     }
   }) 
 }
+
+exports.logout = async (req, res) => {
+  if (!req.session.user){
+    return res.status(400).json({message: 'Não tens sessão iniciada.'})
+  }
+  
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).json({
+        success: false,
+        message: 'Erro ao terminar sessão.'
+      });
+    }
+
+    res.clearCookie('connect.sid'); 
+
+    return res.status(200).json({
+      success: true, 
+      message: 'Sessão terminada com sucesso.',
+      redirectTo: "/usuarios/iniciar-sessao"
+    });
+  });
+};

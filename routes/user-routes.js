@@ -18,6 +18,6 @@ router.post('/usuarios/adicionar-informacoes-estudante', userController.addStude
 
 router.get('/usuarios/adicionar-informacoes-professor', userController.addTeacherDetailsPage)
 router.post('/usuarios/adicionar-informacoes-professor', userController.addTeacherDetails)
-
+router.post('/usuarios/logout', userController.logout)
 
 module.exports = router

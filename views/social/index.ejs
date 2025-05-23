@@ -2,22 +2,49 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <link rel="stylesheet" href="/general/css/index.css">
+    <link rel="stylesheet" href="/base/css/base.css">
     <link rel="stylesheet" href="/social/css/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
 </head>
 <body>
 
-    <div id="sidebar">
-        <li id="message-icon"><img src="/general/images/message-icon.png"></li> 
-        <li id="feed-icon"><img src="/general/images/feed-icons.png"></li>
-        <li id="notification-icon"><img src="/general/images/notification-icon.png"></li>
-        <li id="menu-icon"><img src="/general/images/menu-icon.png"></li>  
-        <li id="user-icon"><i class="fa-solid fa-user"></i></li>
-        <li id="zoom-sidebar-icon"><i class="fa-solid fa-layer-group"></i></li>
-    </div>
+   <div id="sidebar">
+        <div id="message-icon" class="sidebar-icon">
+            <img src="/general/images/message-icon.png" alt="Mensagens">
+        </div>
+
+        <div id="feed-icon" class="sidebar-icon">
+            <img src="/general/images/feed-icons.png" alt="Feed">
+        </div>
+
+        <div id="notification-icon" class="sidebar-icon">
+            <img src="/general/images/notification-icon.png" alt="Notificações">
+        </div>
+
+        <div id="menu-icon" class="sidebar-icon">
+            <img src="/general/images/menu-icon.png" alt="Menu">
+        </div>
+
+        <div id="sidebar-footer">
+            <button class="dropdown-button" onclick="toggleDropdown()">
+                <i class="fa-solid fa-user" id="user-icon"></i>
+            </button>
+
+            <button>
+                <i class="fa-solid fa-layer-group"></i>
+            </button>
+
+            <div class="dropdown">
+                <div id="dropdownMenu" class="dropdown-menu">
+                    <a href="#">Minhas informações</a>
+                    <a id="logout-menu-item" onclick="logout()">Terminar sessão</a>
+                </div>
+            </div>
+            
+        </div>
+</div>
+
 
     <div id="content">
 
@@ -159,7 +186,13 @@
         </div>
 
     </div>
+    <div class="overlay">
+    <div class="loader"></div>
+</div>
     <script src="/social/js/index.js"></script>
+    <script src="/base/js/base.js"></script>
+    <script src="/user/js/user.js"></script>
+    <script src="/general/js/request-handler.js"></script>
   <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
 </body>

@@ -13,12 +13,41 @@ form = document.querySelector('form')
 form.addEventListener('submit', (event) => {
     event.preventDefault()
 
-    if (form.action == 'http://localhost:8080/usuarios/iniciar-sessao'){
-        var redirectUrl = 'http://localhost:8080/'
-    }
-    if (form.action == 'http://localhost:8080/usuarios/criar-conta') {
-        var redirectUrl = 'http://localhost:8080/usuarios/selecionar-perfil'
-    }
-
-    requestHandler(form, redirectUrl)
+    requestHandler(form)
 })
+
+
+
+ async function logout() {
+
+ const overlaySpinloaderDiv = document.querySelector('.overlay');
+overlaySpinloaderDiv.style.display = 'flex'; 
+
+  try {
+    const response = await fetch('/usuarios/logout', {
+      method: 'POST',
+      credentials: 'include'
+    });
+
+    const result = await response.json();
+
+    if (result.success) {
+      showToast('success', ` ${result.message}`);
+
+      setTimeout(() => {
+        if (result.redirectTo) {
+          window.location.href = result.redirectTo;
+        }
+      }, 2000);
+    } else {
+      showToast('error', result.message);
+    }
+  } catch (err) {
+    console.log(err);
+    showToast('error', 'Erro ao processar logout.');
+  } finally {
+    setTimeout(() => {
+      $('.overlay').fadeOut(500);
+    }, 500);
+  }
+}

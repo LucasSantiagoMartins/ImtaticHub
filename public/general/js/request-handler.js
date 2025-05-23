@@ -1,4 +1,4 @@
-async function requestHandler(form, redirectUrl) {
+async function requestHandler(form) {
   const overlaySpinloaderDiv = document.querySelector('.overlay');
   overlaySpinloaderDiv.style.display = 'flex';
 
@@ -21,10 +21,8 @@ async function requestHandler(form, redirectUrl) {
       showToast('success', result.message);
 
       setTimeout(() => {
-        if (result.args) {
-          redirect(redirectUrl, result.args);
-        } else {
-          redirect(redirectUrl);
+        if (result.redirectTo) {
+          window.location.href = result.redirectTo;
         }
       }, 2000);
     } else {

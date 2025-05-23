@@ -15,3 +15,27 @@ menuIcon.addEventListener('click', () => {
     }
 })
 
+function toggleDropdown() {
+  show("#dropdownMenu");
+}
+
+   document.getElementById("dropdownMenu").addEventListener("mouseleave", () => {
+  hide("#dropdownMenu");
+});
+
+    window.addEventListener("click", function (e) {
+  const dropdown = document.getElementById("dropdownMenu");
+  const button = document.querySelector(".dropdown-button");
+
+  if (!dropdown.contains(e.target) && !button.contains(e.target)) {
+    hide("#dropdownMenu");
+  }
+  document.querySelector(".dropdown-button").addEventListener("click", function (e) {
+  e.stopPropagation(); // impede o clique de chegar no window
+  show("#dropdownMenu");
+});
+
+});
+
+
+
