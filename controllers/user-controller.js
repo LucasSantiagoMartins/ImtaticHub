@@ -37,7 +37,7 @@ exports.register = async (req, res) => {
     const user = rows[0]
     req.session.user = {id: user.id, phoneNumber: phoneNumber}
 
-    return res.status(201).json({ message: "Conta criada com sucesso.", redirectTo: "/login"});
+    return res.status(201).json({ message: "Conta criada com sucesso.", redirectTo: "/usuarios/selecionar-perfil"});
 
   } catch (error) {
     console.error(error);
@@ -168,7 +168,7 @@ exports.logout = async (req, res) => {
   if (!req.session.user){
     return res.status(400).json({message: 'Não tens sessão iniciada.'})
   }
-  
+
   req.session.destroy((err) => {
     if (err) {
       return res.status(500).json({

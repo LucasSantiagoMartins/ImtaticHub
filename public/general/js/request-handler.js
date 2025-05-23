@@ -22,7 +22,7 @@ async function requestHandler(form) {
 
       setTimeout(() => {
         if (result.redirectTo) {
-          window.location.href = result.redirectTo;
+          redirect(result.redirectTo)
         }
       }, 2000);
     } else {

@@ -5,10 +5,10 @@ function showToast(type, message) {
   toast.className = `toast-message ${type}`;
 
   const icon = document.createElement("i");
-  icon.className = `fas icon ${type === "success" ? "fa-check-circle" : "fa-exclamation-circle"}`;
+  icon.className = `m-2 fas icon ${type === "success" ? "fa-check-circle" : "fa-exclamation-circle"}`;
 
   const text = document.createElement("span");
-  text.className = "message-text m-2";
+  text.className = "message-text";
   text.textContent = message;
 
   toast.appendChild(icon);
