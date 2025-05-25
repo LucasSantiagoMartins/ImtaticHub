@@ -5,6 +5,7 @@ const session = require("./config/session-config")
 const flash = require('connect-flash')
 const socialRoutes = require("./routes/social-routes")
 const authRoutes = require("./routes/user-routes")
+const eventRoutes = require("./routes/event-routes")
 const cors = require('cors');
 
 const app = express()
@@ -24,6 +25,7 @@ app.use(flash())
 app.set('view engine', 'ejs')
 app.use('/', socialRoutes)
 app.use('/', authRoutes)
+app.use('/eventos', eventRoutes)
 
 port = process.env.PORT
 app.listen(port, () => {

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Últimos eventos</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  rel="stylesheet"
+/>
+
+<link rel="stylesheet" href="/general/css/colors.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--primary-color);
+      padding: 40px;
+      color: #333;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    .card {
+      position: relative; 
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+    }
+
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 16px;
+      padding-bottom: 60px; 
+    }
+
+    .title {
+      font-weight: 700;
+      font-size: 16px;
+      margin-bottom: 8px;
+      line-height: 1.4;
+      color: var(--primary-color)
+    }
+
+    .author {
+      font-size: 13px;
+      color: var(--secondary-color); 
+      margin-bottom: 12px;
+    }
+
+    .meta {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 8px 16px;
+      border-radius: 30px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      font-size: 14px;
+      color: #222;
+      user-select: none;
+      white-space: nowrap;
+      z-index: 10; 
+    }
+
+    .meta-left {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      color: #222;
+      font-weight: 600;
+    }
+
+    .meta-left i {
+      margin-right: 6px;
+      color: var(--primary-color);
+      font-size: 18px; 
+    }
+
+    .btn-share {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 24px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      white-space: nowrap;
+    }
+    
+    .btn-share i {
+      font-size: 18px;
+      transition: 1s;
+    }
+    i{
+      cursor: pointer;
+      transition: 1s;
+    }
+    i:hover{
+      color: #0056b3;
+    }
+    .btn-share:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <h1 style="color: white;">Últimos Eventos</h1>
+  <br>
+  <div class="gallery">
+    <div class="card">
+      <img src="/images/main1.jpeg" alt="Modern Construction" />
+      <div class="card-content">
+        <div class="title">Consultoria Financeira Corporativa</div>
+        <div class="author">Soluções estratégicas para empresas que buscam crescimento sustentável e controle total dos seus recursos.</div>
+      </div>
+      <div class="meta">
+        <div class="meta-left">
+          <div><i class="fa-solid fa-thumbs-up"></i> 185</div>
+          <div><i class="fa-solid fa-eye"></i> 313</div>
+        </div>
+        <button class="btn-share"><i class="fa-solid fa-share"></i> Compartilhar</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="/images/main2.jpeg" alt="Modern Construction" />
+      <div class="card-content">
+        <div class="title">Workshop: Planejamento Financeiro Pessoal</div>
+        <div class="author">Evento prático para ajudar pessoas a organizarem suas finanças, reduzirem dívidas e investirem com segurança.</div>
+      </div>
+      <div class="meta">
+        <div class="meta-left">
+          <div><i class="fa-solid fa-thumbs-up"></i> 185</div>
+          <div><i class="fa-solid fa-eye"></i> 313</div>
+        </div>
+        <button class="btn-share"><i class="fa-solid fa-share"></i> Compartilhar</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="/images/main3.jpeg" alt="Modern Construction" />
+      <div class="card-content">
+        <div class="title">Seminário sobre Investimentos Inteligentes</div>
+        <div class="author">Design elegante para eventos que ensinam a construir patrimônio com estratégias seguras e eficientes.</div>
+      </div>
+      <div class="meta">
+        <div class="meta-left">
+          <div><i class="fa-solid fa-thumbs-up"></i> 185</div>
+          <div><i class="fa-solid fa-eye"></i> 313</div>
+        </div>
+        <button class="btn-share"><i class="fa-solid fa-share"></i> Compartilhar</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="/images/main4.webp" alt="Modern Construction" />
+      <div class="card-content">
+        <div class="title">Programa de Mentoria para Consultores</div>
+        <div class="author">Mentoria profissional para quem atua com consultoria financeira e quer elevar seus resultados.</div>
+      </div>
+      <div class="meta">
+        <div class="meta-left">
+          <div><i class="fa-solid fa-thumbs-up"></i> 185</div>
+          <div><i class="fa-solid fa-eye"></i> 313</div>
+        </div>
+        <button class="btn-share"><i class="fa-solid fa-share"></i> Compartilhar</button>
+      </div>
+    </div>
+  </div>
+  <script src="/event/js/imtatic-events.js" type="text/javascript"></script>
+
+</body>
+</html>
