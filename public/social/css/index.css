@@ -75,13 +75,24 @@ body {
 }
 
 #main-items {
-    width: 70%;
-    height: 86%;
+    width: 90%;
+    height: 95%;
     border-radius: 8px;
     background: #06315c;
     box-shadow: 0 0 5px #3d86cf;
-    padding: 3em;
+    padding: 4%;
 }
+
+#create-items {
+    width: 90%;
+    height: 86%;
+    margin-top: 2%;
+    padding: 2em;
+    border-radius: 8px;
+    background: #06315c;
+    box-shadow: 0 0 10px #3d86cf;
+}
+
 
 #main-items .search-card  form{
     display: flex;
@@ -129,21 +140,13 @@ body {
 }
 #menu .item:hover {
     background: #062544;
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 
 #menu .item .title {
     font-weight: bold;
 }
 
-#create-items {
-    width: 25%;
-    height: 86%;
-    padding: 2em;
-    border-radius: 8px;
-    background: #06315c;
-    box-shadow: 0 0 10px #3d86cf;
-}
 
 #create-items .item {
     text-align: center;
@@ -331,4 +334,8 @@ body {
 }
 .show {
   display: block;
+}
+
+.fa-arrow-left{
+    cursor: pointer;
 }

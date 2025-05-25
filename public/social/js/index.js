@@ -5,14 +5,13 @@ menuDiv = document.querySelector('#menu')
 contentDiv = document.querySelector('#content')
 
 menuIcon.addEventListener('click', () => {
-    if (menuDiv.style.display != 'flex'){
-        document.querySelector('#content').style.display = 'none'
-        $('#menu').fadeIn(500)
-        document.querySelector('#menu').style = 'display: flex;'
-    }else{
-        document.querySelector('#menu').style.display = 'none'
-        $('#content').fadeIn()
-    }
+  document.querySelector('#content').style.display = 'none'
+  show('#menu')
+    
+})
+document.querySelector('.fa-arrow-left').addEventListener('click', ()=>{
+  document.querySelector('#menu').style.display = 'none'
+  show('#content')
 })
 
 function toggleDropdown() {
