@@ -1,0 +1,82 @@
+<head>
+    <link rel="stylesheet" href="/admin/css/events-calendar.css">
+    <title>Calendário e Eventos - ImtaticHub</title>
+</head>
+<div class="container">
+
+    <section id="events-calendar" class="content-section">
+        <h2 class="mb-4">Calendário de Eventos</h2>
+
+                    <div class="calendar-container">
+                        <div class="calendar-header">
+                        <button class="btn btn-outline-primary" id="prevMonth"><i class="fas fa-chevron-left"></i></button>
+                        <h3 id="currentMonthYear">Maio 2025</h3>
+                        <button class="btn btn-outline-primary" id="nextMonth"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <div class="calendar-grid" id="calendar-grid">
+                        <div class="day-name">Dom</div>
+                        <div class="day-name">Seg</div>
+                        <div class="day-name">Ter</div>
+                        <div class="day-name">Qua</div>
+                        <div class="day-name">Qui</div>
+                        <div class="day-name">Sex</div>
+                        <div class="day-name">Sáb</div>
+                    </div>
+                </div>
+
+                <h4 class="mb-4 mt-5">Adicionar Novo Evento</h4>
+                <div class="add-event-form-card">
+                    <form id="addEventForm">
+                        <div class="mb-3">
+                            <label for="eventTitle" class="form-label">Título do Evento</label>
+                            <input type="text" class="form-control" id="eventTitle" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="eventDescription" class="form-label">Descrição</label>
+                            <textarea class="form-control" id="eventDescription" rows="3"></textarea>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="eventDate" class="form-label">Data</label>
+                                <input type="date" class="form-control" id="eventDate" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="eventTime" class="form-label">Hora (Opcional)</label>
+                                <input type="time" class="form-control" id="eventTime">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="eventCategory" class="form-label">Categoria</label>
+                            <select class="form-select" id="eventCategory">
+                                <option value="geral">Geral</option>
+                                <option value="tarefa">Tarefa</option>
+                                <option value="reuniao">Reunião</option>
+                                <option value="feriado">Feriado</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-plus-circle me-2"></i> Adicionar Evento</button>
+                    </form>
+                </div>
+
+                <h4 class="mb-4 mt-5">Próximos Eventos</h4>
+                <div id="upcomingEventsList" class="list-group">
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="mb-1">Apresentação do Projeto Final</h6>
+                            <p class="mb-1 text-muted">28 de Maio, 14:00 - Auditório Principal</p>
+                            <small class="badge bg-info text-dark">Reunião</small>
+                        </div>
+                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="mb-1">Prazo de Entrega: Relatório Mensal</h6>
+                            <p class="mb-1 text-muted">31 de Maio</p>
+                            <small class="badge bg-warning text-dark">Tarefa</small>
+                        </div>
+                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                </div>
+            </section>
+                </div>
+                <script type="text/javascript" src="/admin/js/events-calendar.js"></script>

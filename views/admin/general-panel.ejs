@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Geral - ImtaticHub</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/admin/css/general-panel.css">
+    <link rel="stylesheet" href="/general/css/colors.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <%- include('../partials/sidebar') %>
+
+        <main class="col-md-12">
+            <section id="general-dashboard" class="content-section active fade-in">
+               
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4">
+    <div style="width: 400px;">
+        <div class="input-group input-group-secondary">
+            <input type="text" class="form-control search-btn" placeholder="Buscar tarefas, projetos, etc." aria-label="Buscar tarefas, projetos, etc.">
+            <button class="btn btn-outline-secondary" type="button">
+                <i class="fas fa-search"></i> Buscar
+            </button>
+        </div>
+    </div>
+
+    <div class="d-flex gap-2 mt-2 mt-md-0">
+        <button class="btn btn-outline-dark">
+            <i class="fas fa-plus-circle me-2"></i> Nova Tarefa
+        </button>
+        <button class="btn btn-outline-dark">
+            <i class="fas fa-folder-plus me-2"></i> Novo Projeto
+        </button>
+    </div>
+</div>
+
+
+
+
+                <div class="productivity-card">
+                    <div class="card-header">
+                        <h4 class="card-title">Visão Geral da Produtividade</h4>
+                        <div class="header-actions">
+                            <a href="#" class="btn btn-sm btn-outline-secondary">Ver Relatório Completo</a>
+                            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-ellipsis-v"></i>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Filtrar por Semana</a></li>
+                                <li><a class="dropdown-item" href="#">Filtrar por Mês</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">Exportar Dados</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="productivity-metrics">
+                            <div class="metric-item">
+                                <span class="metric-value text-success">85%</span>
+                                <span class="metric-label">Tarefas Concluídas</span>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-value text-primary">12</span>
+                                <span class="metric-label">Trabalhos Entregues</span>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-value text-warning">3</span>
+                                <span class="metric-label">Pendências Atuais</span>
+                            </div>
+                        </div>
+
+                        <h6 class="chart-label">Desempenho Semanal</h6>
+                        <canvas id="chartProdutividade" class="productivity-chart"></canvas>
+                    </div>
+
+                    <div class="card-footer">
+                        <p class="footer-text">Última atualização: 25 de Maio, 19:15</p>
+                    </div>
+                </div>
+
+               <div class="container-table">
+    <h4 class="mb-4">Últimas tarefas</h4>
+    <div class="table-responsive">
+        <table class="last-task-table">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Professor</th>
+                    <th>Alunos</th>
+                    <th>Status</th>
+                    <th>Tempo</th>
+                    <th>Data Final</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Tarefa de Matemática</td>
+                    <td>João P.</td>
+                    <td>25</td>
+                    <td><span class="task-status status-progress">Em andamento</span></td>
+                    <td>3 dias</td>
+                    <td>10/06</td>
+                </tr>
+                <tr>
+                    <td>Redação - Tema livre</td>
+                    <td>Ana R.</td>
+                    <td>28</td>
+                    <td><span class="task-status status-done">Concluída</span></td>
+                    <td>2 dias</td>
+                    <td>05/06</td>
+                </tr>
+                <tr>
+                    <td>Projeto de Ciências</td>
+                    <td>Carla S.</td>
+                    <td>22</td>
+                    <td><span class="task-status status-pending">Pendente</span></td>
+                    <td>5 dias</td>
+                    <td>15/06</td>
+                </tr>
+                <tr>
+                    <td>História - Pesquisa</td>
+                    <td>Pedro M.</td>
+                    <td>30</td>
+                    <td><span class="task-status status-progress">Em andamento</span></td>
+                    <td>1 dia</td>
+                    <td>08/06</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+                <div class="project-card">
+                    <div class="card-header">
+                        <h5 class="card-title">Melhoria da Leitura dos Cartões</h5>
+                        <span class="project-due-date">Data de Entrega: <strong class="text-danger">15/07</strong></span>
+                    </div>
+
+                    <div class="card-body">
+                        <p class="card-description">Neste projeto, revisaremos o layout e a usabilidade dos cartões de tarefas e avisos para otimizar a experiência de leitura dos alunos e professores.</p>
+
+                        <div class="project-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-comments"></i> 12 Comentários
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-paperclip"></i> 3 Arquivos
+                            </div>
+                        </div>
+
+                        <div class="project-tags">
+                            <span class="badge badge-primary">Design System</span>
+                            <span class="badge badge-success">UX/UI</span>
+                            <span class="badge badge-info">Prioridade Alta</span>
+                        </div>
+
+                        <div class="project-members">
+                            <div class="members-avatars">
+                                <img src="https://via.placeholder.com/32/FF5733/FFFFFF?text=JP" alt="João P." title="João P."
+                                    class="member-avatar">
+                                <img src="https://via.placeholder.com/32/33FF57/FFFFFF?text=AR" alt="Ana R." title="Ana R."
+                                    class="member-avatar">
+                                <img src="https://via.placeholder.com/32/3357FF/FFFFFF?text=CS" alt="Carla S." title="Carla S."
+                                    class="member-avatar">
+                                <span class="more-members">+5</span>
+                            </div>
+                            <span class="members-label">Equipe do Projeto</span>
+                        </div>
+                    </div>
+
+                    <div class="card-footer">
+                        <a href="#" class="btn btn-sm btn-outline-primary">Ver Detalhes</a>
+                        <a href="#" class="btn btn-sm btn-outline-secondary">Atualizar</a>
+                    </div>
+                </div>
+            </section>
+
+            <%- include('../admin/events-calendar') %>
+
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+      <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="/admin/js/general-panel.js"></script>
+    <script type="text/javascript" src="/base/js/base.js"></script>
+</body>
+
+</html>
