@@ -416,31 +416,18 @@
 }
 
 
-/* Responsividade da tabela */
 .container-table .table-responsive {
     overflow-x: auto;
 }
 
-/* Mantém o estilo da tabela */
 .last-task-table {
     width: 100%;
     border-collapse: collapse;
 }
 
-.last-task-table th,
-.last-task-table td {
-    padding: 12px 15px;
-    border: 1px solid #ddd;
-    text-align: center;
-}
 
-/* Largura fixa para coluna Status */
-.last-task-table th:nth-child(4),
-.last-task-table td:nth-child(4) {
-    width: 140px; /* ajusta a largura conforme necessário */
-}
 
-/* Estilo dos status */
+
 .task-status {
     display: inline-block;
     min-width: 100px;

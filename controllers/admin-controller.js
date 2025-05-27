@@ -1,5 +1,43 @@
-
+const db = require('../config/db')
+const { isAddEventValidRequest } = require("../utils/user/validators/add-event-validator")
+const {handleSingleUpload } = require('../middleware/upload')
 
 exports.adminPage = async (req, res) => {
     return res.render('admin/general-panel')
 }
+
+
+exports.addEvent = async (req, res) => {
+  try {
+    const file = await handleSingleUpload(req, res, 'eventBanner');
+
+    const { eventName, eventDescription, eventDate, eventCategory } = req.body;
+
+    isAddEventValidRequest(req.body, async (err) => {
+        if (err) {
+            return res.status(400).json({ message: err });
+        }
+
+        const [rows] = await db.query('SELECT * FROM event_categories WHERE name = ?', [eventCategory]);
+
+        if (rows.length === 0) {
+            return res.status(404).json({ message: "Categoria do evento não encontrada." });
+        }
+
+        let {eventTime} = req.body
+        if (!eventTime || eventTime.trim() === '') {
+            eventTime = null;
+        }
+
+        await db.query(`INSERT INTO events (name, description, event_date, event_time, event_category_id, banner)
+        VALUES (?, ?, ?, ?, ?, ?)`, [eventName, eventDescription, eventDate, eventTime, rows[0].id, file.filename
+        ]);
+
+      return res.status(200).json({ message: "Evento adicionado com sucesso." });
+    });
+
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: "Erro interno do servidor." });
+  }
+};

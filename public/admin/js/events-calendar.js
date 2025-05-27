@@ -121,9 +121,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
             addEventForm.addEventListener('submit', function(e) {
-                e.preventDefault();
+                e.preventDefault()
+                requestHandler(addEventForm)
             });
 
 
             renderCalendar();
 });
+
+ const inputFile = document.getElementById('eventFile');
+  const fileNameSpan = document.getElementById('file-name');
+
+  inputFile.addEventListener('change', () => {
+    const fileName = inputFile.files.length > 0 ? inputFile.files[0].name : 'Nenhum arquivo selecionado';
+    fileNameSpan.textContent = fileName;
+  });
