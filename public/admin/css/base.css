@@ -1,0 +1,26 @@
+ body {
+            background-color: #f0f4f8;
+            padding-left: 250px;
+            transition: padding-left 0.3s ease;
+        }
+
+        main {
+            width: 90%;
+            margin: 0 auto;
+            padding: 2rem !important;
+            box-sizing: border-box;
+        }
+
+        .content-section {
+    visibility: visible;
+    position: relative;
+    transform: translateY(10px);
+    transition: opacity 0.4s ease-in, transform 0.4s ease-in, visibility 0.4s;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+
+

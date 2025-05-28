@@ -1,15 +1,4 @@
- body {
-            background-color: #f0f4f8;
-            padding-left: 250px;
-            transition: padding-left 0.3s ease;
-        }
 
-        main {
-            width: 90%;
-            margin: 0 auto;
-            padding: 2rem !important;
-            box-sizing: border-box;
-        }
 
 
         .productivity-card {
@@ -129,7 +118,6 @@
             overflow: hidden;
             border-collapse: separate;
             border-spacing: 0;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
             background-color: #ffffff;
             width: 100%;
             margin-bottom: 1.5rem;
@@ -213,15 +201,10 @@
             transform: translateY(-5px);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
         }
+        
+        
 
-        .container-table table {
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-        }
-
-        .container-table table:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
-        }
+        
 
         .project-card .card-header {
             padding: 18px 25px;
@@ -382,43 +365,8 @@
             border-right: none;
         }
 
-  .content-section {
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(10px);
-    transition: opacity 0.4s ease-in, transform 0.4s ease-in, visibility 0.4s;
-    position: absolute;
-    width: 100%;
-    top: 0;
-    left: 0;
-    z-index: 0;
-}
+  
 
-.content-section.active {
-    visibility: visible;
-    position: relative;
-}
-
-.content-section.fade-in {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-    z-index: 1;
-    position: relative;
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out, visibility 0.6s;
-}
-
-.content-section.fade-out {
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(10px);
-    z-index: 0;
-}
-
-
-.container-table .table-responsive {
-    overflow-x: auto;
-}
 
 .last-task-table {
     width: 100%;
@@ -452,6 +400,10 @@
     background-color: #f8d7da;
     color: #721c24;
 }
+.container-table .table-responsive {
+    overflow-x: auto;
+}
+
 
 @media (max-width: 768px) {
     .container-table .table-responsive {

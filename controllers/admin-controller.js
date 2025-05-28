@@ -35,9 +35,43 @@ exports.addEvent = async (req, res) => {
 
       return res.status(200).json({ message: "Evento adicionado com sucesso." });
     });
-
-  } catch (err) {
+    
+} catch (err) {
     console.error(err);
     return res.status(500).json({ message: "Erro interno do servidor." });
-  }
+}
 };
+
+exports.getEvents = async (req, res) => {
+    try {
+        const [rows] = await db.query(`
+            SELECT 
+                e.id,
+                e.name,
+                e.description,
+                e.qtd_likes,
+                e.qtd_views,
+                e.event_date,
+                e.event_time,
+                e.created_at,
+                e.banner,
+                c.name AS category_name
+            FROM events e
+            JOIN event_categories c ON e.event_category_id = c.id;
+        `);
+
+        if (rows.length === 0) {
+            return res.status(204).json({ message: "Sem eventos até o momento." });
+        }
+
+        return res.status(200).json({ events: rows });
+    } catch (error) {
+        console.error('Erro ao buscar eventos:', error);
+        return res.status(500).json({ message: "Erro no servidor." });
+    }
+};
+
+
+exports.eventsPage = (req, res) => {
+    return res.render('admin/events')
+}

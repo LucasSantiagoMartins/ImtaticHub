@@ -1,7 +1,3 @@
-<head>
-  <link rel="stylesheet" href="/partials/css/sidebar.css">
-</head>
-
 <nav class="main-sidebar">
             <div class="sidebar-header">
                 <a href="#" class="logo-link">
@@ -14,11 +10,11 @@
             </div>
 
             <ul class="sidebar-nav">
-                <li><a class="nav-item active" data-section="general-dashboard"><i class="fas fa-chart-pie nav-icon"></i>  Painel</a></li>
+                <li><a href="/area-administrativa/painel-geral" class="nav-item" data-section="painel-geral"><i class="fas fa-chart-pie nav-icon"></i>  Painel</a></li>
                 <li><a class="nav-item" href="#"><i class="fas fa-users nav-icon"></i> Usuários</a></li>
                 <li><a class="nav-item" href="#"><i class="fas fa-chalkboard-teacher nav-icon"></i> Turmas</a></li>
                 <li><a class="nav-item" href="#"><i class="fas fa-tasks nav-icon"></i> Tarefas</a></li>
-                <li><a href="/area-administrativa/calendario-eventos" class="nav-item" data-section="events-calendar"><i class="fas fa-calendar-alt nav-icon"></i> Calendário & Eventos</a></li>
+                <li><a href="/area-administrativa/eventos" class="nav-item" data-section="eventos" ><i class="fas fa-calendar-alt nav-icon"></i> Calendário & Eventos</a></li>
                 <li><a class="nav-item" href="#"><i class="fas fa-comments nav-icon"></i> Mensagens</a></li>
                 <li><a class="nav-item" href="#"><i class="fas fa-bell nav-icon"></i> Notificações</a></li>
                 <li><a class="nav-item" href="#"><i class="fas fa-cog nav-icon"></i> Configurações</a></li>
@@ -35,3 +31,52 @@
                 </div>
             </div>
         </nav>
+
+<script>
+            function setActiveNavItem() {
+                const currentPath = window.location.pathname.replace(/^\//, ''); 
+                const lastPathSegment = currentPath.split('/').pop();
+
+                const navItems = document.querySelectorAll('.sidebar-nav .nav-item');
+
+                navItems.forEach(item => {
+                    item.classList.remove('active');
+                });
+
+                navItems.forEach(item => {
+                    const itemHref = item.getAttribute('href');
+                    const itemDataSection = item.getAttribute('data-section');
+
+                    let itemMatches = false;
+
+                    if (itemHref) {
+                        const cleanedItemHref = itemHref.replace(/^\//, '');
+                        const lastHrefSegment = cleanedItemHref.split('/').pop();
+
+                        if (lastPathSegment === lastHrefSegment && lastPathSegment !== '') {
+                            itemMatches = true;
+                        } else if (currentPath === cleanedItemHref && currentPath !== '') { 
+                            itemMatches = true;
+                        } else if (currentPath === '' && itemHref === '/') { 
+                            itemMatches = true;
+                        }
+                    }
+
+                    if (!itemMatches && itemDataSection) {
+                        if (itemDataSection === lastPathSegment || currentPath.includes(itemDataSection)) {
+                            itemMatches = true;
+                        }
+                    }
+                    
+                    if (currentPath === '' && itemDataSection === 'general-dashboard') {
+                        itemMatches = true;
+                    }
+
+                    if (itemMatches) {
+                        item.classList.add('active');
+                    }
+                });
+            }
+
+            document.addEventListener('DOMContentLoaded', setActiveNavItem);
+</script>
