@@ -1,6 +1,11 @@
-/* colors.css */
 :root {
   --primary-color: #02264a;
   --secondary-color: #003366;
   --blue-ocean: #336698;
+   --background-light: #f8f9fa; 
+            --card-shadow: rgba(0, 0, 0, 0.1);
+            --card-hover-shadow: rgba(0, 0, 0, 0.2);
+            --text-dark: #212529; 
+            --text-light: #fefefe; 
+            --button-hover-dark: #002d5a;
 }
