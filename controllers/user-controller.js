@@ -119,6 +119,19 @@ exports.addTeacherDetails = async (req, res) => {
       if(!isValidTeacherBirthDate(birthDate)){
           return res.status(400).json({message: "Professores devem ter no mínimo 18 anos de idade. Verifique se a data inserida está correta."})
       }
+
+      const [teacherUserGroup] = await db.query("SELECT * FROM user_groups WHERE name = 'teacher' ")
+
+      if(teacherUserGroup.length === 0){
+        console.log("Grupo 'teacher' não encontrado");
+        return res.status(500).json({ message: "Erro interno do servidor." });
+      }
+      
+      await db.query(
+        'UPDATE users SET user_group_id = ? WHERE id = ?',
+        [teacherUserGroup[0].id, userId]
+      );
+
       await db.query('INSERT INTO teachers (full_name,nationality,gender,address,birth_date,user_id) VALUES (?,?,?,?,?,?)', [fullName.toLowerCase(), nationality.toLowerCase(), gender, address.toLowerCase(), birthDate, userId])
 
       return res.status(200).json({message: "Informações adicionadas com sucesso.", redirectTo: "/"})
@@ -153,6 +166,20 @@ exports.addStudentDetails = async (req, res) => {
       if(!isValidStudentBirthDate(birthDate)){
         return res.status(400).json({message: "Alunos devem ter pelo menos 12 anos de idade para serem matriculados. Por favor, verifique a data informada."})
       }
+
+      const [studentUserGroup] = await db.query("SELECT * FROM user_groups WHERE name = 'student' ")
+
+      if(studentUserGroup.length === 0){
+        console.log("Grupo 'student' não encontrado");
+        return res.status(500).json({ message: "Erro interno do servidor." });
+      }
+
+      await db.query(
+        'UPDATE users SET user_group_id = ? WHERE id = ?',
+        [studentUserGroup[0].id, userId]
+      );
+
+      
       await db.query('INSERT INTO students (full_name,nationality,gender,address,class,grade,birth_date,academic_year, student_registration_number, course_id, user_id) VALUES (?,?,?,?,?,?,?,?,?,?,?)', [fullName.toLowerCase(), nationality.toLowerCase(), gender, address.toLowerCase(),studentClass.toLowerCase(), grade,birthDate, academicYear, registrationNumber,  courseId, userId])
 
       return res.status(200).json({message: "Informações adicionadas com sucesso.", redirectTo: "/"})
