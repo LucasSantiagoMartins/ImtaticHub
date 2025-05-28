@@ -12,8 +12,7 @@ form = document.querySelector('form')
 
 form.addEventListener('submit', (event) => {
     event.preventDefault()
-
-    requestHandler(form)
+    requestHandler(form, true)
 })
 
 
