@@ -72,6 +72,24 @@ exports.getEvents = async (req, res) => {
 };
 
 
-exports.eventsPage = (req, res) => {
-    return res.render('admin/events')
+exports.eventsPage = async (req, res) => {
+    const [rows] = await db.query(`
+            SELECT 
+                e.id,
+                e.name,
+                e.description,
+                e.qtd_likes,
+                e.qtd_views,
+                e.event_date,
+                e.event_time,
+                e.created_at,
+                e.banner,
+                c.name AS category_name
+            FROM events e
+            JOIN event_categories c ON e.event_category_id = c.id;
+        `);
+
+        console.log(rows)
+        
+    return res.render('admin/events',{ events: rows })
 }

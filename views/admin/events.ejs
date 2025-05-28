@@ -88,30 +88,70 @@
                 </div>
 
                 <h4 class="mb-4 mt-5">Próximos Eventos</h4>
-                <div id="upcomingEventsList" class="list-group">
-                    <div class="list-group-item d-flex justify-content-between align-items-center">
-                        <div>
-                            <h6 class="mb-1">Apresentação do Projeto Final</h6>
-                            <p class="mb-1 text-muted">28 de Maio, 14:00 - Auditório Principal</p>
-                            <small class="badge bg-info text-dark">Reunião</small>
-                        </div>
-                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
-                    </div>
-                    <div class="list-group-item d-flex justify-content-between align-items-center">
-                        <div>
-                            <h6 class="mb-1">Prazo de Entrega: Relatório Mensal</h6>
-                            <p class="mb-1 text-muted">31 de Maio</p>
-                            <small class="badge bg-warning text-dark">Tarefa</small>
-                        </div>
-                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
-                    </div>
+             <div id="upcomingEventsList" class="list-group">
+    <% if (events && events.length > 0) { %>
+        <% events.forEach(function(event) { %>
+            <% 
+                // Processar a data para garantir que é válida antes de usar
+                const eventDateObj = new Date(event.event_date);
+                const isValidDate = !isNaN(eventDateObj);
+                const formattedDate = isValidDate ? eventDateObj.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' }) : 'Data Inválida';
+                const eventTime = event.event_time ? `, ${event.event_time.substring(0, 5)}` : '';
+                
+                let badgeClass = 'bg-secondary';
+                if (event.category_name === 'tarefa') badgeClass = 'bg-warning text-dark';
+                if (event.category_name === 'reunião') badgeClass = 'bg-info text-dark';
+                if (event.category_name === 'feriado') badgeClass = 'bg-success';
+            %>
+            <div class="list-group-item d-flex align-items-center mb-3" data-event-id="<%= event.id %>"> 
+                <div class="image-badge-container"> 
+                    <% if (event.banner) { %>
+                        <img src="/uploads/<%= event.banner %>" alt="Banner do Evento" class="mb-2">
+                    <% } else { %>
+                        <img src="/images/default-event-banner.jpg" alt="Banner Padrão" class="img-thumbnail mb-2">
+                    <% } %>
+                    <small class="badge <%= badgeClass %>"><%= event.category_name %></small>
                 </div>
-            </section>
+                <div class="flex-grow-1"> 
+                    <h6 class="mb-1"><%= event.name %></h6>
+                    <p class="mb-1 text-muted">
+                        <%= formattedDate %><%= eventTime %>
+                    </p>
+                    <% if (event.description) { %>
+                        <p class="mb-1 text-muted small"><%= event.description %></p>
+                    <% } %>
+                </div>
 
-        </main>
-    </div>
-
+                <button class="btn btn-sm btn-outline-danger ms-3 delete-event-btn" data-event-id="<%= event.id %>"><i class="fas fa-trash-alt"></i></button>
+            </div>
+        <% }); %>
+    <% } else { %>
+        <div class="list-group-item text-center text-muted no-upcoming-events-message">
+            Nenhum evento futuro encontrado.
+        </div>
+    <% } %>
+</div>
+        </section>
+        
+    </main>
+</div>
     <div class="overlay"><div class="loader"></div></div>
+
+    <script>
+        const backendEvents = JSON.parse(decodeURIComponent('<%= encodeURIComponent(JSON.stringify(events)) %>'));
+        
+        const allEventsData = backendEvents.map(e => ({
+            id: e.id,
+            name: e.name, 
+            description: e.description,
+            event_date: e.event_date, 
+            event_time: e.event_time,
+            banner: e.banner,
+            category_name: e.category_name 
+        })).filter(e => !isNaN(new Date(e.event_date))); 
+    </script>
+
+
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="/admin/js/events.js"></script>
     <script type="text/javascript" src="/base/js/base.js"></script>
