@@ -38,8 +38,9 @@
             <div class="dropdown">
                 <div id="dropdownMenu" class="dropdown-menu">
                     <a href="#">Minhas informações</a>
+                    <% if (user.userGroup == 'admin') { %>
                     <a href="/area-administrativa/painel-geral">Area administrativa</a>
-                    
+                    <% } %>
                     <a id="logout-menu-item" onclick="logout()">Terminar sessão</a>
                 </div>
             </div>

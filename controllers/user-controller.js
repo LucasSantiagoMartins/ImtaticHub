@@ -60,17 +60,35 @@ exports.login = async (req, res) => {
     }
 
     try {
-        const [rows] = await db.query('SELECT * FROM users WHERE phone_number = ?', [phoneNumber]);
+         const [rows] = await db.query(
+          `SELECT users.id, users.phone_number, users.password, user_groups.name AS user_group_name
+          FROM users
+          INNER JOIN user_groups ON users.user_group_id = user_groups.id
+          WHERE users.phone_number = ?`,
+          [phoneNumber]
+        );
 
-        if (rows.length === 0) return res.status(400).json({ message: "Conta não encontrada verifique as informações enviadas ou Registre-se." });
 
-        const user = rows[0]
-        
-        const isMatch = await bcrypt.compare(password, user.password)
-        if (!isMatch)
-            return res.status(400).json({ message: "Palavra passe incorreta." });
-        
-        req.session.user = {id: user.id, phoneNumber: user.phone_number}
+        if (rows.length === 0) {
+          return res.status(400).json({
+            message: "Conta não encontrada. Verifique as informações enviadas ou registre-se.",
+          });
+        }
+
+        const user = rows[0];
+
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+          return res.status(400).json({ message: "Palavra-passe incorreta." });
+        }
+
+        req.session.user = {
+          id: user.id,
+          phoneNumber: user.phone_number,
+          userGroup: user.user_group_name
+        };
+        console.log(req.session)
+
         return res.status(200).json({ message: "Sessão iniciada com sucesso.", redirectTo: "/" });
 
     } catch (error) {
