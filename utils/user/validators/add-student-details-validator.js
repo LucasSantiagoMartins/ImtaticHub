@@ -5,20 +5,18 @@ function isAddStudentDetailsValidRequest(payload, callback){
         fullName,
         nationality,
         gender,
-        studentClass,
         grade,
         registrationNumber,
         courseId,
+        classId,
         academicYear
     } = payload;
-
-     if (!fullName || !nationality || !gender  || !studentClass || !grade || !registrationNumber || !courseId || !academicYear) {
+console.log(payload)
+     if (!fullName || !nationality || !gender  || !grade || !registrationNumber || !courseId || !academicYear || !classId) 
     return callback("Informações obrigatórias estão em falta.")
-  }
 
-    if (!isValidAcademicYear(academicYear)) {
+    if (!isValidAcademicYear(academicYear)) 
         return callback("Ano académico inválido. Certifique-se de usar o formato correto, como 2023/2024.")
-    }
 
     return callback(null)
 }

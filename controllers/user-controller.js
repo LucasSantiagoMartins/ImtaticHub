@@ -102,12 +102,9 @@ exports.chooseProfile = (req, res) => {
 }
 
 exports.addStudentDetailsPage = async (req, res) => {
-  const [rows] = await db.query('SELECT * FROM courses')
-  const courses = rows.map(course => ({
-    id:course.id,
-    name: course.name
-  }) )
-  res.render("user/add-student-details", {courses: courses})
+  const [courses] = await db.query('SELECT id, name FROM courses')
+  const [classes] = await db.query('SELECT id, name FROM classes')
+  res.render("user/add-student-details", {courses: courses, classes: classes})
 }
 
 exports.addTeacherDetailsPage = (req, res) => {
@@ -161,33 +158,47 @@ exports.addTeacherDetails = async (req, res) => {
   
 }
 exports.addStudentDetails = async (req, res) => {
-  if (!req.session.user){
-    return res.status(401).json({message: "Você precisa iniciar sessão. Por favor, faça login para continuar."})
+  if (!req.session.user) {
+    return res.status(401).json({
+      message: "Você precisa iniciar sessão. Por favor, faça login para continuar."
+    });
   }
-  
-  isAddStudentDetailsValidRequest(req.body, async (err) =>{
-    if (err){
-      return res.status(400).json({message: err})
+
+  isAddStudentDetailsValidRequest(req.body, async (err) => {
+    if (err) {
+      return res.status(400).json({ message: err });
     }
-    try{
-      const userId = req.session.user.id
-      const [rows] = await db.query('SELECT * FROM students where user_id = ?', [userId])
-      
-      if(rows.length !== 0){
-        return res.status(400).json({message: "As suas informações já foram adicionadas."})
-      }
-      
-      const {fullName, nationality, gender,  address, studentClass, grade, registrationNumber,
-        courseId, birthDate, academicYear
-      } = req.body
-      if(!isValidStudentBirthDate(birthDate)){
-        return res.status(400).json({message: "Alunos devem ter pelo menos 12 anos de idade para serem matriculados. Por favor, verifique a data informada."})
+
+    try {
+      const userId = req.session.user.id;
+
+      const [existingStudent] = await db.query('SELECT id FROM students WHERE user_id = ?', [userId]);
+      if (existingStudent.length > 0) {
+        return res.status(400).json({ message: "As suas informações já foram adicionadas." });
       }
 
-      const [studentUserGroup] = await db.query("SELECT * FROM user_groups WHERE name = 'student' ")
+      const {
+        fullName = '',
+        nationality = '',
+        gender = '',
+        address = '',
+        classId = '',
+        grade = '',
+        registrationNumber = '',
+        courseId = '',
+        birthDate = '',
+        academicYear = ''
+      } = req.body;
 
-      if(studentUserGroup.length === 0){
-        console.log("Grupo 'student' não encontrado");
+      if (!isValidStudentBirthDate(birthDate)) {
+        return res.status(400).json({
+          message: "Alunos devem ter pelo menos 12 anos de idade para serem matriculados. Por favor, verifique a data informada."
+        });
+      }
+
+      const [studentUserGroup] = await db.query("SELECT id FROM user_groups WHERE name = 'student'");
+      if (studentUserGroup.length === 0) {
+        console.error("Grupo 'student' não encontrado");
         return res.status(500).json({ message: "Erro interno do sistema." });
       }
 
@@ -196,17 +207,36 @@ exports.addStudentDetails = async (req, res) => {
         [studentUserGroup[0].id, userId]
       );
 
-      
-      await db.query('INSERT INTO students (full_name,nationality,gender,address,class,grade,birth_date,academic_year, student_registration_number, course_id, user_id) VALUES (?,?,?,?,?,?,?,?,?,?,?)', [fullName.toLowerCase(), nationality.toLowerCase(), gender, address.toLowerCase(),studentClass.toLowerCase(), grade,birthDate, academicYear, registrationNumber,  courseId, userId])
+      await db.query(`
+        INSERT INTO students 
+        (full_name, nationality, gender, address, grade, birth_date, academic_year, student_registration_number, course_id, class_id, user_id)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      `, [
+        fullName.trim().toLowerCase(),
+        nationality.trim().toLowerCase(),
+        gender.trim().toLowerCase(),
+        address.trim().toLowerCase(),
+        grade.trim().toUpperCase(),
+        birthDate,
+        academicYear.trim(),
+        registrationNumber.trim(),
+        parseInt(courseId),
+        (classId),
+        userId
+      ]);
 
-      return res.status(200).json({message: "Informações adicionadas com sucesso.", redirectTo: "/usuarios/iniciar-sessao"})
+      return res.status(200).json({
+        message: "Informações adicionadas com sucesso.",
+        redirectTo: "/usuarios/iniciar-sessao"
+      });
 
-    }catch(err){
-      console.error(err)
+    } catch (err) {
+      console.error(err);
       return res.status(500).json({ message: "Erro interno do sistema." });
     }
-  }) 
-}
+  });
+};
+
 
 exports.logout = async (req, res) => {
   if (!req.session.user){
