@@ -41,6 +41,9 @@
                     <% if (user.userGroup == 'admin') { %>
                     <a href="/area-administrativa/painel-geral">Area administrativa</a>
                     <% } %>
+                    <% if (user.userGroup == 'teacher') { %>
+                    <a href="/professor/painel-atividades">Painel atividades</a>
+                    <% } %>
                     <a id="logout-menu-item" onclick="logout()">Terminar sessão</a>
                 </div>
             </div>

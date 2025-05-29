@@ -1,9 +1,25 @@
 const db = require('../config/db')
 const { isAddEventValidRequest } = require("../utils/user/validators/add-event-validator")
 const {handleSingleUpload } = require('../middleware/upload')
+const { isAddClassValidRequest } = require('../utils/user/validators/add-class-validator')
 
 exports.adminPage = async (req, res) => {
+  if(req.session.user.userGroup !== 'admin'){
+    return res.redirect('/usuarios/iniciar-sessao')
+  }
     return res.render('admin/general-panel')
+}
+exports.classesPage = async (req, res) => {
+  if(req.session.user.userGroup !== 'admin'){
+    return res.redirect('/usuarios/iniciar-sessao')
+  }
+    const [courses] = await db.query('SELECT id, name FROM courses')
+    const [classes] = await db.query(`
+      SELECT classes.*, courses.name AS course_name 
+      FROM classes 
+      JOIN courses ON classes.course_id = courses.id
+    `);
+    return res.render('admin/classes-page', {courses: courses, classes})
 }
 
 exports.addEvent = async (req, res) => {
@@ -39,7 +55,7 @@ exports.addEvent = async (req, res) => {
 
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ message: "Erro interno do servidor." });
+    return res.status(500).json({ message: "Erro interno do sistema." });
   }
 };
 
@@ -69,12 +85,15 @@ exports.getEvents = async (req, res) => {
         return res.status(200).json({ events: rows });
     } catch (error) {
         console.error('Erro ao buscar eventos:', error);
-        return res.status(500).json({ message: "Erro no servidor." });
+        return res.status(500).json({ message: "Erro no sistema." });
     }
 };
 
 
 exports.eventsPage = async (req, res) => {
+  if(req.session.user.userGroup !== 'admin'){
+    return res.redirect('/usuarios/iniciar-sessao')
+  }
     const [rows] = await db.query(`
             SELECT 
                 e.id,
@@ -94,4 +113,32 @@ exports.eventsPage = async (req, res) => {
         console.log(rows)
         
     return res.render('admin/events',{ events: rows })
+}
+
+exports.addClass = async (req, res) => {
+  if (req.session.user.userGroup !== 'admin')
+  {
+        return res.status(400).json({message: 'Somente administradores podem adicionar turmas', redirectTo: '/usuarios/iniciar-sessao'})
+  }
+  isAddClassValidRequest(req.body, async (err) => {
+          if (err){
+              return res.status(400).json({message: err})
+          }
+
+
+         const {name, totalNumberStudents, period, course_id }  = req.body
+
+
+          try{
+              await db.query('INSERT INTO classes(name, total_number_students, period, course_id) VALUES(?,?,?,?)',[name, totalNumberStudents, period, course_id])
+              return res.status(200).json({message: 'Turma adicionada com sucesso.'})
+          }catch(err){
+              console.error(err)
+              return res.status(500).json({ message: "Erro interno do sistema." });
+          }
+  })
+} 
+
+exports.addStudyMaterial = (req, res) => {
+   
 }

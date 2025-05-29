@@ -12,7 +12,7 @@
             <ul class="sidebar-nav">
                 <li><a href="/area-administrativa/painel-geral" class="nav-item" data-section="painel-geral"><i class="fas fa-chart-pie nav-icon"></i>  Painel</a></li>
                 <li><a class="nav-item" href="#"><i class="fas fa-users nav-icon"></i> Usuários</a></li>
-                <li><a class="nav-item" href="#"><i class="fas fa-chalkboard-teacher nav-icon"></i> Turmas</a></li>
+                <li><a class="nav-item" href="/area-administrativa/turmas"><i class="fas fa-chalkboard-teacher nav-icon"></i> Turmas</a></li>
                 <li><a class="nav-item" href="#"><i class="fas fa-tasks nav-icon"></i> Tarefas</a></li>
                 <li><a href="/area-administrativa/eventos" class="nav-item" data-section="eventos" ><i class="fas fa-calendar-alt nav-icon"></i> Calendário & Eventos</a></li>
                 <li><a class="nav-item" href="#"><i class="fas fa-comments nav-icon"></i> Mensagens</a></li>
@@ -27,10 +27,11 @@
                         <strong class="user-name">Administrador</strong><br>
                         <small class="user-email">admin@imtatic.com</small>
                     </div>
-                    <a href="#" class="logout-link" title="Sair"><i class="fas fa-sign-out-alt"></i></a>
+                    <a class="logout-link" title="Sair" onclick="logout()" style="cursor: pointer;"><i class="fas fa-sign-out-alt"></i></a>
                 </div>
             </div>
         </nav>
+    <script src="/user/js/user.js"></script>
 
 <script>
             function setActiveNavItem() {

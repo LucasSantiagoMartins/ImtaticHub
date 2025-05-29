@@ -1,0 +1,88 @@
+.card-custom {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease-in-out;
+    background-color: #ffffff;
+}
+
+.card-custom:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.card-turma {
+    cursor: pointer;
+    text-align: center;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 120px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease-in-out, transform 0.2s ease-out;
+    position: relative;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInCard 0.6s ease forwards;
+    animation-delay: var(--delay);
+}
+
+.card-turma:hover {
+    border-color: var(--primary-color, #007bff);
+    box-shadow: 0 6px 20px rgba(0, 123, 255, 0.15);
+}
+
+.card-turma.selected {
+    background-color: #28a745;
+    color: white;
+    border-color: #28a745;
+    box-shadow: 0 0 10px rgba(40, 167, 69, 0.5);
+    transform: translateY(-3px);
+}
+
+.card-turma h5 {
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #343a40;
+}
+
+.card-turma.selected h5,
+.card-turma.selected p {
+    color: white !important;
+}
+
+@keyframes fadeInCard {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.content-section {
+    display: none;
+}
+
+.content-section.active {
+    display: block;
+}
+
+.fade-in {
+    animation: fadeIn 1s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

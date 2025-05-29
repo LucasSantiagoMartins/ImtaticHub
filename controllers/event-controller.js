@@ -20,6 +20,5 @@ exports.eventPage = async (req, res) => {
         if (rows.length === 0) {
             return res.status(204).json({ message: "Sem eventos até o momento." });
         }
-        console.log(rows)
     res.render('event/imtatic-events', {events : rows})
 }

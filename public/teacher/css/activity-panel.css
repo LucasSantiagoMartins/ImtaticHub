@@ -1,0 +1,91 @@
+ body {
+            background: #f5f7fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .card-custom {
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .card-custom:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .badge-custom {
+            font-size: 0.75rem;
+            padding: 6px 12px;
+            border-radius: 12px;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #fff;
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .upload-area {
+            border: 2px dashed var(--secondary-color);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: #e9f5ff;
+        }
+
+        .upload-area:hover {
+            background-color: #d6ebff;
+            border-color: #0056b3;
+        }
+
+        .upload-area i {
+            font-size: 100px;
+            margin-bottom: 10px;
+        }
+
+        .upload-area input[type="file"] {
+            display: none; 
+        }
+
+        .card-turma {
+            cursor: pointer;
+            border: 2px solid #dee2e6;
+            transition: all 0.2s ease-in-out;
+            text-align: center;
+            padding: 15px;
+        }
+
+        .card-turma:hover {
+            border-color: #36b25362;
+            box-shadow: 0 0 5px rgba(144, 175, 209, 0.2);
+        }
+
+        .card-turma.selected {
+            border-color:  #33984b;
+            transform: translateY(-2px);
+        }
+        #uploadArea.dragover {
+        background-color: rgb(72, 150, 217);
+    }

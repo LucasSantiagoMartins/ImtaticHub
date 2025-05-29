@@ -6,3 +6,4 @@ exports.index = (req, res) => {
     }
     res.render('social/index', {user: req.session.user})
 }
+

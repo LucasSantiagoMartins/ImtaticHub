@@ -1,5 +1,5 @@
 ::-webkit-scrollbar {
-    width: 10px; 
+    width: 5px; 
     height: 12px; 
     padding: 1%;
 }
@@ -11,8 +11,8 @@
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #002244; 
-    border-radius: 6px; 
+    background: #546b83; 
+    /* border-radius: 6px;  */
 }
   
 .form-group {

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Tarefas Escolares</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="/base/css/base.css">
+    <link rel="stylesheet" href="/general/css/colors.css">
+    <link rel="stylesheet" href="/teacher/css/activity-panel.css">
+    
+</head>
+
+<body>
+    <div class="container py-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="fw-bold">Painel de Atividades</h2>
+            <div>
+                <button id="btnSendMaterial" class="btn btn-outline-dark me-2">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    <span class="m-2">
+                        Enviar Material de Estudo
+                    </span>
+                </button>
+                
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4 fade-in">
+                <div class="card card-custom p-3">
+                    <div class="d-flex justify-content-between">
+                        <h5>Entrega - Redação sobre Meio Ambiente</h5>
+                        <span class="text-danger fw-bold">10/07</span>
+                    </div>
+                    <p>Aluno: João Pedro - 8ª Classe</p>
+                    <img src="https://randomuser.me/api/portraits/men/45.jpg" class="avatar mb-2">
+                    <p><strong>Tarefa:</strong> Redação com mínimo de 300 palavras sobre a importância da preservação ambiental.</p>
+                    <div class="d-flex justify-content-end">
+                        <button class="btn btn-outline-success btn-sm">Avaliar</button>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+        <div class="row g-4 mt-5">
+            <div class="col-md-6 fade-in">
+                <div class="card card-custom p-4">
+                    <h4 class="mb-3">Postar Tarefa</h4>
+                    <form  id="add-task-form" action="/professor/postar-tarefa" method="post">
+                        <div class="mb-3">
+                            <label for="tituloTarefa" class="form-label">Título</label>
+                            <input type="text" class="form-control" name="title" placeholder="Ex: Resumo dos últimos 5 sumários...">
+                        </div>
+                        <div class="mb-3">
+                            <label for="descricaoTarefa" class="form-label">Descrição</label>
+                            <textarea class="form-control" name="description" rows="3" placeholder="Descreva a tarefa"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="dataEntregaTarefa" class="form-label">Data de Entrega</label>
+                            <input type="text" id="date-input" name="deliveryDate" class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-dark">Postar</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-md-6 fade-in">
+                <div  class="card card-custom p-4">
+                    <h4 class="mb-4">Marcar Prova</h4>
+                    <form id="add-exam-form" action="/professor/marcar-prova" method="post">
+                        <div class="mb-3">
+                            <label for="disciplinaProva" class="form-label">Disciplina</label>
+                            <input type="text" class="form-control" name="discipline" placeholder="Ex: Matemática">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="dataProva" class="form-label">Data da Prova</label>
+                            <input type="text" class="form-control" id="date-input" name="examDate" placeholder="Selecione a data">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="descricaoProva" class="form-label">Descrição</label>
+                            <textarea class="form-control" name="description" rows="3" placeholder="Escreva os tópicos que cairão na prova..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-dark">Marcar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row justify-content-center mt-5">
+            <div class="col-lg-12 col-md-12 fade-in">
+                <div class="card card-custom p-4">
+                    <h4 class="mb-4 text-center">Enviar Material de Estudo</h4>
+                    <form id="send-study-material-form"  action='/professor/enviar-material-estudo' enctype="multipart/form-data" method="post">
+                        <div class="mb-3">
+                            <label for="tituloMaterial" class="form-label">Título do Material</label>
+                            <input type="text" class="form-control" name="title" placeholder="Ex: Fascículo sobre redes de computador - Capítulo 5">
+                        </div>
+                        <div class="mb-3">
+                            <label for="descricaoMaterial" class="form-label">Descrição</label>
+                            <textarea class="form-control" name="description" rows="3" placeholder="Detalhes sobre o conteúdo, o que o aluno vai aprender, etc."></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="disciplinaMaterial" class="form-label">Disciplina</label>
+                            <input type="text" class="form-control" name="discipline" placeholder="Ex: TLP, SI, Matemática">
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label d-block">Documento / Imagem do Conteúdo</label>
+                            <div class="upload-area mt-3" id="uploadArea">
+                                <i class="fa-solid fa-cloud-arrow-up" alt="Upload Icon"></i>
+                                <p class="mb-1 fw-bold">Clique aqui para mandar o documento</p>
+                                <p class="text-muted small">Arraste e solte o arquivo aqui ou clique para selecionar.</p>
+                                <input type="file" id="materialFile" name="file" accept=".pdf, .doc, .docx, .txt, .jpg, .jpeg, .png">
+                                <span id="fileName" class="text-muted small">Nenhum arquivo selecionado.</span>
+                            </div>
+                        </div>
+
+                       <div class="mb-4">
+                            <label class="form-label">Selecionar Turmas</label>
+                            <div class="row g-3" id="turmasContainer">
+                                <% classes.forEach((turma, index) => { %>
+                                <div class="col-6 col-md-4 col-lg-3 col-xl-2">
+                                    <div class="card card-custom card-turma p-3 text-center" data-turma-id="<%= turma.id %>" style="--delay: <%= (index * 0.1).toFixed(1) %>s;">
+                                    <p class="fw-semibold mb-1"><%= turma.name %></p>
+                                    <small class="text-muted d-block">Curso: <%= turma.course_name %></small>
+                                    <small class="text-muted">Período: <%= turma.period %></small>
+                                    </div>
+                                </div>
+                                <% }) %>
+                            </div>
+                            </div>
+                        <br>
+                        <input type="hidden" name="classes" id="classesInput">
+                        <button type="submit" class="btn btn-outline-dark py-2 w-25">Enviar material de estudo</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="overlay">
+    <div class="loader"></div>
+</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="/general/js/request-handler.js" type="text/javascript"></script>
+  <script src="/base/js/base.js" type="text/javascript"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script  src="/teacher/js/activity-panel.js"></script>
+</body>
+</html>

@@ -41,7 +41,7 @@ exports.register = async (req, res) => {
 
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ message: "Erro interno do servidor." });
+    return res.status(500).json({ message: "Erro interno do sistema." });
   }
 };
 
@@ -93,7 +93,7 @@ exports.login = async (req, res) => {
 
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ message: "Erro interno do servidor." });
+        return res.status(500).json({ message: "Erro interno do sistema." });
     }
 
 }
@@ -142,7 +142,7 @@ exports.addTeacherDetails = async (req, res) => {
 
       if(teacherUserGroup.length === 0){
         console.log("Grupo 'teacher' não encontrado");
-        return res.status(500).json({ message: "Erro interno do servidor." });
+        return res.status(500).json({ message: "Erro interno do sistema." });
       }
       
       await db.query(
@@ -156,7 +156,7 @@ exports.addTeacherDetails = async (req, res) => {
 
     }catch(err){
       console.error(err)
-      return res.status(500).json({ message: "Erro interno do servidor." });
+      return res.status(500).json({ message: "Erro interno do sistema." });
     }
   })
   
@@ -189,7 +189,7 @@ exports.addStudentDetails = async (req, res) => {
 
       if(studentUserGroup.length === 0){
         console.log("Grupo 'student' não encontrado");
-        return res.status(500).json({ message: "Erro interno do servidor." });
+        return res.status(500).json({ message: "Erro interno do sistema." });
       }
 
       await db.query(
@@ -204,7 +204,7 @@ exports.addStudentDetails = async (req, res) => {
 
     }catch(err){
       console.error(err)
-      return res.status(500).json({ message: "Erro interno do servidor." });
+      return res.status(500).json({ message: "Erro interno do sistema." });
     }
   }) 
 }
