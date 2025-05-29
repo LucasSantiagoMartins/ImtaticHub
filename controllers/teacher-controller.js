@@ -1,5 +1,5 @@
 const db = require('../config/db')
-const { isAddTaskValidRequest } = require('../utils/user/validators/add-task-validator')
+const { isAddAcademicTaskValidRequest } = require('../utils/user/validators/add-academic-task-validator')
 const { isAddExamValidRequest } = require('../utils/user/validators/add-exam-validator');
 const { isAddStudyMaterialValidRequest } = require('../utils/user/validators/add-study-material-validator');
 const {handleSingleUpload } = require('../middleware/upload')
@@ -20,12 +20,12 @@ exports.activityPanel = async (req, res) => {
     return res.render('teacher/activity-panel', {classes: classes})
 }
 
-exports.addTask = (req, res) => {
+exports.addAcademicTask = (req, res) => {
 
      if(req.session.user.userGroup !== 'teacher'){
     return res.redirect('/usuarios/iniciar-sessao')
   }
-    isAddTaskValidRequest(req.body, async (err) => {
+    isAddAcademicTaskValidRequest(req.body, async (err) => {
         if (err){
             return res.status(400).json({message: err})
         }
@@ -34,10 +34,10 @@ exports.addTask = (req, res) => {
             return res.status(401).json({message: 'Somente professores podem postar tarefas'})
         }
 
-        const {title, description, deliveryDate} = req.body
+        const {title, description, deliveryDate, discipline, type} = req.body
 
         try{
-            await db.query('INSERT INTO tasks(title, description, delivery_date, teacher_id) VALUES(?,?,?,?)',[title, description, deliveryDate, req.session.user.id])
+            await db.query('INSERT INTO academic_tasks(title, description, delivery_date, discipline, type, teacher_id) VALUES(?,?,?,?,?,?)',[title, description, deliveryDate, discipline, type, req.session.user.id])
             return res.status(200).json({message: 'Tarefa postada com sucesso.'})
         }catch(err){
             console.error(err)

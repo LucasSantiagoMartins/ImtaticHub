@@ -49,11 +49,16 @@
         <div class="row g-4 mt-5">
             <div class="col-md-6 fade-in">
                 <div class="card card-custom p-4">
-                    <h4 class="mb-3">Postar Tarefa</h4>
-                    <form  id="add-task-form" action="/professor/postar-tarefa" method="post">
+                    <h4 class="mb-3">Postar Tarefa ou Trabalho</h4>
+                    <form  id="add-task-form" action="/professor/postar-tarefa-academica" method="post">
                         <div class="mb-3">
                             <label for="tituloTarefa" class="form-label">Título</label>
-                            <input type="text" class="form-control" name="title" placeholder="Ex: Resumo dos últimos 5 sumários...">
+                            <input type="text" class="form-control" name="title" placeholder="Ex: Trabalho sobre gestão de stoque ou resumo da aula anterior">
+
+                        </div>
+                        <div class="mb-3">
+                            <label for="descricaoTarefa" class="form-label">Disciplina</label>
+                            <input class="form-control" name="discipline"  placeholder="Ex.: Matemática, PT..."></input>
                         </div>
                         <div class="mb-3">
                             <label for="descricaoTarefa" class="form-label">Descrição</label>
@@ -63,7 +68,19 @@
                             <label for="dataEntregaTarefa" class="form-label">Data de Entrega</label>
                             <input type="text" id="date-input" name="deliveryDate" class="form-control">
                         </div>
-                        <button type="submit" class="btn btn-dark">Postar</button>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="type" id="radioTarefa" value="task">
+                            <label class="form-check-label" for="radioTarefa">Tarefa</label>
+                        </div>
+                        
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="type" id="radioTrabalho" value="work">
+                            <label class="form-check-label" for="radioTrabalho">Trabalho</label>
+                        </div>
+                        <div class="col-md-4 mt-3">
+
+                            <button type="submit" class="btn btn-dark">Postar</button>
+                        </div>
                     </form>
                 </div>
             </div>

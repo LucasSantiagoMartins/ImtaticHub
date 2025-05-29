@@ -1,12 +1,14 @@
 const { isValidFutureDate } = require("../../date-validator");
 
-function isAddTaskValidRequest(payload, callback){
+function isAddAcademicTaskValidRequest(payload, callback){
     const {
         title,
         deliveryDate,
+        type,
+        discipline
     } = payload;
     
-    if (!title || !deliveryDate) {
+    if (!title || !deliveryDate || !discipline || !type) {
         return callback("Informações obrigatórias estão em falta.")
     }
 
@@ -17,4 +19,4 @@ function isAddTaskValidRequest(payload, callback){
     return callback(null)
 }
 
-module.exports = {isAddTaskValidRequest}
+module.exports = {isAddAcademicTaskValidRequest}
