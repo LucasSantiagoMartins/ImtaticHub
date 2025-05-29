@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minhas Entregas e Provas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        /* Variáveis de cor */
+        :root {
+            --primary-color: #007bff; /* Azul padrão do Bootstrap */
+            --blue-ocean: #007bff; /* Usando a mesma cor para o dia atual */
+            --card-bg: #ffffff;
+            --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            --card-hover-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            background-color: #f4f7f6;
+        }
+
+        /* --- Estilos do Calendário --- */
+        .calendar-container {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 25px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            text-align: center;
+        }
+
+        .calendar-grid .day-name {
+            font-weight: bold;
+            color: #343a40;
+            padding: 6px 0;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+        }
+
+        .calendar-grid .calendar-day {
+            padding: 6px;
+            border-radius: 6px;
+            background-color: #f8f9fa;
+            min-height: 60px; /* Altura menor */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            position: relative;
+            cursor: default; /* Padrão para dias sem evento */
+        }
+
+        .calendar-grid .calendar-day.current-month {
+            background-color: #ffffff;
+            border: 1px solid #e9ecef;
+        }
+
+        .calendar-grid .calendar-day.today {
+            background-color: var(--blue-ocean);
+            color: white;
+            font-weight: bold;
+        }
+
+        .calendar-grid .calendar-day.has-event {
+            border: 2px solid var(--primary-color);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            cursor: pointer; /* Indica que é clicável */
+        }
+
+        .calendar-grid .calendar-day.today.has-event {
+            border: 2px solid white;
+        }
+
+        .calendar-grid .calendar-day .day-number {
+            font-size: 1em;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .calendar-grid .event-dot {
+            width: 6px;
+            height: 6px;
+            background-color: #dc3545; /* Cor para indicar evento */
+            border-radius: 50%;
+            margin-top: 4px;
+        }
+
+        .calendar-grid .event-count {
+            font-size: 0.65em;
+            color: #6c757d;
+            margin-top: 2px;
+        }
+
+        .calendar-grid .calendar-day.today .event-count {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* --- Estilos para os Cards de Eventos e Formulário --- */
+        .event-card, .submission-form-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            background-color: var(--card-bg);
+            box-shadow: var(--card-shadow);
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            cursor: pointer;
+            text-align: center;
+            position: relative; /* Para o fade-in */
+            opacity: 0; /* Começa invisível para o fade-in */
+            transform: translateY(20px); /* Começa um pouco abaixo para o fade-in */
+            animation: fadeInAndSlideUp 0.5s ease-out forwards; /* Aplica a animação */
+        }
+
+        .event-card:hover, .submission-form-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--card-hover-shadow);
+        }
+
+        .event-card h5 {
+            color: var(--primary-color);
+            margin-bottom: 8px;
+        }
+
+        .event-card p {
+            margin-bottom: 5px;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .event-card .badge {
+            font-size: 0.75em;
+            padding: 0.4em 0.7em;
+            margin-top: 10px;
+        }
+
+        .event-card .card-body i {
+            margin-right: 5px;
+            color: #6c757d; /* Cor padrão para os ícones nos cards */
+        }
+
+        .event-card .card-body i.fa-laptop-code {
+            color: #007bff; /* Azul para trabalho */
+        }
+
+        .event-card .card-body i.fa-clipboard-list {
+            color: #17a2b8; /* Ciano para tarefa */
+        }
+
+        .event-card .card-body i.fa-file-alt {
+            color: #28a745; /* Verde para prova (apenas se for exibido no card principal) */
+        }
+
+
+        /* Estilo para o container do formulário que aparecerá */
+        #submissionFormsContainer {
+            margin-top: 30px; /* Espaçamento acima do formulário */
+        }
+
+        /* Animação de Fade-in e Deslizar para cima */
+        @keyframes fadeInAndSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- Estilos para o campo Drag and Drop --- */
+        .drag-drop-area {
+            border: 2px dashed #007bff; /* Borda recortada azul */
+            border-radius: 10px; /* Levemente arredondado */
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+            background-color: #f8f9fa;
+            color: #6c757d;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .drag-drop-area.dragover {
+            background-color: #e2f0ff; /* Azul claro ao arrastar sobre */
+            border-color: #0056b3; /* Azul mais escuro ao arrastar sobre */
+        }
+
+        .drag-drop-area i.fa-cloud-upload-alt {
+            font-size: 3.5em;
+            color: #007bff;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .drag-drop-area p {
+            margin-bottom: 5px;
+            font-size: 0.9em;
+        }
+
+        .drag-drop-area .file-name {
+            font-weight: bold;
+            color: #343a40;
+            margin-top: 10px;
+            display: block;
+            word-break: break-word; /* Garante que nomes longos não quebrem o layout */
+        }
+
+        /* Esconde o input file padrão */
+        .drag-drop-area input[type="file"] {
+            display: none;
+        }
+
+        /* --- Estilos para o Tooltip personalizado --- */
+        .custom-tooltip {
+            --bs-tooltip-bg: #fff; /* Fundo branco */
+            --bs-tooltip-color: #333; /* Texto escuro */
+            --bs-tooltip-opacity: 1; /* Opacidade total */
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15); /* Sombra suave */
+            border-radius: 8px; /* Bordas arredondadas */
+            padding: 8px 12px;
+            font-size: 0.875rem;
+        }
+
+        .custom-tooltip .tooltip-arrow::before {
+            border-top-color: #fff !important; /* Ajusta a cor da seta para branco */
+            border-bottom-color: #fff !important;
+            border-left-color: #fff !important;
+            border-right-color: #fff !important;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container mt-5">
+        <h1 class="mb-4 text-center">Calendário de Entregas e Provas</h1>
+
+        <div class="calendar-container">
+            <div class="calendar-header">
+                <button class="btn btn-outline-primary" id="prevMonth"><i class="fas fa-chevron-left"></i></button>
+                <h3 id="currentMonthYear"></h3>
+                <button class="btn btn-outline-primary" id="nextMonth"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            <div class="calendar-grid" id="calendar-grid">
+                <div class="day-name">Dom</div>
+                <div class="day-name">Seg</div>
+                <div class="day-name">Ter</div>
+                <div class="day-name">Qua</div>
+                <div class="day-name">Qui</div>
+                <div class="day-name">Sex</div>
+                <div class="day-name">Sáb</div>
+            </div>
+        </div>
+
+        <hr>
+
+        <h2 class="mb-3 text-center">Próximas Entregas</h2>
+        <div id="eventCardsContainer" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-5">
+            <p class="text-center text-muted" id="noEventsMessage">Nenhum evento futuro neste momento.</p>
+        </div>
+
+        <div id="submissionFormsContainer" style="display: none;">
+            <h2 class="mb-3 text-center" id="formTitle"></h2>
+            <div id="dynamicFormContent">
+            </div>
+            <button id="backToEventsBtn" class="btn btn-secondary mt-4 mb-4"><i class="fas fa-arrow-alt-circle-left me-2"></i>Voltar para a lista de eventos</button>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const calendarGrid = document.getElementById('calendar-grid');
+            const currentMonthYear = document.getElementById('currentMonthYear');
+            const prevMonthBtn = document.getElementById('prevMonth');
+            const nextMonthBtn = document.getElementById('nextMonth');
+            const eventCardsContainer = document.getElementById('eventCardsContainer');
+            const noEventsMessage = document.getElementById('noEventsMessage');
+            
+            const submissionFormsContainer = document.getElementById('submissionFormsContainer');
+            const formTitle = document.getElementById('formTitle');
+            const dynamicFormContent = document.getElementById('dynamicFormContent');
+            const backToEventsBtn = document.getElementById('backToEventsBtn');
+
+            let currentDate = new Date(); // Mantenha o estado do mês/ano atual
+
+            // Simulação de dados de eventos (trabalhos/provas)
+            // Em um cenário real, você buscaria isso do seu backend via API
+            const events = [
+                {
+                    id: 't1',
+                    type: 'trabalho', // 'trabalho' ou 'prova' ou 'tarefa'
+                    title: 'Trabalho de Programação Web',
+                    discipline: 'TLP',
+                    description: 'Desenvolvimento de uma aplicação web completa com Node.js e Express. Este é um trabalho complexo que exige dedicação.',
+                    dueDate: '2025-05-28', // Data de entrega. Lembre-se: '2025-05-28' (ontem)
+                    dueTime: '23:59',
+                    status: 'pendente'
+                },
+                {
+                    id: 'p1',
+                    type: 'prova',
+                    title: 'Prova de Banco de Dados',
+                    discipline: 'SI',
+                    description: 'Avaliação sobre modelagem de dados e SQL.',
+                    dueDate: '2025-06-10',
+                    dueTime: '09:00',
+                    status: 'pendente'
+                },
+                {
+                    id: 't2',
+                    type: 'tarefa',
+                    title: 'Tarefa de Cálculo I',
+                    discipline: 'Matemática',
+                    description: 'Resolução de exercícios sobre derivadas e integrais.',
+                    dueDate: '2025-05-30', // Data de entrega (hoje)
+                    dueTime: '18:00',
+                    status: 'pendente'
+                },
+                {
+                    id: 't3',
+                    type: 'trabalho',
+                    title: 'Projeto Final de TLP',
+                    discipline: 'TLP',
+                    description: 'Entrega final do projeto de Programação Web, incluindo frontend e backend.',
+                    dueDate: '2025-07-05',
+                    dueTime: '23:59',
+                    status: 'pendente'
+                },
+                 {
+                    id: 'p2',
+                    type: 'prova',
+                    title: 'Exame de Redes de Computadores',
+                    discipline: 'Redes',
+                    description: 'Exame final sobre protocolos de rede e segurança.',
+                    dueDate: '2025-06-10', // Mesmo dia da prova de SI
+                    dueTime: '14:00',
+                    status: 'pendente'
+                }
+            ];
+
+            // --- Funções do Calendário ---
+
+            function renderCalendar() {
+                // Limpa os dias existentes
+                calendarGrid.querySelectorAll('.calendar-day').forEach(day => {
+                    if (!day.classList.contains('day-name')) { // Evita remover os nomes dos dias
+                        day.remove();
+                    }
+                });
+
+                const month = currentDate.getMonth();
+                const year = currentDate.getFullYear();
+                currentMonthYear.textContent = `${new Date(year, month).toLocaleString('pt-BR', { month: 'long', year: 'numeric' })}`;
+
+                const firstDayOfMonth = new Date(year, month, 1);
+                const lastDayOfMonth = new Date(year, month + 1, 0);
+                const numDaysInMonth = lastDayOfMonth.getDate();
+
+                // Obtém o dia da semana do primeiro dia do mês (0 = Domingo, 6 = Sábado)
+                const firstDayOfWeek = firstDayOfMonth.getDay(); 
+                
+                // Adiciona dias vazios para preencher o início do mês no grid
+                for (let i = 0; i < firstDayOfWeek; i++) {
+                    const emptyDay = document.createElement('div');
+                    emptyDay.classList.add('calendar-day');
+                    calendarGrid.appendChild(emptyDay);
+                }
+
+                // Adiciona os dias do mês
+                for (let day = 1; day <= numDaysInMonth; day++) {
+                    const dayElement = document.createElement('div');
+                    dayElement.classList.add('calendar-day', 'current-month');
+                    const fullDate = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                    dayElement.dataset.fullDate = fullDate; // Armazena a data completa para referência
+
+                    dayElement.innerHTML = `<span class="day-number">${day}</span>`;
+
+                    // Marca o dia atual
+                    const today = new Date();
+                    if (day === today.getDate() && month === today.getMonth() && year === today.getFullYear()) {
+                        dayElement.classList.add('today');
+                    }
+
+                    // Filtra eventos para o dia atual do loop
+                    const eventsOnThisDay = events.filter(event => event.dueDate === fullDate);
+
+                    if (eventsOnThisDay.length > 0) {
+                        dayElement.classList.add('has-event');
+                        
+                        // Exibe pontos de evento ou contagem
+                        const eventInfoDiv = document.createElement('div');
+                        eventInfoDiv.classList.add('event-info');
+                        
+                        eventsOnThisDay.forEach(event => {
+                            const eventDot = document.createElement('div');
+                            eventDot.classList.add('event-dot');
+                            eventInfoDiv.appendChild(eventDot);
+                        });
+
+                        const eventCountSpan = document.createElement('span');
+                        eventCountSpan.classList.add('event-count');
+                        eventCountSpan.textContent = `${eventsOnThisDay.length} entrega(s)`;
+                        eventInfoDiv.appendChild(eventCountSpan);
+                        dayElement.appendChild(eventInfoDiv);
+
+                        // Adiciona tooltip com detalhes dos eventos
+                        const tooltipContent = eventsOnThisDay.map(e => {
+                            const typeTranslated = { 'trabalho': 'Trabalho', 'tarefa': 'Tarefa', 'prova': 'Prova' }[e.type] || e.type;
+                            return `${typeTranslated}: ${e.title} (${e.discipline}) - ${e.dueTime ? e.dueTime : 'Dia Todo'}`;
+                        }).join('\n'); // Usa quebra de linha para múltiplos eventos
+
+                        dayElement.setAttribute('data-bs-toggle', 'tooltip');
+                        dayElement.setAttribute('data-bs-placement', 'top');
+                        dayElement.setAttribute('data-bs-custom-class', 'custom-tooltip');
+                        dayElement.setAttribute('data-bs-title', tooltipContent);
+                    }
+
+                    calendarGrid.appendChild(dayElement);
+                }
+                
+                // Inicializa todos os tooltips após renderizar os dias
+                const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+                const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+
+                renderUpcomingEvents(); // Chama a função para renderizar os cards abaixo do calendário
+            }
+
+            function changeMonth(direction) {
+                currentDate.setMonth(currentDate.getMonth() + direction);
+                renderCalendar();
+            }
+
+            // --- Funções para os Cards de Eventos ---
+
+            function renderUpcomingEvents() {
+                eventCardsContainer.innerHTML = ''; // Limpa os cards existentes
+                
+                // Filtra eventos futuros ou do dia atual e os ordena por data e hora
+                const now = new Date();
+                const futureEvents = events.filter(event => {
+                    // Crie um objeto Date para a data e hora de entrega do evento
+                    const [year, month, day] = event.dueDate.split('-').map(Number);
+                    const [hour, minute] = event.dueTime ? event.dueTime.split(':').map(Number) : [23, 59];
+                    const eventDateTime = new Date(year, month - 1, day, hour, minute); // Mês é 0-indexed
+
+                    return eventDateTime >= now;
+                }).sort((a, b) => {
+                    const [yearA, monthA, dayA] = a.dueDate.split('-').map(Number);
+                    const [hourA, minuteA] = a.dueTime ? a.dueTime.split(':').map(Number) : [23, 59];
+                    const dateA = new Date(yearA, monthA - 1, dayA, hourA, minuteA);
+
+                    const [yearB, monthB, dayB] = b.dueDate.split('-').map(Number);
+                    const [hourB, minuteB] = b.dueTime ? b.dueTime.split(':').map(Number) : [23, 59];
+                    const dateB = new Date(yearB, monthB - 1, dayB, hourB, minuteB);
+                    
+                    return dateA - dateB;
+                });
+
+                if (futureEvents.length === 0) {
+                    noEventsMessage.style.display = 'block';
+                } else {
+                    noEventsMessage.style.display = 'none';
+                    futureEvents.forEach((event, index) => {
+                        const eventCardCol = document.createElement('div');
+                        eventCardCol.classList.add('col');
+                        // Aplica um atraso para o efeito fade-in dos cards
+                        eventCardCol.style.animationDelay = `${index * 0.08}s`; 
+                        
+                        let iconHtml = '';
+                        if (event.type === 'trabalho') {
+                            iconHtml = '<i class="fas fa-laptop-code"></i> ';
+                        } else if (event.type === 'tarefa') {
+                            iconHtml = '<i class="fas fa-clipboard-list"></i> ';
+                        } else if (event.type === 'prova') {
+                            iconHtml = '<i class="fas fa-file-alt"></i> ';
+                        }
+
+                        eventCardCol.innerHTML = `
+                            <div class="card h-100 event-card" data-event-id="${event.id}" data-event-type="${event.type}">
+                                <div class="card-body">
+                                    <h5 class="card-title">${iconHtml}${event.title}</h5>
+                                    <p class="card-text"><strong>Disciplina:</strong> ${event.discipline}</p>
+                                    <p class="card-text"><strong>Entrega:</strong> ${new Date(event.dueDate).toLocaleDateString('pt-BR')} ${event.dueTime ? `às ${event.dueTime}` : ''}</p>
+                                    <p class="card-text">${event.description.substring(0, 70)}${event.description.length > 70 ? '...' : ''}</p>
+                                    <span class="badge ${event.type === 'trabalho' ? 'bg-primary' : (event.type === 'tarefa' ? 'bg-info' : 'bg-success')}">${event.type.charAt(0).toUpperCase() + event.type.slice(1)}</span>
+                                </div>
+                            </div>
+                        `;
+                        eventCardsContainer.appendChild(eventCardCol);
+                    });
+
+                    // Adiciona listener de clique aos cards recém-criados
+                    document.querySelectorAll('.event-card').forEach(card => {
+                        card.addEventListener('click', (e) => {
+                            const eventId = e.currentTarget.dataset.eventId;
+                            const selectedEvent = events.find(event => event.id === eventId);
+                            if (selectedEvent) {
+                                displaySubmissionForm(selectedEvent);
+                            }
+                        });
+                    });
+                }
+            }
+
+            // --- Funções para os Formulários de Submissão ---
+
+            function displaySubmissionForm(eventData) {
+                // Esconde os cards de eventos e seus títulos
+                eventCardsContainer.style.display = 'none';
+                document.querySelector('hr').style.display = 'none'; 
+                const upcomingEventsTitle = document.querySelector('h2.mb-3.text-center');
+                if (upcomingEventsTitle && upcomingEventsTitle.textContent === 'Próximas Entregas') {
+                    upcomingEventsTitle.style.display = 'none';
+                }
+                
+                // Exibe o container dos formulários
+                submissionFormsContainer.style.display = 'block';
+                formTitle.textContent = `Submeter ${eventData.type.charAt(0).toUpperCase() + eventData.type.slice(1)}: ${eventData.title}`;
+
+                // Constrói o formulário dinamicamente
+                let formHtml = '';
+                if (eventData.type === 'trabalho' || eventData.type === 'tarefa') {
+                    formHtml = `
+                        <div class="card submission-form-card">
+                            <div class="card-body">
+                                <form id="submitAssignmentForm" action="/submit/${eventData.type}" method="POST" enctype="multipart/form-data">
+                                    <input type="hidden" name="eventId" value="${eventData.id}">
+                                    <input type="hidden" name="eventType" value="${eventData.type}">
+
+                                    <div class="mb-3">
+                                        <label for="assignmentTitle" class="form-label">Título do Evento</label>
+                                        <input type="text" class="form-control" id="assignmentTitle" value="${eventData.title}" readonly>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="assignmentDiscipline" class="form-label">Disciplina</label>
+                                        <input type="text" class="form-control" id="assignmentDiscipline" value="${eventData.discipline}" readonly>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="submissionDescription" class="form-label">Descrição da Submissão</label>
+                                        <textarea class="form-control" id="submissionDescription" name="submissionDescription" rows="3" placeholder="Adicione uma descrição para sua submissão (opcional)."></textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Anexar Arquivo</label>
+                                        <div class="drag-drop-area" id="dragDropArea">
+                                            <i class="fas fa-cloud-upload-alt"></i>
+                                            <p>Arraste e solte o arquivo aqui ou</p>
+                                            <button type="button" class="btn btn-outline-primary btn-sm" id="selectFileBtn">Selecione um arquivo</button>
+                                            <input type="file" id="submissionFile" name="submissionFile" accept=".pdf, .doc, .docx, .zip, .rar, .txt">
+                                            <span class="file-name mt-2" id="fileName">Nenhum arquivo selecionado</span>
+                                            <div class="form-text">Tipos de arquivo aceitos: PDF, DOC, DOCX, ZIP, RAR, TXT.</div>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Submeter ${eventData.type.charAt(0).toUpperCase() + eventData.type.slice(1)}</button>
+                                </form>
+                            </div>
+                        </div>
+                    `;
+                } else if (eventData.type === 'prova') {
+                    formHtml = `
+                        <div class="card submission-form-card">
+                            <div class="card-body">
+                                <div class="alert alert-info" role="alert">
+                                    Esta é uma **Prova**: **${eventData.title}** de **${eventData.discipline}**.
+                                    A prova será realizada em **${new Date(eventData.dueDate).toLocaleDateString('pt-BR')}** às **${eventData.dueTime}**.
+                                    Não há um formulário de submissão de arquivo para provas. Por favor, prepare-se para a avaliação presencial ou online conforme as instruções do professor.
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    formHtml = `<div class="alert alert-warning" role="alert">Tipo de evento desconhecido.</div>`;
+                }
+
+                dynamicFormContent.innerHTML = formHtml;
+
+                // Rolagem suave para o formulário
+                submissionFormsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+                // --- Lógica de Drag and Drop para o campo de arquivo ---
+                const dragDropArea = document.getElementById('dragDropArea');
+                const submissionFile = document.getElementById('submissionFile');
+                const selectFileBtn = document.getElementById('selectFileBtn');
+                const fileNameSpan = document.getElementById('fileName');
+
+                if (dragDropArea && submissionFile && selectFileBtn && fileNameSpan) {
+                    // Previne o comportamento padrão de arrastar e soltar
+                    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                        dragDropArea.addEventListener(eventName, preventDefaults, false);
+                        document.body.addEventListener(eventName, preventDefaults, false); // Para evitar abrir o arquivo no navegador
+                    });
+
+                    function preventDefaults (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                    }
+
+                    // Adiciona e remove a classe 'dragover' para feedback visual
+                    ['dragenter', 'dragover'].forEach(eventName => {
+                        dragDropArea.addEventListener(eventName, () => dragDropArea.classList.add('dragover'), false);
+                    });
+
+                    ['dragleave', 'drop'].forEach(eventName => {
+                        dragDropArea.addEventListener(eventName, () => dragDropArea.classList.remove('dragover'), false);
+                    });
+
+                    // Lida com o arquivo solto
+                    dragDropArea.addEventListener('drop', handleDrop, false);
+
+                    function handleDrop(e) {
+                        const dt = e.dataTransfer;
+                        const files = dt.files;
+                        submissionFile.files = files; // Atribui os arquivos arrastados ao input file
+                        if (files.length > 0) {
+                            fileNameSpan.textContent = files[0].name;
+                        } else {
+                            fileNameSpan.textContent = 'Nenhum arquivo selecionado';
+                        }
+                    }
+
+                    // Permite clicar na área para abrir o seletor de arquivos
+                    selectFileBtn.addEventListener('click', () => {
+                        submissionFile.click();
+                    });
+
+                    // Atualiza o nome do arquivo quando selecionado via input
+                    submissionFile.addEventListener('change', (e) => {
+                        if (e.target.files.length > 0) {
+                            fileNameSpan.textContent = e.target.files[0].name;
+                        } else {
+                            fileNameSpan.textContent = 'Nenhum arquivo selecionado';
+                        }
+                    });
+                }
+
+
+                // Adiciona o event listener para o formulário (se for um formulário submetível)
+                const form = document.getElementById('submitAssignmentForm');
+                if (form) {
+                    form.addEventListener('submit', async (e) => {
+                        e.preventDefault(); // Impede o envio padrão do formulário
+
+                        const formData = new FormData(form);
+                        
+                        // --- Lógica de Envio Real para o Backend (Descomente e ajuste conforme necessário) ---
+                        // try {
+                        //     const response = await fetch(form.action, {
+                        //         method: 'POST',
+                        //         body: formData,
+                        //         credentials: 'include' // Se você usa sessões/cookies
+                        //     });
+                        //     const result = await response.json();
+                        //     if (response.ok) {
+                        //         alert('Submissão realizada com sucesso!');
+                        //         // Opcional: Atualizar o status do evento no 'events' array ou recarregar
+                        //         backToEvents();
+                        //     } else {
+                        //         alert('Erro na submissão: ' + result.message);
+                        //     }
+                        // } catch (error) {
+                        //     console.error('Erro ao enviar formulário:', error);
+                        //     alert('Erro ao processar a requisição.');
+                        // }
+
+                        // --- Simulação de Submissão ---
+                        alert(`Simulando submissão para "${eventData.title}".\nTipo: ${eventData.type}.\nArquivo: ${formData.get('submissionFile') && formData.get('submissionFile').name ? formData.get('submissionFile').name : 'Nenhum'}`);
+                        
+                        // Após a submissão (simulada ou real), você pode voltar para a lista de eventos
+                        backToEvents();
+                    });
+                }
+            }
+
+            function backToEvents() {
+                submissionFormsContainer.style.display = 'none';
+                eventCardsContainer.style.display = 'flex'; // Volta a exibir os cards
+                document.querySelector('hr').style.display = 'block'; 
+                
+                const upcomingEventsTitle = document.querySelector('h2.mb-3.text-center');
+                if (upcomingEventsTitle && upcomingEventsTitle.textContent === 'Próximas Entregas') {
+                    upcomingEventsTitle.style.display = 'block'; 
+                }
+
+                dynamicFormContent.innerHTML = ''; // Limpa o conteúdo do formulário
+                renderUpcomingEvents(); // Renderiza os eventos novamente para aplicar o fade-in nos cards
+            }
+
+            // --- Inicialização ---
+            prevMonthBtn.addEventListener('click', () => changeMonth(-1));
+            nextMonthBtn.addEventListener('click', () => changeMonth(1));
+
+            renderCalendar(); // Renderiza o calendário e os eventos ao carregar a página
+        });
+    </script>
+</body>
+</html>

@@ -45,7 +45,23 @@
                 </div>
             </div>
             </div>
+                    <div class="container mb-4 mt-4">
+                    <h4 class="fw-bold mb-4">Selecione as turmas que vão receber essa atividade</h4>
 
+                    <div class="row justify-content-start g-3" id="turmasContainer">
+                        <% classes.forEach((turma, index) => { %>
+                            <div class="col-6 col-md-4 col-lg-3 col-xl-2 d-flex justify-content-center">
+                                <div class="card card-custom card-turma p-3 text-center" data-turma-id="<%= turma.id %>" style="--delay: <%= (index * 0.1).toFixed(1) %>s;">
+                                    <p class="fw-semibold mb-1"><%= turma.name %></p>
+                                    <small class="text-muted d-block">Curso: <%= turma.course_name %></small>
+                                    <small class="text-muted">Período: <%= turma.period %></small>
+                                </div>
+                            </div>
+                        <% }) %>
+                    </div>
+                </div>
+
+                      
         <div class="row g-4 mt-5">
             <div class="col-md-6 fade-in">
                 <div class="card card-custom p-4">
@@ -77,8 +93,9 @@
                             <input class="form-check-input" type="radio" name="type" id="radioTrabalho" value="work">
                             <label class="form-check-label" for="radioTrabalho">Trabalho</label>
                         </div>
-                        <div class="col-md-4 mt-3">
+                        <input type="hidden" name="classes" class="classesInput">
 
+                        <div class="col-md-4 mt-3">
                             <button type="submit" class="btn btn-dark">Postar</button>
                         </div>
                     </form>
@@ -103,7 +120,7 @@
                             <label for="descricaoProva" class="form-label">Descrição</label>
                             <textarea class="form-control" name="description" rows="3" placeholder="Escreva os tópicos que cairão na prova..."></textarea>
                         </div>
-
+                        <input type="hidden" name="classes" class="classesInput">
                         <button type="submit" class="btn btn-dark">Marcar</button>
                     </form>
                 </div>
@@ -139,23 +156,7 @@
                                 <span id="fileName" class="text-muted small">Nenhum arquivo selecionado.</span>
                             </div>
                         </div>
-
-                       <div class="mb-4">
-                            <label class="form-label">Selecionar Turmas</label>
-                            <div class="row g-3" id="turmasContainer">
-                                <% classes.forEach((turma, index) => { %>
-                                <div class="col-6 col-md-4 col-lg-3 col-xl-2">
-                                    <div class="card card-custom card-turma p-3 text-center" data-turma-id="<%= turma.id %>" style="--delay: <%= (index * 0.1).toFixed(1) %>s;">
-                                    <p class="fw-semibold mb-1"><%= turma.name %></p>
-                                    <small class="text-muted d-block">Curso: <%= turma.course_name %></small>
-                                    <small class="text-muted">Período: <%= turma.period %></small>
-                                    </div>
-                                </div>
-                                <% }) %>
-                            </div>
-                            </div>
-                        <br>
-                        <input type="hidden" name="classes" id="classesInput">
+                        <input type="hidden" name="classes" class="classesInput">
                         <button type="submit" class="btn btn-outline-dark py-2 w-25">Enviar material de estudo</button>
                     </form>
                 </div>

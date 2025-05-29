@@ -5,17 +5,16 @@ function isAddAcademicTaskValidRequest(payload, callback){
         title,
         deliveryDate,
         type,
-        discipline
+        discipline,
+        classes
     } = payload;
-    
-    if (!title || !deliveryDate || !discipline || !type) {
+    if(!classes)
+        return callback("Selecione as turmas que vão receber essa atividade")
+    if (!title || !deliveryDate || !discipline || !type) 
         return callback("Informações obrigatórias estão em falta.")
-    }
-
-    if(!isValidFutureDate(deliveryDate, null)){
+    if(!isValidFutureDate(deliveryDate, null))
         return callback("A data de entrega deve ser posterior ao momento atual.")
 
-    }
     return callback(null)
 }
 

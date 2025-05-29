@@ -61,8 +61,8 @@ uploadArea.addEventListener('drop', (e) => {
 });
 
 
-       const turmasContainer = document.getElementById('turmasContainer');
-const classesInput = document.getElementById('classesInput');
+      const turmasContainer = document.getElementById('turmasContainer');
+const classesInputs = document.querySelectorAll('.classesInput');
 
 const selectedClasses = new Set(); 
 
@@ -79,8 +79,11 @@ turmasContainer.addEventListener('click', (event) => {
             selectedClasses.delete(turmaId);
         }
 
-        classesInput.value = Array.from(selectedClasses).join(',');
+        const selected = Array.from(selectedClasses).join(',');
 
+        classesInputs.forEach(input => {
+            input.value = selected;
+        });
     }
 });
 

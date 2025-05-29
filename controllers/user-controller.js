@@ -87,7 +87,6 @@ exports.login = async (req, res) => {
           phoneNumber: user.phone_number,
           userGroup: user.user_group_name
         };
-        console.log(req.session)
 
         return res.status(200).json({ message: "Sessão iniciada com sucesso.", redirectTo: "/" });
 
@@ -152,7 +151,7 @@ exports.addTeacherDetails = async (req, res) => {
 
       await db.query('INSERT INTO teachers (full_name,nationality,gender,address,birth_date,user_id) VALUES (?,?,?,?,?,?)', [fullName.toLowerCase(), nationality.toLowerCase(), gender, address.toLowerCase(), birthDate, userId])
 
-      return res.status(200).json({message: "Informações adicionadas com sucesso.", redirectTo: "/"})
+      return res.status(200).json({message: "Informações adicionadas com sucesso.", redirectTo: "/usuarios/iniciar-sessao"})
 
     }catch(err){
       console.error(err)
@@ -200,7 +199,7 @@ exports.addStudentDetails = async (req, res) => {
       
       await db.query('INSERT INTO students (full_name,nationality,gender,address,class,grade,birth_date,academic_year, student_registration_number, course_id, user_id) VALUES (?,?,?,?,?,?,?,?,?,?,?)', [fullName.toLowerCase(), nationality.toLowerCase(), gender, address.toLowerCase(),studentClass.toLowerCase(), grade,birthDate, academicYear, registrationNumber,  courseId, userId])
 
-      return res.status(200).json({message: "Informações adicionadas com sucesso.", redirectTo: "/"})
+      return res.status(200).json({message: "Informações adicionadas com sucesso.", redirectTo: "/usuarios/iniciar-sessao"})
 
     }catch(err){
       console.error(err)

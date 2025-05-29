@@ -8,6 +8,7 @@ const authRoutes = require("./routes/user-routes")
 const eventRoutes = require("./routes/event-routes")
 const adminRoutes = require("./routes/admin-routes")
 const teacherRoutes = require("./routes/teacher-routes")
+const studentRoutes = require("./routes/student-routes")
 const cors = require('cors');
 
 const app = express()
@@ -30,6 +31,7 @@ app.use('/', authRoutes)
 app.use('/eventos', eventRoutes)
 app.use('/area-administrativa', adminRoutes)
 app.use('/professor', teacherRoutes)
+app.use('/estudante', studentRoutes)
 
 
 port = process.env.PORT

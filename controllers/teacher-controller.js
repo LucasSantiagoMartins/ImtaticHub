@@ -19,57 +19,99 @@ exports.activityPanel = async (req, res) => {
     `);
     return res.render('teacher/activity-panel', {classes: classes})
 }
-
 exports.addAcademicTask = (req, res) => {
+    if (req.session.user.userGroup !== 'teacher') {
+        return res.redirect('/usuarios/iniciar-sessao');
+    }
 
-     if(req.session.user.userGroup !== 'teacher'){
-    return res.redirect('/usuarios/iniciar-sessao')
-  }
     isAddAcademicTaskValidRequest(req.body, async (err) => {
-        if (err){
-            return res.status(400).json({message: err})
-        }
-        const [rows] = await db.query('SELECT * FROM teachers WHERE user_id = ?', [req.session.user.id])
-        if (rows.length === 0){
-            return res.status(401).json({message: 'Somente professores podem postar tarefas'})
+        if (err) {
+            return res.status(400).json({ message: err });
         }
 
-        const {title, description, deliveryDate, discipline, type} = req.body
+        const [rows] = await db.query('SELECT * FROM teachers WHERE user_id = ?', [req.session.user.id]);
+        if (rows.length === 0) {
+            return res.status(401).json({ message: 'Somente professores podem postar tarefas' });
+        }
 
-        try{
-            await db.query('INSERT INTO academic_tasks(title, description, delivery_date, discipline, type, teacher_id) VALUES(?,?,?,?,?,?)',[title, description, deliveryDate, discipline, type, req.session.user.id])
-            return res.status(200).json({message: 'Tarefa postada com sucesso.'})
-        }catch(err){
-            console.error(err)
+        const { title, description, deliveryDate, discipline, type, classes } = req.body;
+
+        try {
+            const [result] = await db.query(
+                'INSERT INTO academic_tasks(title, description, delivery_date, discipline, type, teacher_id) VALUES (?, ?, ?, ?, ?, ?)',
+                [title, description, deliveryDate, discipline, type, req.session.user.id]
+            );
+
+            const taskId = result.insertId;
+
+            const classIds = Array.isArray(classes) ? classes : classes.split(',');
+            if (classIds.length === 0 || classIds[0] === "") {
+                throw new Error('Nenhuma turma selecionada.');
+            }
+
+            for (const classId of classIds) {
+                await db.query(
+                    'INSERT INTO academic_task_class (academic_task_id, class_id) VALUES (?, ?)',
+                    [taskId, classId.trim()]
+                );
+            }
+
+            return res.status(200).json({ message: type === 'task' ? 'Tarefa postada com sucesso.' : 'Trabalho postado com sucesso.' });
+
+
+        } catch (err) {
+            console.error(err);
             return res.status(500).json({ message: "Erro interno do sistema." });
         }
-    })
-}
+    });
+};
 
 exports.addExam = (req, res) => {
-    if(req.session.user.userGroup !== 'teacher'){
-    return res.redirect('/usuarios/iniciar-sessao')
-  }
+    if (req.session.user.userGroup !== 'teacher') {
+        return res.redirect('/usuarios/iniciar-sessao');
+    }
+
     isAddExamValidRequest(req.body, async (err) => {
-        if (err){
-            return res.status(400).json({message: err})
-        }
-        const [rows] = await db.query('SELECT * FROM teachers WHERE user_id = ?', [req.session.user.id])
-        if (rows.length === 0){
-            return res.status(401).json({message: 'Somente professores podem marcar prova'})
+        if (err) {
+            return res.status(400).json({ message: err });
         }
 
-        const {discipline, examDate, description} = req.body
+        const [rows] = await db.query('SELECT * FROM teachers WHERE user_id = ?', [req.session.user.id]);
+        if (rows.length === 0) {
+            return res.status(401).json({ message: 'Somente professores podem marcar prova' });
+        }
 
-        try{
-            await db.query('INSERT INTO exams(discipline, exam_date, description, teacher_id) VALUES(?,?,?,?)',[discipline, examDate, description, req.session.user.id])
-            return res.status(200).json({message: 'Prova marcada com sucesso.'})
-        }catch(err){
-            console.error(err)
+        const { discipline, examDate, description, classes } = req.body;
+
+        try {
+            const [result] = await db.query(
+                'INSERT INTO exams(discipline, exam_date, description, teacher_id) VALUES (?, ?, ?, ?)',
+                [discipline, examDate, description, req.session.user.id]
+            );
+
+            const examId = result.insertId;
+
+            const classIds = Array.isArray(classes) ? classes : classes.split(',');
+            if (classIds.length === 0 || classIds[0] === "") {
+                throw new Error('Nenhuma turma selecionada.');
+            }
+
+            for (const classId of classIds) {
+                await db.query(
+                    'INSERT INTO exam_class (exam_id, class_id) VALUES (?, ?)',
+                    [examId, classId.trim()]
+                );
+            }
+
+            return res.status(200).json({ message: 'Prova marcada com sucesso.' });
+
+        } catch (err) {
+            console.error(err);
             return res.status(500).json({ message: "Erro interno do sistema." });
         }
-    })
-}
+    });
+};
+
 
 exports.addStudyMaterial = async (req, res) => {
     if (req.session.user.userGroup !== 'teacher') {
