@@ -7,18 +7,70 @@ const fs = require('fs');
 const path = require('path'); 
 
 
-
 exports.activityPanel = async (req, res) => {
-     if(req.session.user.userGroup !== 'teacher'){
-    return res.redirect('/usuarios/iniciar-sessao')
-  }
-    const [classes] = await db.query(`
-      SELECT classes.*, courses.name AS course_name
-      FROM classes
-      JOIN courses ON classes.course_id = courses.id
-    `);
-    return res.render('teacher/activity-panel', {classes: classes})
-}
+    if (req.session.user?.userGroup !== 'teacher') {
+        return res.redirect('/usuarios/iniciar-sessao');
+    }
+
+    try {
+        // Query para Classes: Mantida como está, parece que você a usa para outra seção da página.
+        const [classes] = await db.query(`
+            SELECT classes.id, classes.name, classes.period, classes.total_number_students,
+                   courses.name AS course_name
+            FROM classes
+            JOIN courses ON classes.course_id = courses.id
+        `);
+
+        const [academicTaskSubmissions] = await db.query(
+            `SELECT
+                ats.id AS submission_id,
+                ats.description AS submission_description,
+                ats.document,
+                ats.created_at AS submission_date,                 
+                at.id AS task_id,
+                at.title AS task_title,
+                at.discipline AS task_discipline,
+                at.type AS task_type,
+                at.delivery_date AS task_due_date, 
+                
+                s.id AS student_id,
+                s.full_name AS student_full_name,
+                
+                c.id AS class_id,
+                c.name AS class_name, 
+                c.period AS class_period, 
+                
+                u.id AS user_id, -- ID do usuário (do aluno)
+                u.phone_number AS student_phone_number 
+            FROM
+                academic_task_submissions ats
+            JOIN
+                academic_tasks at ON ats.academic_task_id = at.id
+            JOIN
+                users u ON ats.user_id = u.id
+            JOIN
+                students s ON u.id = s.user_id
+            JOIN
+                classes c ON s.class_id = c.id
+            WHERE
+                at.teacher_id = ?
+            ORDER BY
+                ats.created_at DESC`,
+            [req.session.user.id]
+        );
+
+
+        return res.render('teacher/activity-panel', {
+            classes: classes,
+            submissions: academicTaskSubmissions
+        });
+
+    } catch (error) {
+        console.error('Erro ao carregar o painel de atividades:', error);
+        return res.status(500).send('Ocorreu um erro ao carregar o painel.');
+    }
+};
+
 exports.addAcademicTask = (req, res) => {
     if (req.session.user.userGroup !== 'teacher') {
         return res.redirect('/usuarios/iniciar-sessao');

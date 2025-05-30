@@ -1,0 +1,236 @@
+/* Variáveis de cor */
+        :root {
+            --primary-color: #007bff; /* Azul padrão do Bootstrap */
+            --blue-ocean: #007bff; /* Usando a mesma cor para o dia atual */
+            --card-bg: #ffffff;
+            --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            --card-hover-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            background-color: #f4f7f6;
+        }
+
+        /* --- Estilos do Calendário --- */
+        .calendar-container {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 25px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            text-align: center;
+        }
+
+        .calendar-grid .day-name {
+            font-weight: bold;
+            color: #343a40;
+            padding: 6px 0;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+        }
+
+        .calendar-grid .calendar-day {
+            padding: 6px;
+            border-radius: 6px;
+            background-color: #f8f9fa;
+            min-height: 60px; /* Altura menor */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            position: relative;
+            cursor: default; /* Padrão para dias sem evento */
+        }
+
+        .calendar-grid .calendar-day.current-month {
+            background-color: #ffffff;
+            border: 1px solid #e9ecef;
+        }
+
+        .calendar-grid .calendar-day.today {
+            background-color: var(--blue-ocean);
+            color: white;
+            font-weight: bold;
+        }
+
+        .calendar-grid .calendar-day.has-event {
+            border: 2px solid var(--primary-color);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            cursor: pointer; /* Indica que é clicável */
+        }
+
+        .calendar-grid .calendar-day.today.has-event {
+            border: 2px solid white;
+        }
+
+        .calendar-grid .calendar-day .day-number {
+            font-size: 1em;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .calendar-grid .event-dot {
+            width: 6px;
+            height: 6px;
+            background-color: #dc3545; /* Cor para indicar evento */
+            border-radius: 50%;
+            margin-top: 4px;
+        }
+
+        .calendar-grid .event-count {
+            font-size: 0.65em;
+            color: #6c757d;
+            margin-top: 2px;
+        }
+
+        .calendar-grid .calendar-day.today .event-count {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .event-card, .submission-form-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            background-color: var(--card-bg);
+            box-shadow: var(--card-shadow);
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            cursor: pointer;
+            position: relative;
+            opacity: 0; 
+            transform: translateY(20px); 
+            animation: fadeInAndSlideUp 0.5s ease-out forwards; 
+        }
+
+        .event-card:hover, .submission-form-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--card-hover-shadow);
+        }
+
+        .event-card h5 {
+            color: var(--primary-color);
+            margin-bottom: 8px;
+        }
+
+        .event-card p {
+            margin-bottom: 5px;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .event-card .badge {
+            font-size: 0.75em;
+            padding: 0.4em 0.7em;
+            margin-top: 10px;
+        }
+
+        .event-card .card-body i {
+            margin-right: 5px;
+            color: #6c757d; /* Cor padrão para os ícones nos cards */
+        }
+
+        .event-card .card-body i.fa-laptop-code {
+            color: #007bff; /* Azul para trabalho */
+        }
+
+        .event-card .card-body i.fa-clipboard-list {
+            color: #17a2b8; /* Ciano para tarefa */
+        }
+
+        .event-card .card-body i.fa-file-alt {
+            color: #28a745; /* Verde para prova (apenas se for exibido no card principal) */
+        }
+
+
+        /* Estilo para o container do formulário que aparecerá */
+        #submissionFormsContainer {
+            margin-top: 30px; /* Espaçamento acima do formulário */
+        }
+
+        /* Animação de Fade-in e Deslizar para cima */
+        @keyframes fadeInAndSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- Estilos para o campo Drag and Drop --- */
+        .drag-drop-area {
+            border: 2px dashed #007bff; /* Borda recortada azul */
+            border-radius: 10px; /* Levemente arredondado */
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+            background-color: #f8f9fa;
+            color: #6c757d;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .drag-drop-area.dragover {
+            background-color: #e2f0ff; /* Azul claro ao arrastar sobre */
+            border-color: #0056b3; /* Azul mais escuro ao arrastar sobre */
+        }
+
+        .drag-drop-area i.fa-cloud-upload-alt {
+            font-size: 3.5em;
+            color: #007bff;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .drag-drop-area p {
+            margin-bottom: 5px;
+            font-size: 0.9em;
+        }
+
+        .drag-drop-area .file-name {
+            font-weight: bold;
+            color: #343a40;
+            margin-top: 10px;
+            display: block;
+            word-break: break-word; /* Garante que nomes longos não quebrem o layout */
+        }
+
+        /* Esconde o input file padrão */
+        .drag-drop-area input[type="file"] {
+            display: none;
+        }
+
+        /* --- Estilos para o Tooltip personalizado --- */
+        .custom-tooltip {
+            --bs-tooltip-bg: #fff; /* Fundo branco */
+            --bs-tooltip-color: #333; /* Texto escuro */
+            --bs-tooltip-opacity: 1; /* Opacidade total */
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15); /* Sombra suave */
+            border-radius: 8px; /* Bordas arredondadas */
+            padding: 8px 12px;
+            font-size: 0.875rem;
+        }
+
+        .custom-tooltip .tooltip-arrow::before {
+            border-top-color: #fff !important; /* Ajusta a cor da seta para branco */
+            border-bottom-color: #fff !important;
+            border-left-color: #fff !important;
+            border-right-color: #fff !important;
+        }

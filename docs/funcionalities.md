@@ -83,23 +83,27 @@ Gestão de Usuários
 
 Frontend
 
-Frameworks:
-+ Flutter (app mobile com bom suporte para multiplataforma).
+Usamos (html, css, js)
 
-+ React.js (web, se quiser uma interface desktop moderna).
-
-Estilo:
-+ Tailwind CSS (para React).
-+ Material Design (se for Flutter).
+Bibliotecas
++ bootstrap
++ fontawesome
++ flatpickr
++ chartJs
 
 Backend
 
-Framework: 
-+ Fastify.js (Node.js, para maior flexibilidade e APIs rápidas).
+Node.js (express.js)
+
+Bibliotecas:
++ validator
++ mysql2
++ express-mysql-session
++ express-session
 
 Banco de Dados: 
 
-+ PostgreSQL (relacional e robusto).
++ Mysql.
 
 Funcionalidades em Tempo Real
 

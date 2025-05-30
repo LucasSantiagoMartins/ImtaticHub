@@ -29,22 +29,63 @@
             </div>
         </div>
 
-        <div class="row g-4">
+            <div class="row g-4">
+    <% if (submissions && submissions.length > 0) { %>
+        <% submissions.forEach(function(submission) { %>
             <div class="col-md-6 col-lg-4 fade-in">
                 <div class="card card-custom p-3">
                     <div class="d-flex justify-content-between">
-                        <h5>Entrega - Redação sobre Meio Ambiente</h5>
-                        <span class="text-danger fw-bold">10/07</span>
+                        <div class="column">
+                            <h3>Entrega</h3>
+                        <h5 class="text-secondary">
+                            <%= submission.task_type === 'task' ? 'Tarefa' : 'Trabalho' %> <%= submission.task_title %>
+                        </h5>
+                        </div>
+                        <span class="text-danger fw-bold">
+                            <%                            
+                                const dueDate = new Date(submission.task_due_date);
+                                %> <%= dueDate.toLocaleDateString('pt-BR') %> <% 
+                            %>
+                        </span>
                     </div>
-                    <p>Aluno: João Pedro - 8ª Classe</p>
-                    <img src="https://randomuser.me/api/portraits/men/45.jpg" class="avatar mb-2">
-                    <p><strong>Tarefa:</strong> Redação com mínimo de 300 palavras sobre a importância da preservação ambiental.</p>
-                    <div class="d-flex justify-content-end">
+                    <div class="mt-2">
+                        <img src="/images/man.png" style="width: 50px; height: 50px; border-radius: 50px;" cls="avatar mb-2" alt="Avatar do Aluno">
+                        <p class="fw-bold"><%= submission.student_full_name %></p>
+                        <p> <span class="fw-bold">Turma: </span><%= submission.class_name %>
+                        </p>
+                    </div>
+                    
+                    <p>
+                        <strong>Descrição:</strong> <%= submission.submission_description %>
+                    </p>
+                    
+
+                    <% if (submission.document) { %>
+                        <p>
+                            <strong>Documento:</strong> <a href="/uploads/<%= submission.document %>" target="_blank" class="text-decoration-none">Ver Documento <i class="fas fa-file-alt ms-1"></i></a>
+                        </p>
+                    <% } %>
+
+                    
+                    <div class="d-flex justify-content-between">
+                        <p class="text-muted small">
+                            Submetido em: 
+                            <% 
+                                const submittedDate = new Date(submission.submission_date);
+                                %> <%= submittedDate.toLocaleDateString('pt-BR') %> às <%= submittedDate.toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'}) %> <%
+                            %>
+                        </p>
                         <button class="btn btn-outline-success btn-sm">Avaliar</button>
                     </div>
                 </div>
             </div>
-            </div>
+        <% }); %>
+    <% } else { %>
+        <div class="col-12 text-center">
+            <p class="lead text-muted">Nenhuma submissão de atividade encontrada para suas turmas.</p>
+        </div>
+    <% } %>
+</div>
                     <div class="container mb-4 mt-4">
                     <h4 class="fw-bold mb-4">Selecione as turmas que vão receber essa atividade</h4>
 

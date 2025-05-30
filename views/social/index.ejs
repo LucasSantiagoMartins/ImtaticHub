@@ -42,10 +42,10 @@
                     <a href="/area-administrativa/painel-geral">Area administrativa</a>
                     <% } %>
                     <% if (user.userGroup == 'teacher') { %>
-                    <a href="/professor/painel-atividades">Painel atividades</a>
+                    <a href="/professor/painel-atividades">Painel de Atividades</a>
                     <% }%>
                     <% if (user.userGroup == 'student') { %>
-                    <a href="/estudante/painel-atividades">Painel atividades</a>
+                    <a href="/estudante/painel-atividades">Painel de Atividades</a>
                     <% } %>
                     <a id="logout-menu-item" onclick="logout()">Terminar sessão</a>
                 </div>
@@ -175,7 +175,7 @@
 </div>
     <script src="/social/js/index.js"></script>
     <script src="/base/js/base.js"></script>
-    <script src="/user/js/user.js"></script>
+    <script src="/user/js/logout.js"></script>
     <script src="/general/js/request-handler.js"></script>
   <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 

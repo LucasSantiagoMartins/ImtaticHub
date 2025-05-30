@@ -26,12 +26,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json())
 app.use(flash())
 app.set('view engine', 'ejs')
-app.use('/', socialRoutes)
-app.use('/', authRoutes)
 app.use('/eventos', eventRoutes)
 app.use('/area-administrativa', adminRoutes)
 app.use('/professor', teacherRoutes)
 app.use('/estudante', studentRoutes)
+app.use('/usuarios', authRoutes)
+app.use('/', socialRoutes)
 
 
 port = process.env.PORT

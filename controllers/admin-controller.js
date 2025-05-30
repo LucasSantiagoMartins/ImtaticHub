@@ -4,14 +4,15 @@ const {handleSingleUpload } = require('../middleware/upload')
 const { isAddClassValidRequest } = require('../utils/user/validators/add-class-validator')
 
 exports.adminPage = async (req, res) => {
-  if(req.session.user.userGroup !== 'admin'){
-    return res.redirect('/usuarios/iniciar-sessao')
+  if (req.session.user?.userGroup !== 'admin') {
+  return res.redirect('/usuarios/iniciar-sessao');
   }
+
     return res.render('admin/general-panel')
 }
 exports.classesPage = async (req, res) => {
-  if(req.session.user.userGroup !== 'admin'){
-    return res.redirect('/usuarios/iniciar-sessao')
+   if (req.session.user?.userGroup !== 'admin') {
+  return res.redirect('/usuarios/iniciar-sessao');
   }
     const [courses] = await db.query('SELECT id, name FROM courses')
     const [classes] = await db.query(`
@@ -91,8 +92,8 @@ exports.getEvents = async (req, res) => {
 
 
 exports.eventsPage = async (req, res) => {
-  if(req.session.user.userGroup !== 'admin'){
-    return res.redirect('/usuarios/iniciar-sessao')
+   if (req.session.user?.userGroup !== 'admin') {
+  return res.redirect('/usuarios/iniciar-sessao');
   }
     const [rows] = await db.query(`
             SELECT 

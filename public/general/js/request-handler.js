@@ -17,18 +17,11 @@ async function requestHandler(form, useJson = false) {
     body = JSON.stringify(jsonData);
     headers['Content-Type'] = 'application/json';
 
-    console.log('Enviando como JSON:', jsonData);
   } else {
     // Envio como multipart/form-data
     const formData = new FormData(form);
     body = formData;
 
-    for (let [key, value] of formData.entries()) {
-      console.log(`${key}: ${value}`);
-    }
-
-    // Importante: NÃO defina manualmente o Content-Type aqui!
-    // O navegador define automaticamente incluindo o boundary
   }
 
   try {
