@@ -92,7 +92,6 @@
     <% if (events && events.length > 0) { %>
         <% events.forEach(function(event) { %>
             <% 
-                // Processar a data para garantir que é válida antes de usar
                 const eventDateObj = new Date(event.event_date);
                 const isValidDate = !isNaN(eventDateObj);
                 const formattedDate = isValidDate ? eventDateObj.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' }) : 'Data Inválida';
@@ -106,9 +105,9 @@
             <div class="list-group-item d-flex align-items-center mb-3" data-event-id="<%= event.id %>"> 
                 <div class="image-badge-container"> 
                     <% if (event.banner) { %>
-                        <img src="/uploads/<%= event.banner %>" alt="Banner do Evento" class="mb-2">
+                        <img src="/uploads/<%= event.banner %>" alt="Banner do Evento" class="">
                     <% } else { %>
-                        <img src="/images/default-event-banner.jpg" alt="Banner Padrão" class="img-thumbnail mb-2">
+                        <img src="/images/default-event-banner.jpg" alt="Banner Padrão" class="img-thumbnail">
                     <% } %>
                     <small class="badge <%= badgeClass %>"><%= event.category_name %></small>
                 </div>

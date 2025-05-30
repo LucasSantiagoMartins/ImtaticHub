@@ -1,7 +1,6 @@
-/* Variáveis de cor */
         :root {
-            --primary-color: #007bff; /* Azul padrão do Bootstrap */
-            --blue-ocean: #007bff; /* Usando a mesma cor para o dia atual */
+            --primary-color: #007bff;
+            --blue-ocean: #007bff; 
             --card-bg: #ffffff;
             --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
             --card-hover-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
@@ -11,7 +10,6 @@
             background-color: #f4f7f6;
         }
 
-        /* --- Estilos do Calendário --- */
         .calendar-container {
             background-color: var(--card-bg);
             border-radius: 12px;
@@ -48,13 +46,13 @@
             padding: 6px;
             border-radius: 6px;
             background-color: #f8f9fa;
-            min-height: 60px; /* Altura menor */
+            min-height: 60px; 
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
             align-items: center;
             position: relative;
-            cursor: default; /* Padrão para dias sem evento */
+            cursor: default; 
         }
 
         .calendar-grid .calendar-day.current-month {
@@ -71,7 +69,7 @@
         .calendar-grid .calendar-day.has-event {
             border: 2px solid var(--primary-color);
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            cursor: pointer; /* Indica que é clicável */
+            cursor: pointer;
         }
 
         .calendar-grid .calendar-day.today.has-event {
@@ -87,7 +85,7 @@
         .calendar-grid .event-dot {
             width: 6px;
             height: 6px;
-            background-color: #dc3545; /* Cor para indicar evento */
+            background-color: #dc3545;
             border-radius: 50%;
             margin-top: 4px;
         }
@@ -140,28 +138,26 @@
 
         .event-card .card-body i {
             margin-right: 5px;
-            color: #6c757d; /* Cor padrão para os ícones nos cards */
+            color: #6c757d; 
         }
 
         .event-card .card-body i.fa-laptop-code {
-            color: #007bff; /* Azul para trabalho */
+            color: #007bff; 
         }
 
         .event-card .card-body i.fa-clipboard-list {
-            color: #17a2b8; /* Ciano para tarefa */
+            color: #17a2b8; 
         }
 
         .event-card .card-body i.fa-file-alt {
-            color: #28a745; /* Verde para prova (apenas se for exibido no card principal) */
+            color: #28a745;
         }
 
 
-        /* Estilo para o container do formulário que aparecerá */
         #submissionFormsContainer {
-            margin-top: 30px; /* Espaçamento acima do formulário */
+            margin-top: 30px; 
         }
 
-        /* Animação de Fade-in e Deslizar para cima */
         @keyframes fadeInAndSlideUp {
             from {
                 opacity: 0;
@@ -173,10 +169,9 @@
             }
         }
 
-        /* --- Estilos para o campo Drag and Drop --- */
         .drag-drop-area {
-            border: 2px dashed #007bff; /* Borda recortada azul */
-            border-radius: 10px; /* Levemente arredondado */
+            border: 2px dashed #007bff; 
+            border-radius: 10px; 
             padding: 30px;
             text-align: center;
             cursor: pointer;
@@ -188,8 +183,8 @@
         }
 
         .drag-drop-area.dragover {
-            background-color: #e2f0ff; /* Azul claro ao arrastar sobre */
-            border-color: #0056b3; /* Azul mais escuro ao arrastar sobre */
+            background-color: #e2f0ff;
+            border-color: #0056b3; 
         }
 
         .drag-drop-area i.fa-cloud-upload-alt {
@@ -209,27 +204,25 @@
             color: #343a40;
             margin-top: 10px;
             display: block;
-            word-break: break-word; /* Garante que nomes longos não quebrem o layout */
+            word-break: break-word; 
         }
 
-        /* Esconde o input file padrão */
         .drag-drop-area input[type="file"] {
             display: none;
         }
 
-        /* --- Estilos para o Tooltip personalizado --- */
         .custom-tooltip {
-            --bs-tooltip-bg: #fff; /* Fundo branco */
-            --bs-tooltip-color: #333; /* Texto escuro */
-            --bs-tooltip-opacity: 1; /* Opacidade total */
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15); /* Sombra suave */
-            border-radius: 8px; /* Bordas arredondadas */
+            --bs-tooltip-bg: #fff; 
+            --bs-tooltip-color: #333; 
+            --bs-tooltip-opacity: 1; 
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15); 
+            border-radius: 8px; 
             padding: 8px 12px;
             font-size: 0.875rem;
         }
 
         .custom-tooltip .tooltip-arrow::before {
-            border-top-color: #fff !important; /* Ajusta a cor da seta para branco */
+            border-top-color: #fff !important; 
             border-bottom-color: #fff !important;
             border-left-color: #fff !important;
             border-right-color: #fff !important;

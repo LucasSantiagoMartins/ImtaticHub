@@ -16,7 +16,7 @@
 
 <body>
     <div class="container py-5">
-        <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="d-flex justify-content-between align-items-center mb-2">
             <h2 class="fw-bold">Painel de Atividades</h2>
             <div>
                 <button id="btnSendMaterial" class="btn btn-outline-dark me-2">
@@ -38,7 +38,7 @@
                         <div class="column">
                             <h3>Entrega</h3>
                         <h5 class="text-secondary">
-                            <%= submission.task_type === 'task' ? 'Tarefa' : 'Trabalho' %> <%= submission.task_title %>
+                            <%= submission.task_type === 'task' ? 'Tarefa: ' : 'Trabalho: ' %> <%= submission.task_title %>
                         </h5>
                         </div>
                         <span class="text-danger fw-bold">
